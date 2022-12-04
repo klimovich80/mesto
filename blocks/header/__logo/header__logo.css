@@ -1,0 +1,5 @@
+.header__logo {
+  max-width: 143px;
+  aspect-ratio: 13/3;
+  background: url(/images/logo_bright.svg) 0 0 no-repeat;
+}
