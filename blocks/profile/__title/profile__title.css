@@ -3,4 +3,8 @@
   padding: 0;
   grid-area: title;
   align-self: end;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 42px;
+  line-height: 48px;
 }
