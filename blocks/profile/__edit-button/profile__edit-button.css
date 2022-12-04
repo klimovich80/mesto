@@ -1,0 +1,4 @@
+.profile__edit-button {
+  grid-template-areas: button;
+  background: url(../../../images/Edit-Button.svg) left bottom no-repeat;
+}

@@ -1,0 +1,6 @@
+.profile__info {
+  display: grid;
+  grid-template-columns: 168.76px 294px 42px;
+  grid-template-areas: "avatar title button"
+  "avatar subtitle subtitle";
+}
