@@ -1,10 +1,11 @@
 .root {
+  --text-color_bright: rgba(255, 255, 255, 1);
+  --text-color_dark: rgba(0, 0, 0, 1);
+  --background-color_bright: rgba(255, 255, 255, 1);
+  --background-color_dark: rgba(0, 0, 0, 1);
+  font-family: "Inter", Arial, Helvetica, sans-serif;
   max-width: 1280px;
   min-width: 320px;
-  background-color: rgba(0, 0, 0, 1);
-  color: rgba(255, 255, 255, 1);
-}
-
-* {
-  outline: 1px solid red;
+  background-color: var(--background-color_dark);
+  color: var(--text-color_theme_bright);
 }
