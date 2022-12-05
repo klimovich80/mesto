@@ -11,11 +11,15 @@
 }
 
 @media (max-width: 680px) {
-  .profile__edit-button{
+  .profile__edit-button {
     width: 18px;
     background-size: 50%;
     align-self: end;
     justify-self: center;
     margin-bottom: 8px;
   }
+}
+
+.profile__edit-button:hover {
+  opacity: 0.5;
 }
