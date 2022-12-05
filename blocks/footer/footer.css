@@ -3,3 +3,9 @@
   margin: 0 auto ;
   padding: 67px 0 0;
 }
+
+@media(max-width:680px){
+  .footer{
+    padding-top: 48px;
+  }
+}

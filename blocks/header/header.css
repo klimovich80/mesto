@@ -3,3 +3,10 @@
   padding: 0 0 41px;
   border-bottom: 1px solid rgba(84, 84, 84, 1);
 }
+
+@media(max-width:680px){
+  .header{
+    padding-left: 6px;
+    padding-bottom: 29px;
+  }
+}

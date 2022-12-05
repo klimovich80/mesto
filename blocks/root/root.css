@@ -11,3 +11,10 @@
   margin: 0 auto;
   padding: 45px 0 60px;
 }
+
+@media(max-width: 680px){
+  .root{
+    padding-top: 28px;
+    padding-bottom: 36px;
+  }
+}
