@@ -1,6 +1,7 @@
 .profile__edit-button {
   grid-template-areas: button;
-  background: url(../../../images/Edit-Button.svg) 25px bottom no-repeat;
+  border: none;
+  background: url(../../../images/Edit-Button.svg) 20px 36px no-repeat;
   margin: 0;
   padding: 0;
 }

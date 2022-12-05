@@ -3,6 +3,7 @@
   padding: 40px 0 51px;
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 
 @media (max-width: 680px) {
