@@ -1,8 +1,13 @@
-.popup__input{
+.popup__input {
   width: 358px;
-  margin: 57px auto 0;
+  margin: 40px auto 0;
   padding: 0;
   border: none;
   border-bottom: 1px solid #000;
-  opacity: .2;
+  opacity: 0.2;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  color: var(--text-color_dark);
 }

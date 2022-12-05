@@ -1,7 +1,8 @@
 .popup__text {
+  color: var(--text-color_dark);
   width: 358px;
   margin: 0;
-  padding: 0;
+  padding: 0 0 18px;
   font-style: normal;
   font-weight: 900;
   font-size: 24px;

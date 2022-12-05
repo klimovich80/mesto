@@ -2,9 +2,9 @@
   width: 32px;
   aspect-ratio: 1;
   position: absolute;
-  left: calc(50% + 213px);
-  top: 170px;
-  z-index: 2;
+  left: calc(50% + 226px);
+  top: 155px;
+  z-index: 1;
 }
 
 .popup__close-icon:hover {

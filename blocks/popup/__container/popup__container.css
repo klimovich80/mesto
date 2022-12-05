@@ -1,7 +1,7 @@
 .popup__container {
   position: absolute;
-  top: 200px;
-  left: calc(50% - 215px);
+  top: 196px;
+  left: calc(50% - 214px);
   width: 430px;
   color: var(--text-color_dark);
   z-index: 2;
@@ -13,4 +13,10 @@
   justify-content: space-between;
   margin: 0;
   padding: 34px 0 37px;
+}
+
+@media (max-width: 680px){
+  .popup__container{
+    width: 282px;
+  }
 }
