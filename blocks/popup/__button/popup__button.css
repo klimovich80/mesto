@@ -9,7 +9,16 @@
   font-size: 18px;
   line-height: 22px;
   text-align: center;
-  color: #FFFFFF;
+  color: #ffffff;
   border-radius: 2px;
-  border:none;
+  border: none;
+}
+
+@media (max-width: 680px) {
+  .popup__button {
+    width: 238px;
+    font-size: 14px;
+    line-height: 17px;
+    margin-top: 42px;
+  }
 }

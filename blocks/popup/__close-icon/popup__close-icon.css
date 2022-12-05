@@ -10,3 +10,12 @@
 .popup__close-icon:hover {
   opacity: 0.5;
 }
+
+@media (max-width: 680px) {
+  .popup__close-icon {
+    width: 20px;
+    aspect-ratio: 1;
+    left: calc(50% + 121px);
+    top: 93px;
+  }
+}
