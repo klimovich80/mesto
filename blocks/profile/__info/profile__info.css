@@ -6,9 +6,10 @@
   "avatar subtitle subtitle";
 }
 
-@media (max-width:320px) {
-  .profile-info {
-    grid-template-columns: 141px 141px;
+@media (max-width:680px) {
+  .profile__info {
+    margin: 0 auto;
+    grid-template-columns: 282px 18px;
     grid-template-areas: "avatar avatar"
     "title button"
   "subtitle subtitle";

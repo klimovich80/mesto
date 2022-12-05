@@ -5,6 +5,7 @@
   --background-color_dark: rgba(0, 0, 0, 1);
   font-family: "Inter", Arial, Helvetica, sans-serif;
   max-width: 880px;
+  min-width: 320px;
   background-color: var(--background-color_dark);
   color: var(--text-color_bright);
   margin: 0 auto;

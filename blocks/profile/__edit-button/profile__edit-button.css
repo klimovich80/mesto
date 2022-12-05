@@ -4,3 +4,12 @@
   margin: 0;
   padding: 0;
 }
+
+@media (max-width: 680px) {
+  .profile__edit-button{
+    width: 18px;
+    aspect-ratio: 1;
+    background-position: center;
+    align-self: center;
+  }
+}
