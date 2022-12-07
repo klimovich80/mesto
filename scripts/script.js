@@ -7,14 +7,15 @@ let profileEditButton = document.querySelector('.profile__edit-button');
 function hidePopup(arr){
   arr.forEach(function(item){
     item.classList.remove('popup__opened');
-  item.classList.add('popup');
   });
   
 }
 
 function showPopup(arr) {
-  item.classList.remove('popup');
-  item.classList.add('popup__opened');
+  // item.classList.remove('popup');
+  // item.classList.add('popup__opened');
+  console.log(popupOpened);
+  alert('show popup');
 }
 
 closeIcon.onclick=function() {
@@ -22,7 +23,6 @@ closeIcon.onclick=function() {
 };
 
 profileEditButton.onclick = function () {
-  console.log(profileEditButton);
   showPopup(popup);
 };
 
