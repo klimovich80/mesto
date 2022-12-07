@@ -32,7 +32,7 @@ profileEditButton.onclick = function () {
   //показываем форму
   showPopup(popup);
 };
-//сохраняем заполненную форму
+//сохраняем и закрываем заполненную форму при нажатии кнопки
 formSubmit.onclick = function(e){
   //сбрасываем действие кнопки по умолчнию
   e.preventDefault();
@@ -42,5 +42,15 @@ formSubmit.onclick = function(e){
   //прячем форму
   hidePopup(popup);
 };
+//охраняем и закрываем заполненную форму при нажатии Enter
+popup.addEventListener('keydown', function(e){
+  if(e.keyCode === 13) {
+    //копируем значения полей из формы в профиль
+    profileTitle.innerText = formName.value;
+    profileSubitle.innerText = formCredentials.value;
+    //прячем форму
+    hidePopup(popup);
+  }
+});
 
 

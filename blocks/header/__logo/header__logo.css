@@ -6,6 +6,6 @@
 
 @media (max-width: 680px) {
   .header__logo {
-    transform: scale(0.725);
+    scale: .725;
   }
 }

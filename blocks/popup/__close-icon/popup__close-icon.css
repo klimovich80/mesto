@@ -9,16 +9,15 @@
   opacity: 1;
 }
 
-.popup__close-icon:hover {
-  opacity: 0.5;
-  cursor: pointer;
-}
-
 @media (max-width: 680px) {
   .popup__close-icon {
-    width: 20px;
-    aspect-ratio: 1;
+    scale: 0.625;
     left: calc(50% + 121px);
     top: 93px;
   }
+}
+
+.popup__close-icon:hover {
+  opacity: 0.5;
+  cursor: pointer;
 }
