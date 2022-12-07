@@ -1,11 +1,11 @@
-.footer{
+.footer {
   max-width: 100%;
-  margin: 0 auto ;
+  margin: 0 auto;
   padding: 67px 0 0;
 }
 
-@media(max-width:680px){
-  .footer{
+@media (max-width: 680px) {
+  .footer {
     padding-top: 48px;
   }
 }

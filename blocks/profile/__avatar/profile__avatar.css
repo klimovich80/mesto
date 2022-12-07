@@ -1,12 +1,12 @@
-.profile__avatar{
+.profile__avatar {
   margin: 0;
   padding: 0;
   border-radius: 50%;
   grid-area: avatar;
 }
 
-@media (max-width:680px){
-  .profile__avatar{
+@media (max-width: 680px) {
+  .profile__avatar {
     align-self: center;
     justify-self: center;
   }

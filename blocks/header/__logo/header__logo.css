@@ -4,8 +4,8 @@
   background: url(/images/logo_bright.svg) 0 0 no-repeat;
 }
 
-@media(max-width:680px){
-  .header__logo{
+@media (max-width: 680px) {
+  .header__logo {
     transform: scale(0.725);
   }
 }
