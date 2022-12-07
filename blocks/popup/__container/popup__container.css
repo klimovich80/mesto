@@ -1,4 +1,5 @@
 .popup__container {
+  display: none;
   position: absolute;
   top: 196px;
   left: calc(50% - 214px);
@@ -7,7 +8,6 @@
   z-index: 2;
   background: white;
   border-radius: 10px;
-  display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
