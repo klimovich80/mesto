@@ -1,25 +1,21 @@
 
 let popup = document.querySelector('.popup');
-let popupOpened = document.querySelectorAll('.popup__opened'); 
+let form=popup.querySelector('.popup__form');
+// let input = form.querySelectorAll('.popup__input');
+let popupOpened = document.querySelector('.popup__opened'); 
 let closeIcon = document.querySelector('.popup__close-icon');
 let profileEditButton = document.querySelector('.profile__edit-button'); 
 
-function hidePopup(arr){
-  arr.forEach(function(item){
+function hidePopup(item){
     item.classList.remove('popup__opened');
-  });
-  
-}
+  }
 
-function showPopup(arr) {
-  // item.classList.remove('popup');
-  // item.classList.add('popup__opened');
-  console.log(popupOpened);
-  alert('show popup');
+function showPopup(item) {
+  item.classList.add('popup__opened');
 }
 
 closeIcon.onclick=function() {
-  hidePopup(popupOpened);
+  hidePopup(popup);
 };
 
 profileEditButton.onclick = function () {

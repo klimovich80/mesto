@@ -1,5 +1,5 @@
 .popup__container {
-  display: none;
+  display: flex;
   position: absolute;
   top: 196px;
   left: calc(50% - 214px);
