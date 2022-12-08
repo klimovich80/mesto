@@ -1,4 +1,4 @@
-.popup__text {
+.popup__title {
   color: var(--text-color_dark);
   width: 358px;
   margin: 0;
@@ -10,7 +10,7 @@
 }
 
 @media (max-width: 680px) {
-  .popup__text {
+  .popup__title {
     width: 238px;
     font-size: 18px;
     line-height: 22px;

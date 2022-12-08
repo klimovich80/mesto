@@ -2,8 +2,9 @@
   margin: 0;
   padding: 0;
   width: 150px;
-  height: 50px;
-  border: 1px solid white;
+  min-height: 50px;
+  border: 2px solid white;
+  border-radius: 2px;
   background-color: var(--background-color_dark);
   background: url(../../../images/add-cross.svg) center no-repeat;
 }

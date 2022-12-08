@@ -1,26 +1,27 @@
 //блок переменных
-let popup = document.querySelector('.popup');                            //попап окно
-let form=popup.querySelector('.popup__container');                       //попап форма
-let input = form.querySelectorAll('.popup__input');                      //инпуты формы
-let formName=input[0];                                                   //поле редактирования имени в форме
-let formCredentials = input[1];                                          //поле редактирования описания в форме
-let formSubmit = form.querySelector('.popup__button');                   //кнопка сохранения формы
-let closeIcon = document.querySelector('.popup__close-icon');            //иконка закрытия формы
-let profileEditButton = document.querySelector('.profile__edit-button'); //кнопка редактирования профиля
-let profileTitle = document.querySelector('.profile__title');            //имя профиля
-let profileSubitle = document.querySelector('.profile__subtitle');       //описание профиля
+const popup = document.querySelector('.popup');                              //попап окно
+const form=popup.querySelector('.popup__form');                              //попап форма
+const formName = form.querySelector('.popup__input_type_name');              //поле редактирования имени в форме
+const formCredentials = form.querySelector('.popup__input_type_credentials');//поле редактирования описания в форме
+const formSubmit = form.querySelector('.popup__button');                     //кнопка сохранения формы
+const closeIcon = document.querySelector('.popup__close-icon');              //иконка закрытия формы
+const profileEditButton = document.querySelector('.profile__edit-button');   //кнопка редактирования профиля
+const profileTitle = document.querySelector('.profile__title');              //имя профиля
+const profileSubitle = document.querySelector('.profile__subtitle');         //описание профиля
 //скрываем попап
 function hidePopup(item){
   //убираем класс отображения из элемента
-    item.classList.remove('popup__opened');
+  item.classList.add('popup');
+  item.classList.remove('popup_opened');
   }
 //показываем попап
 function showPopup(item) {
   //добавляем класс отображения в элемент
-  item.classList.add('popup__opened');
+  item.classList.add('popup_opened');
+  item.classList.remove('popup');
   //копируем значения имени и описания из профиля в форму
-  formName.setAttribute('value', profileTitle.innerText);
-  formCredentials.setAttribute('value', profileSubitle.innerText);
+  formName.value = profileTitle.textContent;
+  formCredentials.value = profileSubitle.textContent;
 }
 // клик по иконке
 closeIcon.onclick=function() {
@@ -37,8 +38,8 @@ formSubmit.onclick = function(e){
   //сбрасываем действие кнопки по умолчнию
   e.preventDefault();
   //копируем значения полей из формы в профиль
-  profileTitle.innerText = formName.value;
-  profileSubitle.innerText = formCredentials.value;
+  profileTitle.textContent = formName.value;
+  profileSubitle.textContent = formCredentials.value;
   //прячем форму
   hidePopup(popup);
 };

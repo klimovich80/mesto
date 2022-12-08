@@ -9,6 +9,7 @@
   <meta name="author" content="Pavel Klimovich">
   <link rel="stylesheet" href="pages/index.css">
   <title>Красивые места в России</title>
+  <script  defer src="scripts/index.js"></script>
 </head>
 
 <body class="root">
@@ -18,74 +19,61 @@
   <main class="main">
     <section class="profile">
       <div class="profile__info">
-        <img src="images/кусто.png" alt="Ававтарка" class="profile__avatar">
+        <img src="images/Cousteau.png" alt="Ававтарка" class="profile__avatar">
         <h1 class="profile__title">Жак-Ив Кусто</h1>
         <p class="profile__subtitle">Исследователь океана</p>
-        <button class="profile__edit-button"></button>
+        <button class="profile__edit-button" type="button"></button>
       </div>
-      <button class="profile__add-button"></button>
+      <button class="profile__add-button" type="button"></button>
     </section>
     <section class="elements">
       <ul class="elements__items">
-        <li class="elements__item">
-          <div class="element">
-            <img src="images/карачаевск.png" alt="место" class="element__image">
-            <p class="element__caption">Карачаевск</p>
-            <div class="element__like"></div>
-          </div>
+        <li class="element">
+            <img src="images/karachaevsk.png" alt="Карачаевск" class="element__image">
+            <h2 class="element__caption">Карачаевск</h2>
+            <button class="element__like" type="button"></button>
         </li>
-        <li class="elements__item">
-          <div class="element">
-            <img src="images/эльбрус.png" alt="место" class="element__image">
-            <p class="element__caption">Гора Эльбрус</p>
-            <div class="element__like"></div>
-          </div>
+        <li class="element">
+            <img src="images/elbrus.png" alt="Эльбрус" class="element__image">
+            <h2 class="element__caption">Гора Эльбрус</h2>
+            <button class="element__like" type="button"></button>
         </li>
-        <li class="elements__item">
-          <div class="element">
-            <img src="images/домбай.png" alt="место" class="element__image">
-            <p class="element__caption">Домбай</p>
-            <div class="element__like"></div>
-          </div>
+        <li class="element">
+            <img src="images/dombai.png" alt="Домбай" class="element__image">
+            <h2 class="element__caption">Домбай</h2>
+            <button class="element__like" type="button"></button>
         </li>
-        <li class="elements__item">
-          <div class="element">
-            <img src="images/эльбрус.png" alt="место" class="element__image">
-            <p class="element__caption">Гора Эльбрус</p>
-            <div class="element__like"></div>
-          </div>
+        <li class="element">
+            <img src="images/elbrus.png" alt="Эльбрус" class="element__image">
+            <h2 class="element__caption">Гора Эльбрус</h2>
+            <button class="element__like" type="button"></button>
         </li>
-        <li class="elements__item">
-          <div class="element">
-            <img src="images/домбай.png" alt="место" class="element__image">
-            <p class="element__caption">Домбай</p>
-            <div class="element__like"></div>
-          </div>
+        <li class="element">
+            <img src="images/dombai.png" alt="Домбай" class="element__image">
+            <h2 class="element__caption">Домбай</h2>
+            <button class="element__like" type="button"></button>
         </li>
-        <li class="elements__item">
-          <div class="element">
-            <img src="images/карачаевск.png" alt="место" class="element__image">
-            <p class="element__caption">Карачаево-Черкессия</p>
-            <div class="element__like"></div>
-          </div>
+        <li class="element">
+            <img src="images/karachaevsk.png" alt="Карачаевск" class="element__image">
+            <h2 class="element__caption">Карачаево-Черкессия</h2>
+            <button class="element__like" type="button"></button>
         </li>
       </ul>
     </section>
   </main>
   <div class="popup">
     <div class="popup__overlay"></div>
-    <div class="popup__close-icon"></div>
-    <form action="#" class="popup__container">
-      <h2 class="popup__text">Редактировать профиль</h2>
-      <input type="text" class="popup__input" name="name" id="form__name">
-      <input type="text" class="popup__input" name="credentials" id="form__credentials">
-      <input type="submit" class="popup__button" value="Сохранить">
+    <button class="popup__close-icon" type="button"></button>
+    <form action="#" class="popup__form" name="popupForm">
+      <h2 class="popup__title">Редактировать профиль</h2>
+      <input type="text" class="popup__input popup__input_type_name" name="name" id="form__name">
+      <input type="text" class="popup__input popup__input_type_credentials" name="credentials" id="form__credentials">
+      <button type="submit" class="popup__button" value="Сохранить">Сохранить</button>
     </form>
   </div>
   <footer class="footer">
     <h2 class="footer__copyright">&copy;2022 Klimovich Pavel</h2>
   </footer>
-  <script src="scripts/script.js"></script>
 </body>
 
 </html>

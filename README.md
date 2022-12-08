@@ -16,8 +16,8 @@
 
 **Использованные технологии**
 
-* html
-* css
+* HTML
+* CSS
 * JavaScript
 * БЭМ
 * Adaptive
