@@ -10,7 +10,7 @@
 @media (max-width: 680px) {
   .profile__info {
     margin: 0 auto;
-    grid-template-columns: 228px 20px;
+    grid-template-columns: 224px 20px;
     grid-template-areas:
       "avatar avatar"
       "title button"

@@ -8,6 +8,7 @@
   width: 22px;
   aspect-ratio: 22/19;
   z-index: 1;
+  border: none;
 }
 
 .element__like:hover {

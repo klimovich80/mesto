@@ -16,7 +16,7 @@
 }
 
 @media (max-width: 680px) {
-  .popup__container {
+  .popup__form {
     width: 282px;
     top: 131px;
     left: calc(50% - 141px);

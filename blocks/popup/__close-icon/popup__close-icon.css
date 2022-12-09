@@ -7,13 +7,14 @@
   top: 155px;
   z-index: 2;
   opacity: 1;
+  border: none;
 }
 
 @media (max-width: 680px) {
   .popup__close-icon {
     scale: 0.625;
-    left: calc(50% + 121px);
-    top: 93px;
+    left: calc(50% + 117px);
+    top: 88px;
   }
 }
 
