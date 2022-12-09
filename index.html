@@ -9,7 +9,7 @@
   <meta name="author" content="Pavel Klimovich">
   <link rel="stylesheet" href="pages/index.css">
   <title>Красивые места в России</title>
-  <script  defer src="scripts/index.js"></script>
+  <script defer src="scripts/index.js"></script>
 </head>
 
 <body class="root">
@@ -29,47 +29,50 @@
     <section class="elements">
       <ul class="elements__items">
         <li class="element">
-            <img src="images/karachaevsk.png" alt="Карачаевск" class="element__image">
-            <h2 class="element__caption">Карачаевск</h2>
-            <button class="element__like" type="button"></button>
+          <img src="images/karachaevsk.png" alt="Карачаевск" class="element__image">
+          <h2 class="element__caption">Карачаевск</h2>
+          <button class="element__like" type="button"></button>
         </li>
         <li class="element">
-            <img src="images/elbrus.png" alt="Эльбрус" class="element__image">
-            <h2 class="element__caption">Гора Эльбрус</h2>
-            <button class="element__like" type="button"></button>
+          <img src="images/elbrus.png" alt="Эльбрус" class="element__image">
+          <h2 class="element__caption">Гора Эльбрус</h2>
+          <button class="element__like" type="button"></button>
         </li>
         <li class="element">
-            <img src="images/dombai.png" alt="Домбай" class="element__image">
-            <h2 class="element__caption">Домбай</h2>
-            <button class="element__like" type="button"></button>
+          <img src="images/dombai.png" alt="Домбай" class="element__image">
+          <h2 class="element__caption">Домбай</h2>
+          <button class="element__like" type="button"></button>
         </li>
         <li class="element">
-            <img src="images/elbrus.png" alt="Эльбрус" class="element__image">
-            <h2 class="element__caption">Гора Эльбрус</h2>
-            <button class="element__like" type="button"></button>
+          <img src="images/elbrus.png" alt="Эльбрус" class="element__image">
+          <h2 class="element__caption">Гора Эльбрус</h2>
+          <button class="element__like" type="button"></button>
         </li>
         <li class="element">
-            <img src="images/dombai.png" alt="Домбай" class="element__image">
-            <h2 class="element__caption">Домбай</h2>
-            <button class="element__like" type="button"></button>
+          <img src="images/dombai.png" alt="Домбай" class="element__image">
+          <h2 class="element__caption">Домбай</h2>
+          <button class="element__like" type="button"></button>
         </li>
         <li class="element">
-            <img src="images/karachaevsk.png" alt="Карачаевск" class="element__image">
-            <h2 class="element__caption">Карачаево-Черкессия</h2>
-            <button class="element__like" type="button"></button>
+          <img src="images/karachaevsk.png" alt="Карачаевск" class="element__image">
+          <h2 class="element__caption">Карачаево-Черкессия</h2>
+          <button class="element__like" type="button"></button>
         </li>
       </ul>
     </section>
   </main>
   <div class="popup">
     <div class="popup__overlay"></div>
-    <button class="popup__close-icon" type="button"></button>
-    <form action="#" class="popup__form" name="popupForm">
+    <div class="popup__container">
+      <button class="popup__close-icon" type="button"></button>
       <h2 class="popup__title">Редактировать профиль</h2>
-      <input type="text" class="popup__input popup__input_type_name" name="name" id="form__name">
-      <input type="text" class="popup__input popup__input_type_credentials" name="credentials" id="form__credentials">
-      <button type="submit" class="popup__button" value="Сохранить">Сохранить</button>
-    </form>
+      <form action="#" class="popup__form" name="popupForm">
+        <input type="text" class="popup__input popup__input_type_name" name="name" id="form__name" placeholder="Введите имя" required>
+        <input type="text" class="popup__input popup__input_type_credentials" name="credentials" id="form__credentials" placeholder="Немного о себе" required>
+        <button type="submit" class="popup__button" value="Сохранить">Сохранить</button>
+      </form>
+    </div>
+
   </div>
   <footer class="footer">
     <h2 class="footer__copyright">&copy;2022 Klimovich Pavel</h2>

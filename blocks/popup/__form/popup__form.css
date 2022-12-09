@@ -1,26 +1,10 @@
 .popup__form {
   display: flex;
-  position: absolute;
-  top: 196px;
-  left: calc(50% - 214px);
-  width: 430px;
   color: var(--text-color_dark);
-  z-index: 2;
-  background: white;
   border-radius: 10px;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
   margin: 0;
-  padding: 34px 0 37px;
-}
-
-@media (max-width: 680px) {
-  .popup__form {
-    width: 282px;
-    top: 131px;
-    left: calc(50% - 141px);
-    padding-top: 25px;
-    padding-bottom: 23px;
-  }
+  padding: 0;
 }

@@ -2,9 +2,9 @@
   background: url(../../../images/Close-Icon.svg);
   width: 32px;
   aspect-ratio: 1;
-  position: absolute;
-  left: calc(50% + 226px);
-  top: 155px;
+  position: fixed;
+  left: calc(50% + 221px);
+  top: 156px;
   z-index: 2;
   opacity: 1;
   border: none;
