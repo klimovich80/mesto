@@ -1,8 +1,9 @@
 //блок переменных
 const root = document.querySelector(".root");
-const trashButton = root.querySelector(".element__trash"); //кнопка удаления карточки
+//const trashButton = root.querySelector(".element__trash"); //кнопка удаления карточки
+//const likeButton = root.querySelector(".element__like");
 const templateElement = root.querySelector("#tempElement").content; //содержиое шаблона
-const elements=root.querySelector('.elements__items');
+const elements = root.querySelector(".elements__items");
 const popup = root.querySelector(".popup"); //попап окно
 const form = popup.querySelector(".popup__form"); //попап форма
 const formName = form.querySelector(".popup__input_type_name"); //поле редактирования имени в форме
@@ -68,16 +69,25 @@ function handleFormSubmit(e) {
 }
 
 function diplayCard(source) {
-  source.forEach(item => {
+  trashButton = root.querySelector(".element__trash"); //кнопка удаления карточки
+  likeButton = root.querySelector(".element__like");
+  source.forEach((item) => {
     // клонируем содержимое тега template
-  const card = templateElement.cloneNode(true);
-  // наполняем содержимым
-  card.querySelector('.element__image').src=item.link;
-  card.querySelector('.element__caption').textContent=item.name;
-  // отображаем на странице
-  elements.prepend(card);
+    const card = templateElement.cloneNode(true);
+    // наполняем содержимым
+    card.querySelector(".element__image").src = item.link;
+    card.querySelector(".element__caption").textContent = item.name;
+    // отображаем на странице
+    elements.prepend(card);
   });
-  
+}
+
+function deleteCard(elem) {
+  elem.closest(".element").remove();
+}
+
+function likeCard(elem) {
+  elem.classList.toggle("element__like_checked");
 }
 
 closeIcon.addEventListener("click", hidePopup);
@@ -86,4 +96,18 @@ profileEditButton.addEventListener("click", showPopup);
 //сохраняем и закрываем заполненную форму при нажатии кнопки
 form.addEventListener("submit", handleFormSubmit);
 //показ карточек на загрузке страницы
-document.addEventListener("DOMContentLoaded", ()=>{diplayCard(initialCards);});
+document.addEventListener("DOMContentLoaded", () => {
+  diplayCard(initialCards);
+});
+root.addEventListener("click", (e) => {
+  // switch case?
+  if (e.target.classList.contains("element__like")) {
+    likeCard(e.target);
+  } else if (e.target.classList.contains("element__trash")) {
+    deleteCard(e.target);
+  } else if (e.target.classList.contains("profile__add-button")) {
+    alert("add card");
+  } else if (e.target.classList.contains("profile__edit-button")) {
+    alert("edit profile");
+  }
+});
