@@ -16,6 +16,7 @@
 @import url(../blocks/element/__image/element__image.css);
 @import url(../blocks/element/__caption/element__caption.css);
 @import url(../blocks/element/__like/element__like.css);
+@import url(../blocks/element/__trash/element__trash.css);
 @import url(../blocks/element/element.css);
 @import url(../blocks/popup/popup.css);
 @import url(../blocks/popup/popup_opened.css);

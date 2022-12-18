@@ -28,36 +28,14 @@
     </section>
     <section class="elements">
       <ul class="elements__items">
-        <li class="element">
-          <img src="images/karachaevsk.png" alt="Карачаевск" class="element__image">
-          <h2 class="element__caption">Карачаевск</h2>
-          <button class="element__like" type="button"></button>
-        </li>
-        <li class="element">
-          <img src="images/elbrus.png" alt="Эльбрус" class="element__image">
-          <h2 class="element__caption">Гора Эльбрус</h2>
-          <button class="element__like" type="button"></button>
-        </li>
-        <li class="element">
-          <img src="images/dombai.png" alt="Домбай" class="element__image">
-          <h2 class="element__caption">Домбай</h2>
-          <button class="element__like" type="button"></button>
-        </li>
-        <li class="element">
-          <img src="images/elbrus.png" alt="Эльбрус" class="element__image">
-          <h2 class="element__caption">Гора Эльбрус</h2>
-          <button class="element__like" type="button"></button>
-        </li>
-        <li class="element">
-          <img src="images/dombai.png" alt="Домбай" class="element__image">
-          <h2 class="element__caption">Домбай</h2>
-          <button class="element__like" type="button"></button>
-        </li>
-        <li class="element">
-          <img src="images/karachaevsk.png" alt="Карачаевск" class="element__image">
-          <h2 class="element__caption">Карачаево-Черкессия</h2>
-          <button class="element__like" type="button"></button>
-        </li>
+        <template class="template-element" id="tempElement">
+          <li class="element">
+            <button class="element__trash" type="button"></button>
+            <img src="#" alt="Карачаевск" class="element__image">
+            <h2 class="element__caption">?</h2>
+            <button class="element__like" type="button"></button>
+          </li>
+        </template>
       </ul>
     </section>
   </main>
@@ -67,8 +45,10 @@
       <button class="popup__close-icon" type="button"></button>
       <h2 class="popup__title">Редактировать профиль</h2>
       <form action="#" class="popup__form" name="popupForm">
-        <input type="text" class="popup__input popup__input_type_name" name="name" id="form__name" placeholder="Введите имя" required>
-        <input type="text" class="popup__input popup__input_type_credentials" name="credentials" id="form__credentials" placeholder="Немного о себе" required>
+        <input type="text" class="popup__input popup__input_type_name" name="name" id="form__name"
+          placeholder="Введите имя" required>
+        <input type="text" class="popup__input popup__input_type_credentials" name="credentials" id="form__credentials"
+          placeholder="Немного о себе" required>
         <button type="submit" class="popup__button" value="Сохранить">Сохранить</button>
       </form>
     </div>
