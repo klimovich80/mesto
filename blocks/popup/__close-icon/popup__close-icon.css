@@ -1,4 +1,5 @@
 .popup__close-icon {
+  border: 1px solid red;
   background: url(../../../images/Close-Icon.svg);
   width: 32px;
   aspect-ratio: 1;

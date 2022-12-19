@@ -68,7 +68,6 @@ function showPopup(
   pUp.querySelector(".popup__input_type_credentials").value = valueContent;
   pUp.querySelector(".popup__button").setAttribute("value", button_text);
   pUp.querySelector(".popup__button").textContent = button_text;
-  pUp.querySelector(".popup").classList.add("popup_opened");
   main.append(pUp);
 }
 
