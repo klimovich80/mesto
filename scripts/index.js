@@ -43,29 +43,38 @@ const initialCards = [
 
 //удаляем попап
 function hidePopup(elem) {
-  const popup=elem.closest(".popup");
+  const popup = elem.closest(".popup");
   popup.classList.remove("fade-in");
   popup.classList.add("fade-out");
-  popup.addEventListener('animationend',()=>{
+  popup.addEventListener("animationend", () => {
     popup.remove();
   });
 }
 //показываем попап
-function showPopup(title, name, value, button_text, nameContent, valueContent) {
+function showPopup(
+  elem,
+  title,
+  namePlaceholder,
+  infoPlaceholder,
+  button_text,
+  nameContent,
+  infoContent
+) {
   // //добавляем класс отображения в элемент
   // //копируем значения имени и описания из профиля в форму
   const pUp = templatePopup.cloneNode(true);
   pUp.querySelector(".popup__title").textContent = title;
-  pUp
-    .querySelector(".popup__input_type_name")
-    .setAttribute("placeholder", name);
+  pUp.querySelector(".popup__input_type_name").placeholder = namePlaceholder;
   pUp.querySelector(".popup__input_type_name").value = nameContent;
-  pUp
-    .querySelector(".popup__input_type_credentials")
-    .setAttribute("placeholder", value);
-  pUp.querySelector(".popup__input_type_credentials").value = valueContent;
-  pUp.querySelector(".popup__button").setAttribute("value", button_text);
+  pUp.querySelector(".popup__button").value = button_text;
   pUp.querySelector(".popup__button").textContent = button_text;
+  pUp.querySelector(".popup__input_type_credentials").value = infoContent;
+  pUp.querySelector(
+    ".popup__input_type_credentials"
+  ).placeholder = infoPlaceholder;
+  if (elem.classList.contains("profile__add-button")) {
+    pUp.querySelector(".popup__input_type_credentials").type = "url";
+  }
   main.append(pUp);
 }
 //попдписка
@@ -128,13 +137,14 @@ document.addEventListener("DOMContentLoaded", () => {
 root.addEventListener("submit", handleFormSubmit);
 //обработка нажатий
 root.addEventListener("click", (e) => {
-  // switch case?
-  if (e.target.classList.contains("element__like")) {
-    likeCard(e.target);
-  } else if (e.target.classList.contains("element__trash")) {
-    deleteCard(e.target);
-  } else if (e.target.classList.contains("profile__add-button")) {
+  const elem = e.target;
+  if (elem.classList.contains("element__like")) {
+    likeCard(elem);
+  } else if (elem.classList.contains("element__trash")) {
+    deleteCard(elem);
+  } else if (elem.classList.contains("profile__add-button")) {
     showPopup(
+      elem,
       "Новое место",
       "Название",
       "Ссылка на картинку",
@@ -142,8 +152,9 @@ root.addEventListener("click", (e) => {
       "",
       ""
     );
-  } else if (e.target.classList.contains("profile__edit-button")) {
+  } else if (elem.classList.contains("profile__edit-button")) {
     showPopup(
+      elem,
       "Редактировать профиль",
       "Введите имя",
       "Немного о себе",
@@ -151,11 +162,11 @@ root.addEventListener("click", (e) => {
       profileName.textContent,
       profileCredentials.textContent
     );
-  } else if (e.target.classList.contains("popup__close-icon")) {
-    hidePopup(e.target);
-  } else if (e.target.classList.contains("element__image")) {
-    showPicture(e.target);
-  } else if (e.target.classList.contains("popup__image_close-icon")) {
-    hidePopup(e.target);
+  } else if (elem.classList.contains("popup__close-icon")) {
+    hidePopup(elem);
+  } else if (elem.classList.contains("element__image")) {
+    showPicture(elem);
+  } else if (elem.classList.contains("popup__image_close-icon")) {
+    hidePopup(elem);
   }
 });
