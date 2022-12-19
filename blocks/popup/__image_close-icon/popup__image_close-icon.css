@@ -1,4 +1,18 @@
-.popup__image_close-icon{
-  top: 60px;
-  left: calc(50% + 310px);
+.popup__image_close-icon {
+  margin: 0;
+  padding: 0;
+  background: url(../../../images/Close-Icon.svg) center no-repeat;
+  width: 32px;
+  border: none;
+  aspect-ratio: 1;
+  z-index: 3;
+  align-self: end;
+  transform: translate(100%, 0);
+}
+
+@media (max-width: 680px) {
+  .popup__image_close-icon {
+    scale: 0.625;
+    transform: translate(12px, 0);
+  }
 }

@@ -1,3 +1,19 @@
 .popup__figure{
-  border: 1px solid red;
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%,0);
+  top: 50px;
+  max-width: 75vw;
+  height: calc(75vh+32px+10px);
+  display:flex;
+  flex-direction: column;
+  z-index: 2;
+}
+
+@media(max-width:680px){
+  .popup__figure{
+   height: calc(75vh+20px+10px); 
+  }
 }

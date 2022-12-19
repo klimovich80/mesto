@@ -1,7 +1,9 @@
-.popup__caption{
-  position: fixed;
-  bottom: 2%;
-  left: 26%;
-  transform: translate(-50%,0);
-  z-index: 3;
+.popup__caption {
+  margin: 0;
+  padding: 0;
+  z-index: 2;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 15px;
 }
