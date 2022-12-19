@@ -5,7 +5,6 @@ const templateElement = root.querySelector("#tempElement").content; //шабло
 const templatePopup = root.querySelector("#templatePopup").content; //шаблон вслывающего окна
 const templatePopupImage = root.querySelector("#templatePopupImage").content;
 const elements = root.querySelector(".elements__items");
-const popup = root.querySelector(".popup"); //попап окно
 const closeIcon = root.querySelector(".popup__close-icon"); //иконка закрытия формы
 const profileName = root.querySelector(".profile__title"); //имя профиля
 const profileCredentials = root.querySelector(".profile__subtitle"); //описание профиля
@@ -44,7 +43,12 @@ const initialCards = [
 
 //удаляем попап
 function hidePopup(elem) {
-  elem.closest(".popup").remove();
+  const popup=elem.closest(".popup");
+  popup.classList.remove("fade-in");
+  popup.classList.add("fade-out");
+  popup.addEventListener('animationend',()=>{
+    popup.remove();
+  });
 }
 //показываем попап
 function showPopup(title, name, value, button_text, nameContent, valueContent) {
@@ -64,7 +68,7 @@ function showPopup(title, name, value, button_text, nameContent, valueContent) {
   pUp.querySelector(".popup__button").textContent = button_text;
   main.append(pUp);
 }
-
+//попдписка
 function handleFormSubmit(e) {
   e.preventDefault();
   if (e.target.querySelector(".popup__button").value === "Сохранить") {
@@ -87,7 +91,7 @@ function handleFormSubmit(e) {
   }
   hidePopup(e.target);
 }
-
+//отображение карточек
 function diplayCard(source) {
   source.forEach((item) => {
     // клонируем содержимое тега template
@@ -100,22 +104,15 @@ function diplayCard(source) {
     elements.prepend(card);
   });
 }
-
+//удаление карточек
 function deleteCard(elem) {
   elem.closest(".element").remove();
 }
-
+//лайк)))
 function likeCard(elem) {
   elem.classList.toggle("element__like_checked");
 }
-
-//сохраняем и закрываем заполненную форму при нажатии кнопки
-root.addEventListener("submit", handleFormSubmit);
-//показ карточек на загрузке страницы
-document.addEventListener("DOMContentLoaded", () => {
-  diplayCard(initialCards);
-});
-
+//попап с картинкой
 function showPicture(elem) {
   const pImage = templatePopupImage.cloneNode(true);
   pImage.querySelector(".popup__image").src = elem.src;
@@ -123,7 +120,13 @@ function showPicture(elem) {
   pImage.querySelector(".popup__caption").textContent = elem.alt;
   main.append(pImage);
 }
-
+//показ карточек на загрузке страницы
+document.addEventListener("DOMContentLoaded", () => {
+  diplayCard(initialCards);
+});
+//сохраняем и закрываем заполненную форму
+root.addEventListener("submit", handleFormSubmit);
+//обработка нажатий
 root.addEventListener("click", (e) => {
   // switch case?
   if (e.target.classList.contains("element__like")) {
@@ -154,7 +157,5 @@ root.addEventListener("click", (e) => {
     showPicture(e.target);
   } else if (e.target.classList.contains("popup__image_close-icon")) {
     hidePopup(e.target);
-  } else {
-    console.log(e.target);
   }
 });
