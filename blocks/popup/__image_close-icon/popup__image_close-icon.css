@@ -1,6 +1,6 @@
 .popup__image_close-icon {
   margin: 0;
-  padding: 0;
+  padding: 16px;
   background: url(../../../images/Close-Icon.svg) center no-repeat;
   width: 32px;
   border: none;
