@@ -13,6 +13,6 @@
 @media (max-width: 680px) {
   .popup__image_close-icon {
     scale: 0.625;
-    transform: translate(12px, 0);
+    transform: translate(12px, -16px);
   }
 }
