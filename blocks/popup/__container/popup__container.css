@@ -2,7 +2,8 @@
   position: fixed;
   width: 430px;
   top: 196px;
-  left: calc(50% - 221px);
+  left: 50%;
+  transform: translate(-50%, 0);
   background: white;
   margin: 0;
   padding: 35px 0 37px;
@@ -13,7 +14,6 @@
   .popup__container {
     width: 282px;
     top: 131px;
-    left: calc(50% - 141px);
     padding-top: 25px;
     padding-bottom: 22px;
   }

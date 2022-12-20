@@ -1,4 +1,4 @@
-//блок переменных
+//--переменные--
 const root = document.querySelector(".root");
 const main = root.querySelector(".main");
 const templateElement = root.querySelector("#tempElement").content; //шаблон картинки
@@ -40,8 +40,8 @@ const initialCards = [
       "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg",
   },
 ];
-
-//удаляем попап
+//--функции--
+//удаление попап
 function hidePopup(elem) {
   const popup = elem.closest(".popup");
   popup.classList.remove("fade-in");
@@ -50,7 +50,7 @@ function hidePopup(elem) {
     popup.remove();
   });
 }
-//показываем попап
+//появление попапа
 function showPopup(
   elem,
   title,
@@ -60,8 +60,6 @@ function showPopup(
   nameContent,
   infoContent
 ) {
-  // //добавляем класс отображения в элемент
-  // //копируем значения имени и описания из профиля в форму
   const pUp = templatePopup.cloneNode(true);
   pUp.querySelector(".popup__title").textContent = title;
   pUp.querySelector(".popup__input_type_name").placeholder = namePlaceholder;
@@ -77,25 +75,27 @@ function showPopup(
   }
   main.append(pUp);
 }
-//попдписка
+//попдписка на заполнение формы
 function handleFormSubmit(e) {
   e.preventDefault();
+  //если форма вызвана для редактирования профиля
   if (e.target.querySelector(".popup__button").value === "Сохранить") {
-    //копируем значения полей из формы в профиль
+    //заполняем поля профиля данными
     profileName.textContent = e.target.querySelector(
       ".popup__input_type_name"
     ).value;
     profileCredentials.textContent = e.target.querySelector(
       ".popup__input_type_credentials"
     ).value;
-    //прячем форму
   } else {
+    //иначе считаем это формой добавления карточки
     const addCard = [
       {
         name: e.target.querySelector(".popup__input_type_name").value,
         link: e.target.querySelector(".popup__input_type_credentials").value,
       },
     ];
+    //добавляем новую карточку с нужными данными
     diplayCard(addCard);
   }
   hidePopup(e.target);
@@ -103,13 +103,10 @@ function handleFormSubmit(e) {
 //отображение карточек
 function diplayCard(source) {
   source.forEach((item) => {
-    // клонируем содержимое тега template
     const card = templateElement.cloneNode(true);
-    // наполняем содержимым
     card.querySelector(".element__image").src = item.link;
     card.querySelector(".element__image").alt = item.name;
     card.querySelector(".element__caption").textContent = item.name;
-    // отображаем на странице
     elements.prepend(card);
   });
 }
@@ -117,11 +114,11 @@ function diplayCard(source) {
 function deleteCard(elem) {
   elem.closest(".element").remove();
 }
-//лайк)))
+//лайк
 function likeCard(elem) {
   elem.classList.toggle("element__like_checked");
 }
-//попап с картинкой
+//появление попапа с картинкой
 function showPicture(elem) {
   const pImage = templatePopupImage.cloneNode(true);
   pImage.querySelector(".popup__image").src = elem.src;
@@ -129,13 +126,14 @@ function showPicture(elem) {
   pImage.querySelector(".popup__caption").textContent = elem.alt;
   main.append(pImage);
 }
-//показ карточек на загрузке страницы
+//--обработчики событий--
+//показ карточек при загрузке страницы
 document.addEventListener("DOMContentLoaded", () => {
   diplayCard(initialCards);
 });
-//сохраняем и закрываем заполненную форму
+//сохранение заполненной формы
 root.addEventListener("submit", handleFormSubmit);
-//обработка нажатий
+//обработка кликов
 root.addEventListener("click", (e) => {
   const elem = e.target;
   if (elem.classList.contains("element__like")) {
