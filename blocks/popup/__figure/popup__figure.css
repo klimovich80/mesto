@@ -6,14 +6,7 @@
   left: 50%;
   transform: translate(-50%, 0);
   width: 75vw;
-  height: calc(75vh+40px+25px);
   display: flex;
   flex-direction: column;
   z-index: 2;
-}
-
-@media (max-width: 680px) {
-  .popup__figure {
-    height: calc(75vh+36px+25px);
-  }
 }

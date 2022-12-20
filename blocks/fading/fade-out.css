@@ -1,4 +1,4 @@
-@-webkit-keyframes fadeOut {
+@-webkit-keyframes fade-out {
   from {
     opacity: 1;
   }
@@ -7,7 +7,7 @@
   }
 }
 
-@keyframes fadeOut {
+@keyframes fade-out {
   from {
     opacity: 1;
   }
@@ -17,6 +17,6 @@
 }
 
 .fade-out {
-  -webkit-animation: fadeOut 0.6s;
-  animation: fadeOut 0.6s;
+  -webkit-animation: fade-out 0.6s;
+  animation: fade-out 0.6s;
 }
