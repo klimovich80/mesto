@@ -28,18 +28,20 @@
       <button class="profile__add-button" type="button"></button>
     </section>
     <section class="elements">
-      <ul class="elements__items">
-        <template id="templateCard">
-          <li class="element">
-            <button class="element__trash" type="button"></button>
-            <img src="#" alt="фотография" class="element__image">
-            <h2 class="element__caption"></h2>
-            <button class="element__like" type="button"></button>
-          </li>
-        </template>
-      </ul>
+      <ul class="elements__items"></ul>
     </section>
   </main>
+  <footer class="footer">
+    <h2 class="footer__copyright">&copy;2022 Klimovich Pavel</h2>
+  </footer>
+  <template id="templateCard">
+    <li class="element">
+      <button class="element__trash" type="button"></button>
+      <img src="#" alt="фотография" class="element__image">
+      <h2 class="element__caption"></h2>
+      <button class="element__like" type="button"></button>
+    </li>
+  </template>
   <template id="templateEditPopup">
     <div class="popup popup_edit-profile fade-in">
       <div class="popup__overlay"></div>
@@ -82,10 +84,6 @@
       </figure>
     </div>
   </template>
-
-  <footer class="footer">
-    <h2 class="footer__copyright">&copy;2022 Klimovich Pavel</h2>
-  </footer>
 </body>
 
 </html>
