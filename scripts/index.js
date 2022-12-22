@@ -12,7 +12,7 @@ const templateAddPopup = root
   .content.querySelector(".popup_add-card"); //шаблон онка добавления карточки
 const templateImagePopup = root
   .querySelector("#templateImagePopup")
-  .content.querySelector(".element"); //шаблон окна картинки
+  .content.querySelector(".popup_image"); //шаблон окна картинки
 const profileName = root.querySelector(".profile__title"); //имя профиля
 const profileCredentials = root.querySelector(".profile__subtitle"); //описание профиля
 const elements = root.querySelector(".elements__items");
@@ -20,20 +20,19 @@ const editProfileButton = document.querySelector(".profile__edit-button");
 const addCardButton = document.querySelector(".profile__add-button");
 //--функции--
 //удаление попапа
-function closePopup(element) {
-  const popup = element.closest(".popup");
+function closePopup(popup) {
   popup.classList.remove("fade-in");
   popup.classList.add("fade-out");
-  popup.addEventListener("animationend", () => {
-    popup.remove();
-  });
+  popup.addEventListener("animationend", () => popup.remove());
 }
 //появление попапа
 function openPopup(popup) {
   const window = popup.cloneNode(true);
   window
     .querySelector(".popup__close-icon")
-    .addEventListener("click", element => closePopup(element.target));
+    .addEventListener("click", (element) =>
+      closePopup(element.target.closest(".popup"))
+    );
   main.append(window);
 }
 //попдписка на заполнение формы
@@ -70,13 +69,15 @@ function createCard(source) {
     card.querySelector(".element__caption").textContent = item.name;
     card
       .querySelector(".element__trash")
-      .addEventListener("click", (element) => deleteCard(element));
+      .addEventListener("click", (element) =>
+        deleteCard(element.target.closest(".element"))
+      );
     card
       .querySelector(".element__like")
-      .addEventListener("click", (element) => likeCard(element));
+      .addEventListener("click", (element) => likeCard(element.target));
     card
       .querySelector(".element__image")
-      .addEventListener("click", () => openPopup(templateImagePopup));
+      .addEventListener("click", () => openPopup(templateImagePopup)); //
     renderCard(card);
   });
 }
@@ -86,18 +87,16 @@ function renderCard(card) {
 }
 //удаление карточек
 function deleteCard(card) {
-  card.target.closest(".element").remove();
+  card.remove();
 }
 //лайк
 function likeCard(card) {
-  card.target.classList.toggle("element__like_checked");
+  card.classList.toggle("element__like_checked");
 }
 //--обработчики событий--
-//показ карточек при загрузке страницы
-document.addEventListener("DOMContentLoaded", () => {
-  createCard(initialCards);
-});
-//обработка кликов
+//редактирование профиля
 editProfileButton.addEventListener("click", () => openPopup(templateEditPopup));
-
+//добавление карточки
 addCardButton.addEventListener("click", () => openPopup(templateAddPopup));
+//создаем карточки из имеющегося массива
+createCard(initialCards);
