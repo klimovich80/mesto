@@ -1,17 +1,15 @@
 //--переменные--
 const root = document.querySelector(".root");
-const main = root.querySelector(".main");
-const templateElement = root.querySelector("#tempElement").content; //шаблон картинки
-const templatePopup = root.querySelector("#templatePopup").content; //шаблон вслывающего окна
-const templatePopupImage = root.querySelector("#templatePopupImage").content;
-const elements = root.querySelector(".elements__items");
-const closeIcon = root.querySelector(".popup__close-icon"); //иконка закрытия формы
+const templateCard = root.querySelector("#templateCard").content.querySelector('.element');
+const templateEditPopup = root.querySelector("#templateEditPopup").content; //шаблон окна редактирования профиля
+const templateAddPopup = root.querySelector("#templateAddPopup").content; //шаблон онка добавления карточки
+const templateImagePopup = root.querySelector("#templateImagePopup").content; //шаблон окна картинки
 const profileName = root.querySelector(".profile__title"); //имя профиля
 const profileCredentials = root.querySelector(".profile__subtitle"); //описание профиля
+const elements=root.querySelector(".elements__items");
 //--функции--
 //удаление попап
-function hidePopup(elem) {
-  const popup = elem.closest(".popup");
+function closePopup(popup) {
   popup.classList.remove("fade-in");
   popup.classList.add("fade-out");
   popup.addEventListener("animationend", () => {
@@ -19,28 +17,8 @@ function hidePopup(elem) {
   });
 }
 //появление попапа
-function showPopup(
-  elem,
-  title,
-  namePlaceholder,
-  infoPlaceholder,
-  button_text,
-  nameContent,
-  infoContent
-) {
+function openPopup(popup) {
   const pUp = templatePopup.cloneNode(true);
-  pUp.querySelector(".popup__title").textContent = title;
-  pUp.querySelector(".popup__input_type_name").placeholder = namePlaceholder;
-  pUp.querySelector(".popup__input_type_name").value = nameContent;
-  pUp.querySelector(".popup__button").value = button_text;
-  pUp.querySelector(".popup__button").textContent = button_text;
-  pUp.querySelector(".popup__input_type_credentials").value = infoContent;
-  pUp.querySelector(
-    ".popup__input_type_credentials"
-  ).placeholder = infoPlaceholder;
-  if (elem.classList.contains("profile__add-button")) {
-    pUp.querySelector(".popup__input_type_credentials").type = "url";
-  }
   main.append(pUp);
 }
 //попдписка на заполнение формы
@@ -69,22 +47,28 @@ function handleFormSubmit(e) {
   hidePopup(e.target);
 }
 //отображение карточек
-function diplayCard(source) {
+function createCard(source) {
   source.forEach((item) => {
-    const card = templateElement.cloneNode(true);
+    const card = templateCard.cloneNode(true);
     card.querySelector(".element__image").src = item.link;
     card.querySelector(".element__image").alt = item.name;
     card.querySelector(".element__caption").textContent = item.name;
-    elements.prepend(card);
+    card.querySelector(".element__trash").addEventListener('click', element=>deleteCard(element));
+    card.querySelector(".element__like").addEventListener('click', element=>likeCard(element));
+    renderCard(card);
   });
 }
+//функция добавления начальных карточек
+function renderCard(card){
+  elements.prepend(card);
+}
 //удаление карточек
-function deleteCard(elem) {
-  elem.closest(".element").remove();
+function deleteCard(card) {
+  card.target.closest(".element").remove();
 }
 //лайк
-function likeCard(elem) {
-  elem.classList.toggle("element__like_checked");
+function likeCard(card) {
+  card.target.classList.toggle("element__like_checked");
 }
 //появление попапа с картинкой
 function showPicture(elem) {
@@ -97,18 +81,12 @@ function showPicture(elem) {
 //--обработчики событий--
 //показ карточек при загрузке страницы
 document.addEventListener("DOMContentLoaded", () => {
-  diplayCard(initialCards);
+  createCard(initialCards);
 });
-//сохранение заполненной формы
-root.addEventListener("submit", handleFormSubmit);
 //обработка кликов
 root.addEventListener("click", (e) => {
   const elem = e.target;
-  if (elem.classList.contains("element__like")) {
-    likeCard(elem);
-  } else if (elem.classList.contains("element__trash")) {
-    deleteCard(elem);
-  } else if (elem.classList.contains("profile__add-button")) {
+  if (elem.classList.contains("profile__add-button")) {
     showPopup(
       elem,
       "Новое место",
