@@ -21,9 +21,10 @@ const addCardButton = document.querySelector(".profile__add-button"); //кноп
 //--функции--
 //удаление попапа
 function closePopup(popup) {
-  popup.classList.remove("fade-in");
-  popup.classList.add("fade-out");
-  popup.addEventListener("animationend", () => popup.remove());
+  const window = popup.target.closest(".popup");
+  window.classList.remove("fade-in");
+  window.classList.add("fade-out");
+  window.addEventListener("animationend", () => window.remove());
 }
 //появление попапа
 function openPopup(popup) {
@@ -32,10 +33,13 @@ function openPopup(popup) {
 //попдписка на заполнение формы
 function handleFormSubmit(e) {
   e.preventDefault();
-  alert("SUBMIT");
+  e.target.reset();
+  closePopup(e);
 }
 //отображение карточек
 function createCard(source) {
+  console.log('source: ', source);
+
   source.forEach((item) => {
     const card = templateCard.cloneNode(true);
     card.querySelector(".element__image").src = item.link;
@@ -51,7 +55,9 @@ function createCard(source) {
       .addEventListener("click", (element) => likeCard(element.target));
     card
       .querySelector(".element__image")
-      .addEventListener("click", () => createPhotoPopup(templateImagePopup)); //
+      .addEventListener("click", (element) =>
+        createPhotoPopup(templateImagePopup, element)
+      ); //
     renderCard(card);
   });
 }
@@ -68,25 +74,24 @@ function likeCard(card) {
   card.classList.toggle("element__like_checked");
 }
 
-function createPhotoPopup(template) {
+function createPhotoPopup(template, element) {
   const window = template.cloneNode(true);
   window
     .querySelector(".popup__close-icon")
-    .addEventListener("click", (element) =>
-      closePopup(element.target.closest(".popup"))
-    );
+    .addEventListener("click", (element) => closePopup(element));
+  window.querySelector(".popup__image").src = element.target.src;
+  window.querySelector(".popup__image").alt = element.target.alt;
+  window.querySelector(".popup__caption").textContent = element.target.alt;
   openPopup(window);
 }
 function createAddPopup(template) {
   const window = template.cloneNode(true);
   window
     .querySelector(".popup__close-icon")
-    .addEventListener("click", (element) =>
-      closePopup(element.target.closest(".popup"))
-    );
+    .addEventListener("click", (element) => closePopup(element));
   window
     .querySelector(".popup__form")
-    .addEventListener("submit", (event) => submitEditForm(event));
+    .addEventListener("submit", (event) => submitAddForm(event));
   openPopup(window);
 }
 function createEditPopup(template) {
@@ -97,9 +102,7 @@ function createEditPopup(template) {
     profileCredentials.textContent;
   window
     .querySelector(".popup__close-icon")
-    .addEventListener("click", (element) =>
-      closePopup(element.target.closest(".popup"))
-    );
+    .addEventListener("click", (element) => closePopup(element));
   window
     .querySelector(".popup__form")
     .addEventListener("submit", (event) => submitEditForm(event));
@@ -107,9 +110,24 @@ function createEditPopup(template) {
 }
 
 function submitAddForm(event) {
+  const card = [
+    {
+      name: "test",
+      link: "https://mir-s3-cdn-cf.behance.net/project_modules/1400_opt_1/30b97543333915.57eb79961a3de.png",
+    }
+  ];
+  card[0].name = event.target[0].value;
+  card[0].link = event.target[1].value;
+  createCard(card);
   handleFormSubmit(event);
 }
 function submitEditForm(event) {
+  profileName.textContent = event.target.querySelector(
+    ".popup__input_type_name"
+  ).value;
+  profileCredentials.textContent = event.target.querySelector(
+    ".popup__input_type_credentials"
+  ).value;
   handleFormSubmit(event);
 }
 //--обработчики событий--
@@ -121,7 +139,3 @@ editProfileButton.addEventListener("click", () =>
 addCardButton.addEventListener("click", () => createAddPopup(templateAddPopup));
 //создаем карточки из имеющегося массива
 createCard(initialCards);
-
-//сделать:
-// * заполнение попапов по клику а потом передать на функцию открытия
-// * вызов общей функции обработчика сабмит с распределением по функциям заполнения
