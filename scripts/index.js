@@ -19,14 +19,14 @@ const profileCredentials = root.querySelector(".profile__subtitle"); //опис�
 const editProfileButton = document.querySelector(".profile__edit-button"); //кнопка редактирования профиля
 const addCardButton = document.querySelector(".profile__add-button"); //кнопка добавления карточки
 //--функции--
-//удаление попапа
+//закрытие попапа
 function closePopup(popup) {
   const window = popup.target.closest(".popup");
   window.classList.remove("fade-in");
   window.classList.add("fade-out");
   window.addEventListener("animationend", () => window.remove());
 }
-//появление попапа
+//открытие попапа
 function openPopup(popup) {
   main.append(popup);
 }
@@ -36,10 +36,8 @@ function handleFormSubmit(e) {
   e.target.reset();
   closePopup(e);
 }
-//отображение карточек
+//создание карточек
 function createCard(source) {
-  console.log('source: ', source);
-
   source.forEach((item) => {
     const card = templateCard.cloneNode(true);
     card.querySelector(".element__image").src = item.link;
@@ -61,11 +59,11 @@ function createCard(source) {
     renderCard(card);
   });
 }
-//функция добавления начальных карточек
+//отрисовка карточки
 function renderCard(card) {
   elements.prepend(card);
 }
-//удаление карточек
+//удаление карточки
 function deleteCard(card) {
   card.remove();
 }
@@ -73,7 +71,7 @@ function deleteCard(card) {
 function likeCard(card) {
   card.classList.toggle("element__like_checked");
 }
-
+//--создание попапов--
 function createPhotoPopup(template, element) {
   const window = template.cloneNode(true);
   window
@@ -108,13 +106,14 @@ function createEditPopup(template) {
     .addEventListener("submit", (event) => submitEditForm(event));
   openPopup(window);
 }
-
+//зполнение форм
 function submitAddForm(event) {
   const card = [
     {
       name: "test",
-      link: "https://mir-s3-cdn-cf.behance.net/project_modules/1400_opt_1/30b97543333915.57eb79961a3de.png",
-    }
+      link:
+        "https://mir-s3-cdn-cf.behance.net/project_modules/1400_opt_1/30b97543333915.57eb79961a3de.png",
+    },
   ];
   card[0].name = event.target[0].value;
   card[0].link = event.target[1].value;

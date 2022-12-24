@@ -5,9 +5,6 @@
   top: 50px;
   left: 50%;
   transform: translate(-50%, 0);
-  width: 75vw;
-  max-height: 75vh;
-  object-fit: contain;
   display: flex;
   flex-direction: column;
   z-index: 2;

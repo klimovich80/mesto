@@ -6,7 +6,7 @@
   border: none;
   aspect-ratio: 1;
   align-self: end;
-  transform: translate(40px, -8px);
+  transform: translate(40px, -34px);
 }
 
 @media (max-width: 680px) {
