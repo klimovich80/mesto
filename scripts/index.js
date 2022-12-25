@@ -31,10 +31,10 @@ function openPopup(popup) {
   main.append(popup);
 }
 //попдписка на заполнение формы
-function handleFormSubmit(e) {
-  e.preventDefault();
-  e.target.reset();
-  closePopup(e);
+function submitForm(element) {
+  element.preventDefault();
+  element.target.reset();
+  closePopup(element);
 }
 //создание карточек
 function createCard(source) {
@@ -118,7 +118,7 @@ function submitAddForm(event) {
   card[0].name = event.target[0].value;
   card[0].link = event.target[1].value;
   createCard(card);
-  handleFormSubmit(event);
+  submitForm(event);
 }
 function submitEditForm(event) {
   profileName.textContent = event.target.querySelector(
@@ -127,7 +127,7 @@ function submitEditForm(event) {
   profileCredentials.textContent = event.target.querySelector(
     ".popup__input_type_credentials"
   ).value;
-  handleFormSubmit(event);
+  submitForm(event);
 }
 //--обработчики событий--
 //редактирование профиля
