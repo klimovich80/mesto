@@ -1,4 +1,4 @@
-.element__trash{
+.element__trash {
   border: none;
   position: absolute;
   top: 20px;
@@ -8,7 +8,7 @@
   aspect-ratio: 1;
 }
 
-.element__trash:hover{
-  opacity: .6;
+.element__trash:hover {
+  opacity: 0.6;
   cursor: pointer;
 }
