@@ -6,12 +6,12 @@
   border: none;
   aspect-ratio: 1;
   align-self: end;
-  transform: translate(40px, -34px);
+  transform: translate(40px, -38px);
 }
 
 @media (max-width: 680px) {
   .popup__image_close-icon {
     scale: 0.625;
-    transform: translate(12px, -16px);
+    transform: translate(12px, -66px);
   }
 }
