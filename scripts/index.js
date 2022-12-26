@@ -17,9 +17,7 @@ const editProfileCredentials = editPofilePopup.querySelector(
   ".popup__input_type_credentials"
 );
 const addCardPopup = document.querySelector(".popup_add-card");
-const addCardCloseButton = addCardPopup.querySelector(
-  ".close-button_type_add"
-);
+const addCardCloseButton = addCardPopup.querySelector(".close-button_type_add");
 const addCardPlace = addCardPopup.querySelector(".popup__input_type_place");
 const addCardUrl = addCardPopup.querySelector(".popup__input_type_url");
 const addCardButton = document.querySelector(".profile__add-button"); //кнопка добавления карточки
@@ -81,7 +79,7 @@ function getCard(item) {
   );
   //лайк
   like.addEventListener("click", (event) => likeCard(event.target));
-  //
+  //открытие поапа карточки
   image.addEventListener("click", () => {
     imageSource.src = item.link;
     imageSource.alt = item.name;
@@ -105,8 +103,9 @@ function render() {
   elements.append(...html);
 }
 //--обработчики событий--
-//отправка формы профиля
+//отправка форм
 editPofilePopup.addEventListener("submit", (event) => submitEditForm(event));
+addCardPopup.addEventListener("submit", (event) => submitAddForm(event));
 //редактирование профиля
 profileEditButton.addEventListener("click", () => {
   createEditPopup();
@@ -115,12 +114,9 @@ profileEditButton.addEventListener("click", () => {
 editProfileCloseButton.addEventListener("click", () =>
   closePopup(editPofilePopup)
 );
-
 addCardCloseButton.addEventListener("click", () => closePopup(addCardPopup));
-
 imageCloseButton.addEventListener("click", () => closePopup(imagePopup));
 //добавление карточек
 addCardButton.addEventListener("click", () => createAddPopup());
-addCardPopup.addEventListener("submit", (event) => submitAddForm(event));
 
 render();
