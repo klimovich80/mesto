@@ -1,4 +1,4 @@
-.popup__image_close-icon {
+.popup__image_close-button {
   margin: 0;
   padding: 16px;
   background: url(../../../images/Close-Icon.svg) center no-repeat;
@@ -10,7 +10,7 @@
 }
 
 @media (max-width: 680px) {
-  .popup__image_close-icon {
+  .popup__image_close-button {
     scale: 0.625;
     transform: translate(12px, -66px);
   }
