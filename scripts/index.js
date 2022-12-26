@@ -19,8 +19,8 @@ const editProfileName = document.querySelector(".popup__input_type_name");
 const editProfileCredentials = document.querySelector(
   ".popup__input_type_credentials"
 );
-const imageSource = document.querySelector(".popup__image");
-const imageCaption = document.querySelector(".popup__caption");
+const imageSource = imagePopup.querySelector(".popup__image");
+const imageCaption = imagePopup.querySelector(".popup__caption");
 //--функции--
 //закрытие попапа
 function closePopup(popup) {
@@ -142,6 +142,13 @@ function getCard(item) {
   );
   //лайк
   like.addEventListener("click", (event) => likeCard(event.target));
+  //
+  image.addEventListener("click", ()=>{
+    imageSource.src=item.link;
+    imageSource.alt=item.name;
+    imageCaption.textContent=item.name;
+    openPopup(imagePopup);
+  });
   //функции
   //удаления
   function removeCard(card) {
