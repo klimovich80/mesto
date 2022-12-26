@@ -7,16 +7,21 @@ const templateCard = root
   .content.querySelector(".element"); //шаблон карточки
 //const popup = document.querySelector(".popup");
 const editPofilePopup = document.querySelector(".popup_edit-profile");
-const addPofilePopup = document.querySelector(".popup_add-card");
+const addCardPopup = document.querySelector(".popup_add-card");
+const imagePopup = document.querySelector(".popup_open-image");
 const popupCloseIcon = document.querySelectorAll(".popup__close-icon");
 const profileName = root.querySelector(".profile__title"); //имя профиля
 const profileCredentials = root.querySelector(".profile__subtitle"); //описание профиля
-const editProfileButton = document.querySelector(".profile__edit-button"); //кнопка редактирования профиля
+const addCardPlace = document.querySelector(".popup__input_type_place");
+const addCardUrl = document.querySelector(".popup__input_type_url");
 const addCardButton = document.querySelector(".profile__add-button"); //кнопка добавления карточки
+const editProfileButton = document.querySelector(".profile__edit-button"); //кнопка редактирования профиля
 const editProfileName = document.querySelector(".popup__input_type_name");
 const editProfileCredentials = document.querySelector(
   ".popup__input_type_credentials"
 );
+const imageSource = document.querySelector(".popup__image");
+const imageCaption = document.querySelector(".popup__caption");
 //--функции--
 //закрытие попапа
 function closePopup(popup) {
@@ -49,9 +54,7 @@ function createCard(source) {
       .addEventListener("click", (element) => likeCard(element.target));
     card
       .querySelector(".element__image")
-      .addEventListener("click", (element) =>
-        openPhotoPopup(templateImagePopup, element)
-      ); //
+      .addEventListener("click", (element) => openPhotoPopup(element)); //
     renderCard(card);
   });
 }
@@ -68,18 +71,14 @@ function likeCard(card) {
   card.classList.toggle("element__like_checked");
 }
 //--создание попапов--
-function openPhotoPopup(template, element) {
-  const window = template.cloneNode(true);
-  window
-    .querySelector(".popup__close-icon")
-    .addEventListener("click", (element) => closePopup(element));
-  window.querySelector(".popup__image").src = element.target.src;
-  window.querySelector(".popup__image").alt = element.target.alt;
-  window.querySelector(".popup__caption").textContent = element.target.alt;
-  openPopup(window);
+function openPhotoPopup(element) {
+  imageSource.src = element.target.src;
+  imageSource.alt = element.target.alt;
+  imageCaption.textContent = element.target.alt;
+  openPopup(imagePopup);
 }
 function createAddPopup() {
-  openPopup(addPofilePopup);
+  openPopup(addCardPopup);
 }
 function createEditPopup() {
   editProfileName.value = profileName.textContent;
@@ -88,16 +87,15 @@ function createEditPopup() {
 }
 //зполнение форм
 function submitAddForm(event) {
-  const card = [
-    {
-      name: "test",
-      link:
-        "https://mir-s3-cdn-cf.behance.net/project_modules/1400_opt_1/30b97543333915.57eb79961a3de.png",
-    },
-  ];
-  card[0].name = event.target[0].value;
-  card[0].link = event.target[1].value;
-  createCard(card);
+  console.log("event: ", event);
+  const card = {
+    name: "test",
+    link:
+      "https://mir-s3-cdn-cf.behance.net/project_modules/1400_opt_1/30b97543333915.57eb79961a3de.png",
+  };
+  card.name = addCardPlace.value;
+  card.link = addCardUrl.value;
+  console.log("card: ", card);
   submitForm(event);
 }
 function submitEditForm(event) {
@@ -112,10 +110,13 @@ editProfileButton.addEventListener("click", () => {
   createEditPopup();
 });
 
-popupCloseIcon.forEach(item => item.addEventListener("click", (event) => {
-  closePopup(event.target.closest(".popup"));
-}));
+popupCloseIcon.forEach((item) =>
+  item.addEventListener("click", (event) => {
+    closePopup(event.target.closest(".popup"));
+  })
+);
 //добавление карточки
 addCardButton.addEventListener("click", () => createAddPopup());
+addCardPopup.addEventListener("submit", (event) => submitAddForm(event));
 //создаем карточки из имеющегося массива
 createCard(initialCards);
