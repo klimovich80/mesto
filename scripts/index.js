@@ -101,7 +101,7 @@ function getCard(item) {
 }
 //рендерим
 function render() {
-  const html = initialCards.map(getCard).reverse();
+  const html = initialCards.map(getCard);
   elements.append(...html);
 }
 //--обработчики событий--
