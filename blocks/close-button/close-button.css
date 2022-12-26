@@ -1,4 +1,4 @@
-.popup__close-icon {
+.close-button {
   background: url(../../../images/Close-Icon.svg);
   width: 32px;
   aspect-ratio: 1;
@@ -10,13 +10,13 @@
 }
 
 @media (max-width: 680px) {
-  .popup__close-icon {
+  .close-button {
     scale: 0.625;
     transform: translate(12px, -70px);
   }
 }
 
-.popup__close-icon:hover {
+.close-button:hover {
   opacity: 0.5;
   cursor: pointer;
 }
