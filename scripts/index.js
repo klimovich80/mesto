@@ -8,7 +8,7 @@ const profileCredentials = document.querySelector(".profile__subtitle"); //оп�
 const profileEditButton = document.querySelector(".profile__edit-button"); //кнопка редактирования профиля
 const editPofilePopup = document.querySelector(".popup_edit-profile");
 const editProfileCloseButton = editPofilePopup.querySelector(
-  ".popup__edit_close-button"
+  ".close-button_type_edit"
 );
 const editProfileName = editPofilePopup.querySelector(
   ".popup__input_type_name"
@@ -18,13 +18,13 @@ const editProfileCredentials = editPofilePopup.querySelector(
 );
 const addCardPopup = document.querySelector(".popup_add-card");
 const addCardCloseButton = addCardPopup.querySelector(
-  ".popup__add_close-button"
+  ".close-button_type_add"
 );
 const addCardPlace = addCardPopup.querySelector(".popup__input_type_place");
 const addCardUrl = addCardPopup.querySelector(".popup__input_type_url");
 const addCardButton = document.querySelector(".profile__add-button"); //кнопка добавления карточки
 const imagePopup = document.querySelector(".popup_open-image");
-const imageCloseButton = imagePopup.querySelector(".popup__image_close-button");
+const imageCloseButton = imagePopup.querySelector(".close-button_type_image");
 const imageSource = imagePopup.querySelector(".popup__image");
 const imageCaption = imagePopup.querySelector(".popup__caption");
 //--функции--
