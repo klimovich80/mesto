@@ -1,5 +1,6 @@
 .close-button {
-  background: url(../../images/Close-Icon.svg);
+  /*background: url(../../images/Close-Icon.svg);*/
+  background: url(../../images/Close-Icon.svg) center no-repeat;
   width: 32px;
   aspect-ratio: 1;
   position: fixed;
