@@ -7,7 +7,8 @@ const templateCard = root
   .content.querySelector(".element"); //шаблон карточки
 //const popup = document.querySelector(".popup");
 const editPofilePopup = document.querySelector(".popup_edit-profile");
-const popupCloseIcon = document.querySelector(".popup__close-icon");
+const addPofilePopup = document.querySelector(".popup_add-card");
+const popupCloseIcon = document.querySelectorAll(".popup__close-icon");
 const profileName = root.querySelector(".profile__title"); //имя профиля
 const profileCredentials = root.querySelector(".profile__subtitle"); //описание профиля
 const editProfileButton = document.querySelector(".profile__edit-button"); //кнопка редактирования профиля
@@ -49,7 +50,7 @@ function createCard(source) {
     card
       .querySelector(".element__image")
       .addEventListener("click", (element) =>
-        createPhotoPopup(templateImagePopup, element)
+        openPhotoPopup(templateImagePopup, element)
       ); //
     renderCard(card);
   });
@@ -67,7 +68,7 @@ function likeCard(card) {
   card.classList.toggle("element__like_checked");
 }
 //--создание попапов--
-function createPhotoPopup(template, element) {
+function openPhotoPopup(template, element) {
   const window = template.cloneNode(true);
   window
     .querySelector(".popup__close-icon")
@@ -77,15 +78,8 @@ function createPhotoPopup(template, element) {
   window.querySelector(".popup__caption").textContent = element.target.alt;
   openPopup(window);
 }
-function createAddPopup(template) {
-  const window = template.cloneNode(true);
-  window
-    .querySelector(".popup__close-icon")
-    .addEventListener("click", (element) => closePopup(element));
-  window
-    .querySelector(".popup__form")
-    .addEventListener("submit", (event) => submitAddForm(event));
-  openPopup(window);
+function createAddPopup() {
+  openPopup(addPofilePopup);
 }
 function createEditPopup() {
   editProfileName.value = profileName.textContent;
@@ -117,10 +111,11 @@ editPofilePopup.addEventListener("submit", (event) => submitEditForm(event));
 editProfileButton.addEventListener("click", () => {
   createEditPopup();
 });
-popupCloseIcon.addEventListener("click", (event) =>
-  closePopup(event.target.closest(".popup"))
-);
+
+popupCloseIcon.forEach(item => item.addEventListener("click", (event) => {
+  closePopup(event.target.closest(".popup"));
+}));
 //добавление карточки
-addCardButton.addEventListener("click", () => createAddPopup(templateAddPopup));
+addCardButton.addEventListener("click", () => createAddPopup());
 //создаем карточки из имеющегося массива
 createCard(initialCards);
