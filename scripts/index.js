@@ -5,36 +5,31 @@ const elements = root.querySelector(".elements__items"); // место вста�
 const templateCard = root
   .querySelector("#templateCard")
   .content.querySelector(".element"); //шаблон карточки
-const templateEditPopup = root
-  .querySelector("#templateEditPopup")
-  .content.querySelector(".popup_edit-profile"); //шаблон формы редактора профиля
-const templateAddPopup = root
-  .querySelector("#templateAddPopup")
-  .content.querySelector(".popup_add-card"); //шаблон формы добавления карточки
-const templateImagePopup = root
-  .querySelector("#templateImagePopup")
-  .content.querySelector(".popup_image"); //шаблон всплывающей картинки
+//const popup = document.querySelector(".popup");
+const editPofilePopup = document.querySelector(".popup_edit-profile");
+const popupCloseIcon = document.querySelector(".popup__close-icon");
 const profileName = root.querySelector(".profile__title"); //имя профиля
 const profileCredentials = root.querySelector(".profile__subtitle"); //описание профиля
 const editProfileButton = document.querySelector(".profile__edit-button"); //кнопка редактирования профиля
 const addCardButton = document.querySelector(".profile__add-button"); //кнопка добавления карточки
+const editProfileName = document.querySelector(".popup__input_type_name");
+const editProfileCredentials = document.querySelector(
+  ".popup__input_type_credentials"
+);
 //--функции--
 //закрытие попапа
 function closePopup(popup) {
-  const window = popup.target.closest(".popup");
-  window.classList.remove("fade-in");
-  window.classList.add("fade-out");
-  window.addEventListener("animationend", () => window.remove());
+  popup.classList.remove("popup_active");
 }
 //открытие попапа
 function openPopup(popup) {
-  main.append(popup);
+  popup.classList.add("popup_active");
 }
 //попдписка на заполнение формы
 function submitForm(element) {
   element.preventDefault();
   element.target.reset();
-  closePopup(element);
+  closePopup(element.target.closest(".popup"));
 }
 //создание карточек
 function createCard(source) {
@@ -92,19 +87,10 @@ function createAddPopup(template) {
     .addEventListener("submit", (event) => submitAddForm(event));
   openPopup(window);
 }
-function createEditPopup(template) {
-  const window = template.cloneNode(true);
-  window.querySelector(".popup__input_type_name").value =
-    profileName.textContent;
-  window.querySelector(".popup__input_type_credentials").value =
-    profileCredentials.textContent;
-  window
-    .querySelector(".popup__close-icon")
-    .addEventListener("click", (element) => closePopup(element));
-  window
-    .querySelector(".popup__form")
-    .addEventListener("submit", (event) => submitEditForm(event));
-  openPopup(window);
+function createEditPopup() {
+  editProfileName.value = profileName.textContent;
+  editProfileCredentials.value = profileCredentials.textContent;
+  openPopup(editPofilePopup);
 }
 //зполнение форм
 function submitAddForm(event) {
@@ -121,18 +107,18 @@ function submitAddForm(event) {
   submitForm(event);
 }
 function submitEditForm(event) {
-  profileName.textContent = event.target.querySelector(
-    ".popup__input_type_name"
-  ).value;
-  profileCredentials.textContent = event.target.querySelector(
-    ".popup__input_type_credentials"
-  ).value;
+  profileName.textContent = editProfileName.value;
+  profileCredentials.textContent = editProfileCredentials.value;
   submitForm(event);
 }
 //--обработчики событий--
 //редактирование профиля
-editProfileButton.addEventListener("click", () =>
-  createEditPopup(templateEditPopup)
+editPofilePopup.addEventListener("submit", (event) => submitEditForm(event));
+editProfileButton.addEventListener("click", () => {
+  createEditPopup();
+});
+popupCloseIcon.addEventListener("click", (event) =>
+  closePopup(event.target.closest(".popup"))
 );
 //добавление карточки
 addCardButton.addEventListener("click", () => createAddPopup(templateAddPopup));
