@@ -5,7 +5,6 @@ const elements = root.querySelector(".elements__items"); // место вста�
 const template = root
   .querySelector(".template")
   .content.querySelector(".element"); //шаблон карточки
-console.log("template: ", template);
 const editPofilePopup = document.querySelector(".popup_edit-profile");
 const addCardPopup = document.querySelector(".popup_add-card");
 const imagePopup = document.querySelector(".popup_open-image");
@@ -95,7 +94,6 @@ function submitAddForm(event) {
   };
   card.name = addCardPlace.value;
   card.link = addCardUrl.value;
-  console.log("card: ", card);
   submitForm(event);
 }
 function submitEditForm(event) {
@@ -122,18 +120,39 @@ addCardPopup.addEventListener("submit", (event) => submitAddForm(event));
 //createCard(initialCards);
 
 function render() {
-  const html = initialCards.map(getCard);
+  const html = initialCards.map(getCard).reverse();
   elements.append(...html);
 }
 
 function getCard(item) {
+  //определяем переменные
   const cardTemplate = template.cloneNode(true);
-  console.log('cardTemplate: ', cardTemplate);
   const image = cardTemplate.querySelector(".element__image");
+  const caption = cardTemplate.querySelector(".element__caption");
+  const trashcan = cardTemplate.querySelector(".element__trash");
+  const like = cardTemplate.querySelector(".element__like");
+  //присваиваем значения
   image.src = item.link;
   image.alt = item.name;
-  const caption = cardTemplate.querySelector(".element__caption");
   caption.textContent = item.name;
+  //вешаем события
+  //удаления
+  trashcan.addEventListener("click", (event) =>
+    removeCard(event.target.closest(".element"))
+  );
+  //лайк
+  like.addEventListener("click", (event) => likeCard(event.target));
+  //функции
+  //удаления
+  function removeCard(card) {
+    card.remove();
+  }
+  //лайка
+  function likeCard(card) {
+    card.classList.toggle("element__like_checked");
+  }
+
   return cardTemplate;
 }
+
 render();
