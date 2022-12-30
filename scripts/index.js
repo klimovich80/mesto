@@ -120,4 +120,3 @@ imageCloseButton.addEventListener("click", () => closePopup(imagePopup));
 addCardButton.addEventListener("click", () => openAddCardPopup());
 
 renderInitialCards();
-
