@@ -1,3 +1,5 @@
+// включение валидации вызовом enableValidation
+// все настройки передаются при вызове
 enableValidation({
   formSelector: ".popup__form",
   inputSelector: ".popup__input",
@@ -6,7 +8,7 @@ enableValidation({
   inputErrorClass: "popup__input_type_error",
   errorClass: "popup__error_visible",
 });
-//TODO !Требования к валидации форм. 
+//TODO Требования к валидации форм. 
 //Разбейте код валидации на функции. 
 //Вы уже делали это в теме «Валидация форм». 
 //Сделайте функцию enableValidation ответственной за включение валидации всех форм. 

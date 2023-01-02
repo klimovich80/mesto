@@ -25,9 +25,12 @@ const imagePopup = document.querySelector(".popup_open-image");
 const imageCloseButton = imagePopup.querySelector(".close-button_type_image");
 const imageSource = imagePopup.querySelector(".popup__image");
 const imageCaption = imagePopup.querySelector(".popup__caption");
+const overlay = document.querySelectorAll(".popup__overlay");
 //--функции--
 //закрытие попапа
 function closePopup(popup) {
+  console.log("popup: ", popup);
+
   popup.classList.remove("popup_active");
 }
 //открытие попапа
@@ -118,5 +121,10 @@ addCardCloseButton.addEventListener("click", () => closePopup(addCardPopup));
 imageCloseButton.addEventListener("click", () => closePopup(imagePopup));
 //добавление карточек
 addCardButton.addEventListener("click", () => openAddCardPopup());
+overlay.forEach((item) =>
+  item.addEventListener("click", (event) =>
+    closePopup(event.target.closest(".popup"))
+  )
+);
 
 renderInitialCards();
