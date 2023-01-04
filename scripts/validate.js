@@ -5,14 +5,18 @@ const showInputError = () => {};
 const hideInputError = () => {};
 
 //функция поверки валидности инпута
-//преверяет на валидность и вызывает 
+//преверяет на валидность и вызывает
 //функции показа/скрытия ошибок
 const checkInputValidity = () => {};
 
 //функция устновки слушателей ввода
 //настраивает отображение кнопки формы
 //вызывает функцию проверки валидности
-const setEventListeners = () => {};
+const setEventListeners = (input, button) => {
+  //проверить нечальное состояние кнопки
+  console.log(button);
+  console.log("input: ", input);
+};
 
 //булевая функция проверки валидности для кнопки
 //принимает на вход список инпутов
@@ -30,13 +34,18 @@ const toggleButtonState = () => {};
 //вызывает им функцию установки слушателей
 const enableValidation = (obj) => {
   //массив всех форм на странице
-  const formArray=Array.from(document.querySelectorAll(obj.formSelector));
-  console.log('formArray: ', formArray);
-
+  const formArray = Array.from(document.querySelectorAll(obj.formSelector));
+  //работаем с каждой формой
+  formArray.forEach((item) => {
+    //выделяем поля ввода в массив
+    const inputArray = Array.from(item.querySelectorAll(obj.inputSelector));
+    const button = item.querySelector(obj.submitButtonSelector);
+    //вызываем функцию навешиваем слушатели на каждый
+    setEventListeners(inputArray, button);
+  });
 };
 
-//функция  
-
+//функция
 
 // включение валидации вызовом enableValidation
 // все настройки передаются при вызове
@@ -48,8 +57,8 @@ enableValidation({
   inputErrorClass: "popup__input_type_error",
   errorClass: "popup__error_visible",
 });
-//TODO Требования к валидации форм. 
-//Разбейте код валидации на функции. 
-//Вы уже делали это в теме «Валидация форм». 
-//Сделайте функцию enableValidation ответственной за включение валидации всех форм. 
+//TODO Требования к валидации форм.
+//Разбейте код валидации на функции.
+//Вы уже делали это в теме «Валидация форм».
+//Сделайте функцию enableValidation ответственной за включение валидации всех форм.
 //Пусть она принимает как объект настроек все нужные функциям классы и селекторы элементов
