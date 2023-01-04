@@ -12,21 +12,33 @@ const checkInputValidity = () => {};
 //функция устновки слушателей ввода
 //настраивает отображение кнопки формы
 //вызывает функцию проверки валидности
-const setEventListeners = (input, button) => {
+const setEventListeners = (inputArray, button, inactiveButton) => {
   //проверить нечальное состояние кнопки
-  console.log(button);
-  console.log("input: ", input);
+  toggleButtonState(inputArray, button, inactiveButton);
 };
 
 //булевая функция проверки валидности для кнопки
 //принимает на вход список инпутов
-const hasInvalidInput = () => {};
+const hasInvalidInput = (input) => {
+  console.log("validating input");
+};
 
 //функция активации/дезактивации кнопки формы
 //принимают на вход массив инпутов и кнопку
 //вызвает функцию проверки валидности
 // и активирует/дезактивирует кнопку
-const toggleButtonState = () => {};
+const toggleButtonState = (input, button, inactiveButton) => {
+  console.log('button: ', button);
+  console.log('inactiveButton: ', inactiveButton);
+  //if form inputs are invalid disactivate button
+  //and vice versa
+  if (hasInvalidInput(input)) {
+    button.classList.add(inactiveButton);
+  }else{
+    button.classList.remove(inactiveButton);
+  }
+  console.log(button);
+};
 
 //получает весь список форм
 //отключает у каждой поведение по умолчанию
@@ -40,13 +52,11 @@ const enableValidation = (obj) => {
     //выделяем поля ввода в массив
     const inputArray = Array.from(item.querySelectorAll(obj.inputSelector));
     const button = item.querySelector(obj.submitButtonSelector);
+    const inactiveButton = obj.inactiveButtonClass;
     //вызываем функцию навешиваем слушатели на каждый
-    setEventListeners(inputArray, button);
+    setEventListeners(inputArray, button, inactiveButton);
   });
 };
-
-//функция
-
 // включение валидации вызовом enableValidation
 // все настройки передаются при вызове
 enableValidation({
