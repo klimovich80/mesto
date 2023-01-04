@@ -1,4 +1,5 @@
 //--переменные--
+const popup = document.querySelectorAll(".popup");
 const elements = document.querySelector(".elements__items"); // место вставки карточек
 const template = document
   .querySelector(".template")
@@ -29,8 +30,6 @@ const overlay = document.querySelectorAll(".popup__overlay");
 //--функции--
 //закрытие попапа
 function closePopup(popup) {
-  console.log("popup: ", popup);
-
   popup.classList.remove("popup_active");
 }
 //открытие попапа
@@ -121,10 +120,21 @@ addCardCloseButton.addEventListener("click", () => closePopup(addCardPopup));
 imageCloseButton.addEventListener("click", () => closePopup(imagePopup));
 //добавление карточек
 addCardButton.addEventListener("click", () => openAddCardPopup());
+
 overlay.forEach((item) =>
   item.addEventListener("click", (event) =>
     closePopup(event.target.closest(".popup"))
   )
+);
+//TODO fix function to close popup by clicking ESC button
+popup.forEach((item) =>
+  item.addEventListener("keydown", (event) => {
+    console.log(event.key);
+    if (event.key === "Escape") {
+      event.preventDefault();
+      closePopup(event.target.closest(".popup"));
+    }
+  })
 );
 
 renderInitialCards();
