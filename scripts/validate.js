@@ -15,7 +15,6 @@ const checkInputValidity = () => {};
 const setEventListeners = (inputArray, button, inactiveButton) => {
   //проверить нечальное состояние кнопки
   toggleButtonState(inputArray, button, inactiveButton);
-
 };
 
 //булевая функция проверки валидности для кнопки
@@ -30,15 +29,15 @@ const hasInvalidInput = (input) => {
 //вызвает функцию проверки валидности
 // и активирует/дезактивирует кнопку
 const toggleButtonState = (input, button, inactiveButton) => {
-  console.log('button before validation: ', button);
   //if form inputs are invalid disactivate button
   //and vice versa
   if (hasInvalidInput(input)) {
     button.classList.add(inactiveButton);
-  }else{
+    button.disabled = true;
+  } else {
     button.classList.remove(inactiveButton);
+    button.disabled = false;
   }
-  console.log('button after validation: ',button);
 };
 
 //получает весь список форм
