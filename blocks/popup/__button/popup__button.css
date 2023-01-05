@@ -26,3 +26,7 @@
 .popup__button:hover {
   opacity: 0.5;
 }
+
+.popup__button:disabled {
+  opacity: 0.2;
+}

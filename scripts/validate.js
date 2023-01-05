@@ -7,7 +7,9 @@ const hideInputError = () => {};
 //функция поверки валидности инпута
 //преверяет на валидность и вызывает
 //функции показа/скрытия ошибок
-const checkInputValidity = () => {};
+const checkInputValidity = () => {
+  
+};
 
 //функция устновки слушателей ввода
 //настраивает отображение кнопки формы
@@ -15,13 +17,23 @@ const checkInputValidity = () => {};
 const setEventListeners = (inputArray, button, inactiveButton) => {
   //проверить нечальное состояние кнопки
   toggleButtonState(inputArray, button, inactiveButton);
+
+  inputArray.forEach((element) => {
+    element.addEventListener("input", () => {
+      checkInputValidity(element);
+      toggleButtonState(inputArray, button, inactiveButton);
+    });
+  });
 };
 
 //булевая функция проверки валидности для кнопки
 //принимает на вход список инпутов
 const hasInvalidInput = (input) => {
   console.log("validating input :", input);
-  return false;
+  return input.some((element) => {
+    console.log("element: ", element.validity.valid);
+    return !element.validity.valid;
+  });
 };
 
 //функция активации/дезактивации кнопки формы
