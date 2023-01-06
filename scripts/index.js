@@ -116,7 +116,11 @@ profileEditButton.addEventListener("click", () => {
 editProfileCloseButton.addEventListener("click", () =>
   closePopup(editPofilePopup)
 );
-addCardCloseButton.addEventListener("click", () => closePopup(addCardPopup));
+addCardCloseButton.addEventListener("click", () => {
+  const form=addCardPopup.querySelector('.popup__form');
+  form.reset();
+  closePopup(addCardPopup);
+});
 imageCloseButton.addEventListener("click", () => closePopup(imagePopup));
 //добавление карточек
 addCardButton.addEventListener("click", () => openAddCardPopup());
@@ -129,9 +133,8 @@ overlay.forEach((item) =>
 //TODO fix function to close popup by clicking ESC button
 popup.forEach((item) =>
   item.addEventListener("keydown", (event) => {
-    //console.log(event.key);
+    console.log(event.key);
     if (event.key === "Escape") {
-      event.preventDefault();
       closePopup(event.target.closest(".popup"));
     }
   })

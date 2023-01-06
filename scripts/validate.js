@@ -1,18 +1,20 @@
 //функция отображения ошибок
+//TODO рефакторинг классов и аргументов
 const showInputError = (input, message) => {
   const formElement = input.closest(".popup__form");
-  const errorElement = formElement.querySelector(`.${input.id}-input-error`);
+  const errorElement = formElement.querySelector(`.${input.id}-error`);
+  input.classList.add("popup__input_type_error");
   errorElement.textContent = message;
-  errorElement.classList.remove("popup__input_type_error");
   errorElement.classList.add("popup__error_visible");
 };
 
 //функция скрытия ошибок
+//TODO рефакторинг классов и аргументов
 const hideInputError = (input) => {
   const formElement = input.closest(".popup__form");
-  const errorElement = formElement.querySelector(`.${input.id}-input-error`);
-  errorElement.textContent='';
-  errorElement.classList.add("popup__input_type_error");
+  const errorElement = formElement.querySelector(`.${input.id}-error`);
+  input.classList.remove("popup__input_type_error");
+  errorElement.textContent = "";
   errorElement.classList.remove("popup__error_visible");
 };
 

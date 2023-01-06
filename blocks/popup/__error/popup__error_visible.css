@@ -1,6 +1,6 @@
 .popup__error_visible{
+  text-align: left;
   color: #f00;
-  border-top: 1px solid#f00;
   font-style: normal;
   font-weight: 400;
   font-size: 12px;
