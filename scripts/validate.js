@@ -47,9 +47,7 @@ const setEventListeners = (inputArray, button, inactiveButton) => {
 //булевая функция проверки валидности для кнопки
 //принимает на вход список инпутов
 const hasInvalidInput = (input) => {
-  //console.log("validating input :", input);
   return input.some((element) => {
-    //console.log("element: ", element.validity.valid);
     return !element.validity.valid;
   });
 };
