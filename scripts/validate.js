@@ -1,14 +1,30 @@
 //функция отображения ошибок
-const showInputError = () => {};
+const showInputError = (input, message) => {
+  const formElement = input.closest(".popup__form");
+  const errorElement = formElement.querySelector(`.${input.id}-input-error`);
+  errorElement.textContent = message;
+  errorElement.classList.remove("popup__input_type_error");
+  errorElement.classList.add("popup__error_visible");
+};
 
 //функция скрытия ошибок
-const hideInputError = () => {};
+const hideInputError = (input) => {
+  const formElement = input.closest(".popup__form");
+  const errorElement = formElement.querySelector(`.${input.id}-input-error`);
+  errorElement.textContent='';
+  errorElement.classList.add("popup__input_type_error");
+  errorElement.classList.remove("popup__error_visible");
+};
 
 //функция поверки валидности инпута
 //преверяет на валидность и вызывает
 //функции показа/скрытия ошибок
-const checkInputValidity = () => {
-  
+const checkInputValidity = (input) => {
+  if (!input.validity.valid) {
+    showInputError(input, input.validationMessage);
+  } else {
+    hideInputError(input);
+  }
 };
 
 //функция устновки слушателей ввода
@@ -29,9 +45,9 @@ const setEventListeners = (inputArray, button, inactiveButton) => {
 //булевая функция проверки валидности для кнопки
 //принимает на вход список инпутов
 const hasInvalidInput = (input) => {
-  console.log("validating input :", input);
+  //console.log("validating input :", input);
   return input.some((element) => {
-    console.log("element: ", element.validity.valid);
+    //console.log("element: ", element.validity.valid);
     return !element.validity.valid;
   });
 };

@@ -129,7 +129,7 @@ overlay.forEach((item) =>
 //TODO fix function to close popup by clicking ESC button
 popup.forEach((item) =>
   item.addEventListener("keydown", (event) => {
-    console.log(event.key);
+    //console.log(event.key);
     if (event.key === "Escape") {
       event.preventDefault();
       closePopup(event.target.closest(".popup"));
