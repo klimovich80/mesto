@@ -117,7 +117,8 @@ editProfileCloseButton.addEventListener("click", () =>
   closePopup(editPofilePopup)
 );
 addCardCloseButton.addEventListener("click", () => {
-  const form=addCardPopup.querySelector('.popup__form');
+  const form = addCardPopup.querySelector(".popup__form");
+  //TODO убрать класс проверки ошибки
   form.reset();
   closePopup(addCardPopup);
 });

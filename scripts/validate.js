@@ -1,21 +1,20 @@
 //функция отображения ошибок
-//TODO рефакторинг классов и аргументов
+let settings = {};
 const showInputError = (input, message) => {
-  const formElement = input.closest(".popup__form");
+  const formElement = input.closest(settings.formSelector);
   const errorElement = formElement.querySelector(`.${input.id}-error`);
-  input.classList.add("popup__input_type_error");
+  input.classList.add(settings.inputErrorClass);
   errorElement.textContent = message;
-  errorElement.classList.add("popup__error_visible");
+  errorElement.classList.add(settings.errorClass);
 };
 
 //функция скрытия ошибок
-//TODO рефакторинг классов и аргументов
 const hideInputError = (input) => {
-  const formElement = input.closest(".popup__form");
+  const formElement = input.closest(settings.formSelector);
   const errorElement = formElement.querySelector(`.${input.id}-error`);
-  input.classList.remove("popup__input_type_error");
+  input.classList.remove(settings.inputErrorClass);
   errorElement.textContent = "";
-  errorElement.classList.remove("popup__error_visible");
+  errorElement.classList.remove(settings.errorClass);
 };
 
 //функция поверки валидности инпута
@@ -32,14 +31,15 @@ const checkInputValidity = (input) => {
 //функция устновки слушателей ввода
 //настраивает отображение кнопки формы
 //вызывает функцию проверки валидности
-const setEventListeners = (inputArray, button, inactiveButton) => {
+// TODO remove event listener
+const setEventListeners = (inputArray, button) => {
   //проверить нечальное состояние кнопки
-  toggleButtonState(inputArray, button, inactiveButton);
+  toggleButtonState(inputArray, button);
 
   inputArray.forEach((element) => {
     element.addEventListener("input", () => {
       checkInputValidity(element);
-      toggleButtonState(inputArray, button, inactiveButton);
+      toggleButtonState(inputArray, button);
     });
   });
 };
@@ -56,14 +56,16 @@ const hasInvalidInput = (input) => {
 //принимают на вход массив инпутов и кнопку
 //вызвает функцию проверки валидности
 // и активирует/дезактивирует кнопку
-const toggleButtonState = (input, button, inactiveButton) => {
+//TODO решить проблему дезактивации кнопки формы редактирования
+//профиля (она не активна при заполненом профиле на первом вызове)
+const toggleButtonState = (input, button) => {
   //if form inputs are invalid disactivate button
   //and vice versa
   if (hasInvalidInput(input)) {
-    button.classList.add(inactiveButton);
+    button.classList.add(settings.inactiveButtonClass);
     button.disabled = true;
   } else {
-    button.classList.remove(inactiveButton);
+    button.classList.remove(settings.inactiveButtonClass);
     button.disabled = false;
   }
 };
@@ -73,6 +75,7 @@ const toggleButtonState = (input, button, inactiveButton) => {
 //у каждой формы получает список филдсетов и
 //вызывает им функцию установки слушателей
 const enableValidation = (obj) => {
+  settings = obj;
   //массив всех форм на странице
   const formArray = Array.from(document.querySelectorAll(obj.formSelector));
   //работаем с каждой формой
@@ -82,7 +85,7 @@ const enableValidation = (obj) => {
     const button = item.querySelector(obj.submitButtonSelector);
     const inactiveButton = obj.inactiveButtonClass;
     //вызываем функцию навешиваем слушатели на каждый
-    setEventListeners(inputArray, button, inactiveButton);
+    setEventListeners(inputArray, button);
   });
 };
 // включение валидации вызовом enableValidation
