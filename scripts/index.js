@@ -33,8 +33,16 @@ function closePopup(popup) {
   popup.classList.remove("popup_active");
 }
 //открытие попапа
+const keyboardEsc = (event) => {
+  if (event.key === "Escape") {
+    popup.forEach(item=>closePopup(item));
+  }
+  document.removeEventListener("keydown", keyboardEsc);
+};
+
 function openPopup(popup) {
   popup.classList.add("popup_active");
+  document.addEventListener("keydown", keyboardEsc);
 }
 function openAddCardPopup() {
   openPopup(addCardPopup);
@@ -132,13 +140,13 @@ overlay.forEach((item) =>
   )
 );
 //TODO fix function to close popup by clicking ESC button
-popup.forEach((item) =>
-  item.addEventListener("keydown", (event) => {
-    console.log(event.key);
-    if (event.key === "Escape") {
-      closePopup(event.target.closest(".popup"));
-    }
-  })
-);
+// popup.forEach((item) =>
+//   item.addEventListener("keydown", (event) => {
+//     console.log(event.key);
+//     if (event.key === "Escape") {
+//       closePopup(event.target.closest(".popup"));
+//     }
+//   })
+// );
 
 renderInitialCards();

@@ -59,6 +59,7 @@ const hasInvalidInput = (input) => {
 //TODO решить проблему дезактивации кнопки формы редактирования
 //профиля (она не активна при заполненом профиле на первом вызове)
 const toggleButtonState = (input, button) => {
+  console.log("input: ", input);
   //if form inputs are invalid disactivate button
   //and vice versa
   if (hasInvalidInput(input)) {
@@ -83,7 +84,6 @@ const enableValidation = (obj) => {
     //выделяем поля ввода в массив
     const inputArray = Array.from(item.querySelectorAll(obj.inputSelector));
     const button = item.querySelector(obj.submitButtonSelector);
-    const inactiveButton = obj.inactiveButtonClass;
     //вызываем функцию навешиваем слушатели на каждый
     setEventListeners(inputArray, button);
   });
