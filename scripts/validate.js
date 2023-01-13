@@ -1,29 +1,44 @@
 //функция отображения ошибок
-const showInputError = (input, message) => {
-  const formElement = input.closest(settings.formSelector);
-  const errorElement = formElement.querySelector(`.${input.id}-error`);
-  input.classList.add(settings.inputErrorClass);
+const showInputError = (
+  form,
+  inputElement,
+  message,
+  errorClass,
+  inputErrorClass
+) => {
+  const errorElement = form.querySelector(`.${inputElement.id}-error`);
+  inputElement.classList.add(inputErrorClass);
   errorElement.textContent = message;
-  errorElement.classList.add(settings.errorClass);
+  errorElement.classList.add(errorClass);
 };
 
 //функция скрытия ошибок
-const hideInputError = (input) => {
-  const formElement = input.closest(settings.formSelector);
-  const errorElement = formElement.querySelector(`.${input.id}-error`);
-  input.classList.remove(settings.inputErrorClass);
+const hideInputError = (form, inputElement, errorClass, inputErrorClass) => {
+  const errorElement = form.querySelector(`.${inputElement.id}-error`);
+  inputElement.classList.remove(inputErrorClass);
   errorElement.textContent = "";
-  errorElement.classList.remove(settings.errorClass);
+  errorElement.classList.remove(errorClass);
 };
 
 //функция поверки валидности инпута
 //преверяет на валидность и вызывает
 //функции показа/скрытия ошибок
-const checkInputValidity = (input) => {
-  if (!input.validity.valid) {
-    showInputError(input, input.validationMessage);
+const checkInputValidity = (
+  form,
+  inputElement,
+  { errorClass, inputErrorClass, ...rest }
+) => {
+  console.log("form : ", form);
+  if (!inputElement.validity.valid) {
+    showInputError(
+      form,
+      inputElement,
+      inputElement.validationMessage,
+      errorClass,
+      inputErrorClass
+    );
   } else {
-    hideInputError(input);
+    hideInputError(form, inputElement, errorClass, inputErrorClass);
   }
 };
 
@@ -48,7 +63,7 @@ const setEventListeners = (
 
     inputArray.forEach((inputElement) => {
       inputElement.addEventListener("input", () => {
-        checkInputValidity(inputElement);
+        checkInputValidity(form, inputElement, rest);
         console.log("Setting button state on fly");
         toggleButtonState(
           form,
@@ -84,8 +99,6 @@ const toggleButtonState = (
   //if form inputs are invalid disactivate button
   //and vice versa
   const submitButton = form.querySelector(submitButtonSelector);
-  console.log("submitButton: ", submitButton);
-  console.log("inputArray: ", inputArray);
 
   if (hasInvalidInput(inputArray)) {
     submitButton.classList.add(inactiveButtonClass);
