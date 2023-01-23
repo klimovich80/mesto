@@ -1,3 +1,5 @@
+//создаем файл конфигурации
+let configuration = {};
 //функция отображения ошибок
 const showInputError = (
   form,
@@ -28,7 +30,6 @@ const checkInputValidity = (
   inputElement,
   { errorClass, inputErrorClass, ...rest }
 ) => {
-  console.log("form : ", form);
   if (!inputElement.validity.valid) {
     showInputError(
       form,
@@ -64,7 +65,6 @@ const setEventListeners = (
     inputArray.forEach((inputElement) => {
       inputElement.addEventListener("input", () => {
         checkInputValidity(form, inputElement, rest);
-        console.log("Setting button state on fly");
         toggleButtonState(
           form,
           inputArray,
@@ -88,8 +88,6 @@ const hasInvalidInput = (inputArray) => {
 //принимают на вход массив инпутов и кнопку
 //вызвает функцию проверки валидности
 // и активирует/дезактивирует кнопку
-//TODO решить проблему дезактивации кнопки формы редактирования
-//профиля (она не активна при заполненом профиле на первом вызове)
 const toggleButtonState = (
   form,
   inputArray,
@@ -114,11 +112,33 @@ const toggleButtonState = (
 //у каждой формы получает список филдсетов и
 //вызывает им функцию установки слушателей
 const enableValidation = ({ formSelector, ...rest }) => {
+  configuration = { formSelector, ...rest };
   //вызываем функцию навешиваем слушатели на каждый
   setEventListeners(formSelector, rest);
 };
 // включение валидации вызовом enableValidation
 // все настройки передаются при вызове
+
+function clearValidation(form) {
+  const inputList = Array.from(form.querySelectorAll(".popup__input"));
+  //hide inputs errors
+  inputList.forEach((input) =>
+    hideInputError(
+      form,
+      input,
+      configuration.errorClass,
+      configuration.inputErrorClass
+    )
+  );
+  //change button state
+  toggleButtonState(
+    form,
+    inputList,
+    configuration.submitButtonSelector,
+    configuration.inactiveButtonClass
+  );
+}
+
 enableValidation({
   formSelector: ".popup__form",
   inputSelector: ".popup__input",
@@ -127,8 +147,3 @@ enableValidation({
   inputErrorClass: "popup__input_type_error",
   errorClass: "popup__error_visible",
 });
-//TODO Требования к валидации форм.
-//Разбейте код валидации на функции.
-//Вы уже делали это в теме «Валидация форм».
-//Сделайте функцию enableValidation ответственной за включение валидации всех форм.
-//Пусть она принимает как объект настроек все нужные функциям классы и селекторы элементов

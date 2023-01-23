@@ -1,0 +1,14 @@
+.popup__error-text {
+  width: 358px;
+  min-height: 36px;
+  margin: 0;
+  padding: 0;
+  /* border: 1px solid blue; */
+  width: 358px;
+}
+
+@media (max-width: 680px) {
+  .popup__error_text {
+    width: 238px;
+  }
+}

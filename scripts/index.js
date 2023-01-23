@@ -31,6 +31,11 @@ const overlay = document.querySelectorAll(".popup__overlay");
 //закрытие попапа
 function closePopup(popup) {
   popup.classList.remove("popup_active");
+  const form = popup.querySelector(".popup__form");
+  if (form) {
+    form.reset();
+    clearValidation(form);
+  }
 }
 //закрытие попапа по нажатию ESC
 const keyboardEsc = (event) => {
@@ -135,8 +140,8 @@ imageCloseButton.addEventListener("click", () => closePopup(imagePopup));
 //добавление карточек
 addCardButton.addEventListener("click", () => openAddCardPopup());
 //закрытие попапа по клику на оверлей
-overlay.forEach((item) =>
-  item.addEventListener("click", (event) =>
+overlay.forEach((popup) =>
+  popup.addEventListener("click", (event) =>
     closePopup(event.target.closest(".popup"))
   )
 );
