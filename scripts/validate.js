@@ -111,6 +111,7 @@ const toggleButtonState = (
 //у каждой формы получает список филдсетов и
 //вызывает им функцию установки слушателей
 const enableValidation = ({ formSelector, ...rest }) => {
+  console.log("valuidating");
   configuration = { formSelector, ...rest };
   //вызываем функцию навешиваем слушатели на каждый
   setEventListeners(formSelector, rest);
