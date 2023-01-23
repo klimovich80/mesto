@@ -132,8 +132,6 @@ editProfileCloseButton.addEventListener("click", () =>
 );
 addCardCloseButton.addEventListener("click", () => {
   const form = addCardPopup.querySelector(".popup__form");
-  //TODO убрать класс проверки ошибки
-  form.reset();
   closePopup(addCardPopup);
 });
 imageCloseButton.addEventListener("click", () => closePopup(imagePopup));

@@ -46,7 +46,6 @@ const checkInputValidity = (
 //функция устновки слушателей ввода
 //настраивает отображение кнопки формы
 //вызывает функцию проверки валидности
-// TODO remove event listener
 const setEventListeners = (
   formElement,
   { inputSelector, submitButtonSelector, inactiveButtonClass, ...rest }
