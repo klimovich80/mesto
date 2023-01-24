@@ -7,7 +7,7 @@
 }
 
 @media (max-width: 680px) {
-  .popup__error_text {
+  .popup__error-text {
     max-width: 238px;
     padding-left: 24px;
   }
