@@ -48,13 +48,13 @@
     <div class="popup__container">
       <button class="close-button close-button_type_edit" type="button"></button>
       <h2 class="popup__title">Редактировать профиль</h2>
-      <form action="#" class="popup__form" name="popupForm">
+      <form class="popup__form" name="popupForm">
         <input type="text" class="popup__input popup__input_type_name" name="name" id="name" placeholder="Имя"
           required minlength="2" maxlength="40" value="##">
-        <div class="popup__error-text"><span class="name-error"></span></div>
+        <span class="popup__error-text name-error"></span>
         <input type="text" class="popup__input popup__input_type_credentials" name="credentials" id="credentials"
           placeholder="О себе" required minlength="2" maxlength="200" value="##">
-        <div class="popup__error-text"><span class="credentials-error"></span></div>
+        <span class="popup__error-text credentials-error"></span>
         <button type="submit" class="popup__button" value="Сохранить">Сохранить</button>
       </form>
     </div>
@@ -64,13 +64,13 @@
     <div class="popup__container">
       <button class="close-button close-button_type_add" type="button"></button>
       <h2 class="popup__title">Новое место</h2>
-      <form action="#" class="popup__form" name="popupForm">
+      <form class="popup__form" name="popupForm">
         <input type="text" class="popup__input popup__input_type_place" name="place" id="place"
           placeholder="Название" required minlength="2" maxlength="30">
-        <div class="popup__error-text"><span class="place-error"></span></div>
+        <span class="popup__error-text place-error"></span>
         <input type="url" class="popup__input popup__input_type_url" name="url" id="url"
           placeholder="Ссылка на картинку" required>
-        <div class="popup__error-text"><span class="url-error"></span></div>
+        <span class="popup__error-text url-error"></span>
         <button type="submit" class="popup__button" value="Создать">Создать</button>
       </form>
     </div>

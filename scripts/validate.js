@@ -98,14 +98,23 @@ const toggleButtonState = (
   const submitButton = form.querySelector(submitButtonSelector);
 
   if (hasInvalidInput(inputArray)) {
-    submitButton.classList.add(inactiveButtonClass);
-    submitButton.disabled = true;
+    disableButton(submitButton, inactiveButtonClass);
   } else {
-    submitButton.classList.remove(inactiveButtonClass);
-    submitButton.disabled = false;
+    enableButton(submitButton, inactiveButtonClass);
   }
 };
-
+//блокировка сабмит кнопки
+const disableButton = (button, inactiveButtonClass) => {
+  console.log("disabling button");
+  button.classList.add(inactiveButtonClass);
+  button.disabled = true;
+};
+//разблокировка сабмит кнопки
+const enableButton = (button, inactiveButtonClass) => {
+  console.log("enabling button");
+  button.classList.remove(inactiveButtonClass);
+  button.disabled = false;
+};
 //получает весь список форм
 //отключает у каждой поведение по умолчанию
 //у каждой формы получает список филдсетов и
