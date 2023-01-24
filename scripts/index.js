@@ -1,5 +1,4 @@
 //--переменные--
-const popup = document.querySelectorAll(".popup");
 const elements = document.querySelector(".elements__items"); // место вставки карточек
 const template = document
   .querySelector(".template")
@@ -26,11 +25,12 @@ const imagePopup = document.querySelector(".popup_open-image");
 const imageCloseButton = imagePopup.querySelector(".close-button_type_image");
 const imageSource = imagePopup.querySelector(".popup__image");
 const imageCaption = imagePopup.querySelector(".popup__caption");
-const overlay = document.querySelectorAll(".popup__overlay");
+const overlays = document.querySelectorAll(".popup__overlay");
 //--функции--
 //закрытие попапа
 function closePopup(popup) {
   popup.classList.remove("popup_active");
+  document.removeEventListener("keydown", handleEsc);
   const form = popup.querySelector(".popup__form");
   if (form) {
     form.reset();
@@ -38,17 +38,16 @@ function closePopup(popup) {
   }
 }
 //закрытие попапа по нажатию ESC
-const keyboardEsc = (event) => {
+const handleEsc = (event) => {
   if (event.key === "Escape") {
     const activePopup = document.querySelector(".popup_active");
     closePopup(activePopup);
   }
-  document.removeEventListener("keydown", keyboardEsc);
 };
 //открытие попапа
 function openPopup(popup) {
   popup.classList.add("popup_active");
-  document.addEventListener("keydown", keyboardEsc);
+  document.addEventListener("keydown", handleEsc);
 }
 function openAddCardPopup() {
   openPopup(addCardPopup);
@@ -59,10 +58,9 @@ function openEditProfilePopup() {
   openPopup(editPofilePopup);
 }
 //попдписка на заполнение формы
-function submitForm(element) {
-  element.preventDefault();
-  element.target.reset();
-  closePopup(element.target.closest(".popup"));
+function submitForm(event) {
+  event.preventDefault();
+  closePopup(event.target.closest(".popup"));
 }
 function submitAddForm(event) {
   const nameValue = addCardPlace.value;
@@ -79,20 +77,18 @@ function submitEditForm(event) {
 //создание карточек
 function getCard(item) {
   //определяем переменные
-  const cardTemplate = template.cloneNode(true);
-  const image = cardTemplate.querySelector(".element__image");
-  const caption = cardTemplate.querySelector(".element__caption");
-  const trashcan = cardTemplate.querySelector(".element__trash");
-  const like = cardTemplate.querySelector(".element__like");
+  const newCard = template.cloneNode(true);
+  const image = newCard.querySelector(".element__image");
+  const caption = newCard.querySelector(".element__caption");
+  const trashcan = newCard.querySelector(".element__trash");
+  const like = newCard.querySelector(".element__like");
   //присваиваем значения
   image.src = item.link;
   image.alt = item.name;
   caption.textContent = item.name;
   //вешаем события
   //удаления
-  trashcan.addEventListener("click", (event) =>
-    removeCard(event.target.closest(".element"))
-  );
+  trashcan.addEventListener("click", () => removeCard(newCard));
   //лайк
   like.addEventListener("click", (event) => likeCard(event.target));
   //открытие поапа карточки
@@ -111,7 +107,7 @@ function getCard(item) {
   function likeCard(card) {
     card.classList.toggle("element__like_checked");
   }
-  return cardTemplate;
+  return newCard;
 }
 //рендерим
 function renderInitialCards() {
@@ -130,16 +126,17 @@ profileEditButton.addEventListener("click", () => {
 editProfileCloseButton.addEventListener("click", () =>
   closePopup(editPofilePopup)
 );
+
 addCardCloseButton.addEventListener("click", () => {
-  const form = addCardPopup.querySelector(".popup__form");
   closePopup(addCardPopup);
 });
+
 imageCloseButton.addEventListener("click", () => closePopup(imagePopup));
 //добавление карточек
-addCardButton.addEventListener("click", () => openAddCardPopup());
+addCardButton.addEventListener("click", openAddCardPopup);
 //закрытие попапа по клику на оверлей
-overlay.forEach((popup) =>
-  popup.addEventListener("click", (event) =>
+overlays.forEach((overlay) =>
+  overlay.addEventListener("click", (event) =>
     closePopup(event.target.closest(".popup"))
   )
 );
