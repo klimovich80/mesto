@@ -1,5 +1,3 @@
-//создаем файл конфигурации
-let configuration = {};
 //функция отображения ошибок
 const showInputError = (
   form,
@@ -96,6 +94,7 @@ const toggleButtonState = (
   //if form inputs are invalid disactivate button
   //and vice versa
   const submitButton = form.querySelector(submitButtonSelector);
+  console.log('form: ', form);
 
   if (hasInvalidInput(inputArray)) {
     disableButton(submitButton, inactiveButtonClass);
@@ -105,12 +104,14 @@ const toggleButtonState = (
 };
 //блокировка сабмит кнопки
 const disableButton = (button, inactiveButtonClass) => {
+  console.log('button: ', button);
   console.log("disabling button");
   button.classList.add(inactiveButtonClass);
   button.disabled = true;
 };
 //разблокировка сабмит кнопки
 const enableButton = (button, inactiveButtonClass) => {
+  console.log('button: ', button);
   console.log("enabling button");
   button.classList.remove(inactiveButtonClass);
   button.disabled = false;
@@ -120,7 +121,6 @@ const enableButton = (button, inactiveButtonClass) => {
 //у каждой формы получает список филдсетов и
 //вызывает им функцию установки слушателей
 const enableValidation = ({ formSelector, ...rest }) => {
-  configuration = { formSelector, ...rest };
   //вызываем функцию навешиваем слушатели на каждый
   setEventListeners(formSelector, rest);
 };
@@ -134,16 +134,16 @@ function clearValidation(form) {
     hideInputError(
       form,
       input,
-      configuration.errorClass,
-      configuration.inputErrorClass
+      validationConfig.errorClass,
+      validationConfig.inputErrorClass
     )
   );
   //change button state
   toggleButtonState(
     form,
     inputList,
-    configuration.submitButtonSelector,
-    configuration.inactiveButtonClass
+    validationConfig.submitButtonSelector,
+    validationConfig.inactiveButtonClass
   );
 }
 
