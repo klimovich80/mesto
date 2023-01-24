@@ -94,7 +94,6 @@ const toggleButtonState = (
   //if form inputs are invalid disactivate button
   //and vice versa
   const submitButton = form.querySelector(submitButtonSelector);
-  console.log('form: ', form);
 
   if (hasInvalidInput(inputArray)) {
     disableButton(submitButton, inactiveButtonClass);
@@ -104,15 +103,11 @@ const toggleButtonState = (
 };
 //блокировка сабмит кнопки
 const disableButton = (button, inactiveButtonClass) => {
-  console.log('button: ', button);
-  console.log("disabling button");
   button.classList.add(inactiveButtonClass);
   button.disabled = true;
 };
 //разблокировка сабмит кнопки
 const enableButton = (button, inactiveButtonClass) => {
-  console.log('button: ', button);
-  console.log("enabling button");
   button.classList.remove(inactiveButtonClass);
   button.disabled = false;
 };
@@ -147,11 +142,4 @@ function clearValidation(form) {
   );
 }
 
-enableValidation({
-  formSelector: ".popup__form",
-  inputSelector: ".popup__input",
-  submitButtonSelector: ".popup__button",
-  inactiveButtonClass: "popup__button_disabled",
-  inputErrorClass: "popup__input_type_error",
-  errorClass: "popup__error_visible",
-});
+enableValidation(validationConfig);
