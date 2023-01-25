@@ -122,24 +122,22 @@ const enableValidation = ({ formSelector, ...rest }) => {
 // включение валидации вызовом enableValidation
 // все настройки передаются при вызове
 
-function clearValidation(form) {
+function clearValidation(
+  form,
+  {
+    errorClass,
+    inputErrorClass,
+    submitButtonSelector,
+    inactiveButtonClass
+  }
+) {
   const inputList = Array.from(form.querySelectorAll(".popup__input"));
   //hide inputs errors
   inputList.forEach((input) =>
-    hideInputError(
-      form,
-      input,
-      validationConfig.errorClass,
-      validationConfig.inputErrorClass
-    )
+    hideInputError(form, input, errorClass, inputErrorClass)
   );
   //change button state
-  toggleButtonState(
-    form,
-    inputList,
-    validationConfig.submitButtonSelector,
-    validationConfig.inactiveButtonClass
-  );
+  toggleButtonState(form, inputList, submitButtonSelector, inactiveButtonClass);
 }
 
 enableValidation(validationConfig);

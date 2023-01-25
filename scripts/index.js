@@ -34,7 +34,7 @@ function closePopup(popup) {
   const form = popup.querySelector(".popup__form");
   if (form) {
     form.reset();
-    clearValidation(form);
+    clearValidation(form, validationConfig);
   }
 }
 //закрытие попапа по нажатию ESC
