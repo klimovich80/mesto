@@ -131,7 +131,7 @@ function clearValidation(
     inactiveButtonClass
   }
 ) {
-  const inputList = Array.from(form.querySelectorAll(".popup__input"));
+  const inputList = Array.from(form.querySelectorAll(inputSelector));
   //hide inputs errors
   inputList.forEach((input) =>
     hideInputError(form, input, errorClass, inputErrorClass)
