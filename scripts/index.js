@@ -1,4 +1,6 @@
-//import {Card} from './Card';
+import { Card } from "./Card.js";
+import { initialCards, validationConfig } from "./constants.js";
+
 //--переменные--
 const elements = document.querySelector(".elements__items"); // место вставки карточек
 const template = document
@@ -35,7 +37,7 @@ function closePopup(popup) {
   const form = popup.querySelector(".popup__form");
   if (form) {
     form.reset();
-    clearValidation(form, validationConfig);
+    clearValidation(form, validationConfig); //TODO fix it
   }
 }
 //закрытие попапа по нажатию ESC
@@ -76,43 +78,46 @@ function submitEditForm(event) {
   submitForm(event);
 }
 //создание карточек
-function getCard(item) {
-  //определяем переменные
-  const newCard = template.cloneNode(true);
-  const image = newCard.querySelector(".element__image");
-  const caption = newCard.querySelector(".element__caption");
-  const trashcan = newCard.querySelector(".element__trash");
-  const like = newCard.querySelector(".element__like");
-  //присваиваем значения
-  image.src = item.link;
-  image.alt = item.name;
-  caption.textContent = item.name;
-  //вешаем события
-  //удаления
-  trashcan.addEventListener("click", () => removeCard(newCard));
-  //лайк
-  like.addEventListener("click", (event) => likeCard(event.target));
-  //открытие поапа карточки
-  image.addEventListener("click", () => {
-    imageSource.src = item.link;
-    imageSource.alt = item.name;
-    imageCaption.textContent = item.name;
-    openPopup(imagePopup);
-  });
-  //функции
-  //удаления
-  function removeCard(card) {
-    card.remove();
-  }
-  //лайка
-  function likeCard(card) {
-    card.classList.toggle("element__like_checked");
-  }
-  return newCard;
-}
+// function getCard(item) {
+//   //определяем переменные
+//   const newCard = template.cloneNode(true);
+//   const image = newCard.querySelector(".element__image");
+//   const caption = newCard.querySelector(".element__caption");
+//   const trashcan = newCard.querySelector(".element__trash");
+//   const like = newCard.querySelector(".element__like");
+//   //присваиваем значения
+//   image.src = item.link;
+//   image.alt = item.name;
+//   caption.textContent = item.name;
+//   //вешаем события
+//   //удаления
+//   trashcan.addEventListener("click", () => removeCard(newCard));
+//   //лайк
+//   like.addEventListener("click", (event) => likeCard(event.target));
+//   //открытие поапа карточки
+//   image.addEventListener("click", () => {
+//     imageSource.src = item.link;
+//     imageSource.alt = item.name;
+//     imageCaption.textContent = item.name;
+//     openPopup(imagePopup);
+//   });
+//   //функции
+//   //удаления
+//   function removeCard(card) {
+//     card.remove();
+//   }
+//   //лайка
+//   function likeCard(card) {
+//     card.classList.toggle("element__like_checked");
+//   }
+//   return newCard;
+// }
 //рендерим карточки
 (function renderInitialCards() {
-  const cards = initialCards.map(getCard);
+  const cards = initialCards.map((card) => {
+    const newCard = new Card(card, template);
+    return newCard.getCard();
+  });
   elements.append(...cards);
 })();
 //--обработчики событий--
@@ -142,4 +147,4 @@ overlays.forEach((overlay) =>
   )
 );
 
-//renderInitialCards();
+//renderInitialCards(); //заменен на IIFE

@@ -28,7 +28,7 @@ export class Card {
     //клик на мусорке
     this._element
       .querySelector(".element__trash")
-      .addEventListener("click", () => _removeCard(card));
+      .addEventListener("click", () => _removeCard(this._element));
     //клик на сердечке
     this._element
       .querySelector(".element__like")

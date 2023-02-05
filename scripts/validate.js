@@ -1,4 +1,4 @@
-
+import {validationConfig} from './constants.js';
 //функция отображения ошибок
 const showInputError = (
   form,
