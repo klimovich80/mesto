@@ -25,7 +25,6 @@ export class Card {
   }
   //приватный метод навешивания событий
   _setEventListeners() {
-    console.log('this._element: ', this._element);
     //клик на мусорке
     this._element
       .querySelector(".element__trash")
@@ -38,10 +37,13 @@ export class Card {
     this._element
       .querySelector(".element__image")
       .addEventListener("click", () => {
-        this._element.querySelector(".popup__image").src = this._link;
-        this._element.querySelector(".popup__image").alt = this._name;
-        this._element.querySelector(".popup__caption").textContent = this._name;
-        openPopup(this._element.querySelector(".popup_open-image"));
+        const _popupImage = document.querySelector(".popup__image");
+        const _popupCaption = document.querySelector(".popup__caption");
+        const _popup = document.querySelector(".popup_open-image");
+        _popupImage.src = this._link;
+        _popupImage.alt = this._name;
+        _popupCaption.textContent = this._name;
+        openPopup(_popup);
       });
   }
   //приватный метод удаления карточки
@@ -50,7 +52,9 @@ export class Card {
   }
   //приватный метод обработки лайка
   _likeCard() {
-    this._element.querySelector('.element__like').classList.toggle("element__like_checked");
+    this._element
+      .querySelector(".element__like")
+      .classList.toggle("element__like_checked");
   }
 }
 //TODO проверить закрытие картинки попапа карты по клику на крестике

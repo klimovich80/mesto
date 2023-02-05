@@ -77,47 +77,15 @@ function submitEditForm(event) {
   profileCredentials.textContent = editProfileCredentials.value;
   submitForm(event);
 }
-//создание карточек
-// function getCard(item) {
-//   //определяем переменные
-//   const newCard = template.cloneNode(true);
-//   const image = newCard.querySelector(".element__image");
-//   const caption = newCard.querySelector(".element__caption");
-//   const trashcan = newCard.querySelector(".element__trash");
-//   const like = newCard.querySelector(".element__like");
-//   //присваиваем значения
-//   image.src = item.link;
-//   image.alt = item.name;
-//   caption.textContent = item.name;
-//   //вешаем события
-//   //удаления
-//   trashcan.addEventListener("click", () => removeCard(newCard));
-//   //лайк
-//   like.addEventListener("click", (event) => likeCard(event.target));
-//   //открытие поапа карточки
-//   image.addEventListener("click", () => {
-//     imageSource.src = item.link;
-//     imageSource.alt = item.name;
-//     imageCaption.textContent = item.name;
-//     openPopup(imagePopup);
-//   });
-//   //функции
-//   //удаления
-//   function removeCard(card) {
-//     card.remove();
-//   }
-//   //лайка
-//   function likeCard(card) {
-//     card.classList.toggle("element__like_checked");
-//   }
-//   return newCard;
-// }
 //рендерим карточки
 (function renderInitialCards() {
   const cards = initialCards.map((card) => {
+    //делаем карточку на основе класса
     const newCard = new Card(card, template);
+    //получаем готовую карточку
     return newCard.getCard();
   });
+  //отрисовываем где нужно
   elements.append(...cards);
 })();
 //--обработчики событий--
