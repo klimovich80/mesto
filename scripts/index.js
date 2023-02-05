@@ -1,3 +1,4 @@
+
 //--переменные--
 const elements = document.querySelector(".elements__items"); // место вставки карточек
 const template = document
@@ -110,10 +111,10 @@ function getCard(item) {
   return newCard;
 }
 //рендерим
-function renderInitialCards() {
+(function renderInitialCards() {
   const cards = initialCards.map(getCard);
   elements.append(...cards);
-}
+})();
 //--обработчики событий--
 //отправка форм
 editPofilePopup.addEventListener("submit", (event) => submitEditForm(event));
@@ -141,4 +142,4 @@ overlays.forEach((overlay) =>
   )
 );
 
-renderInitialCards();
+//renderInitialCards();
