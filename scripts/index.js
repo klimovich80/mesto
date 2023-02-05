@@ -1,4 +1,4 @@
-
+//import {Card} from './Card';
 //--переменные--
 const elements = document.querySelector(".elements__items"); // место вставки карточек
 const template = document
@@ -110,7 +110,7 @@ function getCard(item) {
   }
   return newCard;
 }
-//рендерим
+//рендерим карточки
 (function renderInitialCards() {
   const cards = initialCards.map(getCard);
   elements.append(...cards);
