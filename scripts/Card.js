@@ -25,14 +25,15 @@ export class Card {
   }
   //приватный метод навешивания событий
   _setEventListeners() {
+    console.log('this._element: ', this._element);
     //клик на мусорке
     this._element
       .querySelector(".element__trash")
-      .addEventListener("click", () => _removeCard(this._element));
+      .addEventListener("click", () => this._removeCard(this._element));
     //клик на сердечке
     this._element
       .querySelector(".element__like")
-      .addEventListener("click", (event) => _likeCard(event.target));
+      .addEventListener("click", (event) => this._likeCard(event.target));
     //клика на карточке
     this._element
       .querySelector(".element__image")
@@ -49,7 +50,7 @@ export class Card {
   }
   //приватный метод обработки лайка
   _likeCard() {
-    this._element.classList.toggle("element__like_checked");
+    this._element.querySelector('.element__like').classList.toggle("element__like_checked");
   }
 }
 //TODO проверить закрытие картинки попапа карты по клику на крестике
