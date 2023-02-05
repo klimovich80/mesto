@@ -1,17 +1,20 @@
 export class Card {
+  //инициируем приватные переменные
   constructor(data, templateSelector) {
     this._name = data.name;
     this._link = data.link;
     this._templateSelector = templateSelector;
   }
+  //копируем разметку
   _getTemplate() {
     const _cardElement = this._templateSelector.cloneNode(true);
     return _cardElement;
   }
+  //публичный метод создания карточки
   getCard() {
-    //определяем переменные
+    //определяем переменную
     this._element = this._getTemplate();
-    //вызываем обработчик событий
+    //навешиваем события
     this._setEventListeners();
     //присваиваем значения
     this._element.querySelector(".element__image").src = this._link;
@@ -20,17 +23,17 @@ export class Card {
     //взвращаем готовую карточку
     return this._element;
   }
-
+  //приватный метод навешивания событий
   _setEventListeners() {
-    //удаления
+    //клик на мусорке
     this._element
       .querySelector(".element__trash")
       .addEventListener("click", () => _removeCard(card));
-    //лайк
+    //клик на сердечке
     this._element
       .querySelector(".element__like")
       .addEventListener("click", (event) => _likeCard(event.target));
-    //открытие поапа карточки
+    //клика на карточке
     this._element
       .querySelector(".element__image")
       .addEventListener("click", () => {
@@ -40,12 +43,13 @@ export class Card {
         openPopup(this._element.querySelector(".popup_open-image"));
       });
   }
-  //удаления
+  //приватный метод удаления карточки
   _removeCard() {
     this._element.remove();
   }
-  //лайка
+  //приватный метод обработки лайка
   _likeCard() {
     this._element.classList.toggle("element__like_checked");
   }
 }
+//TODO проверить закрытие картинки попапа карты по клику на крестике
