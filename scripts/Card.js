@@ -5,6 +5,8 @@ export class Card {
     this._link = data.link;
     this._templateSelector = templateSelector;
   }
+
+
   //копируем разметку
   _getTemplate() {
     const _cardElement = this._templateSelector.cloneNode(true);
@@ -43,7 +45,7 @@ export class Card {
         _popupImage.src = this._link;
         _popupImage.alt = this._name;
         _popupCaption.textContent = this._name;
-        openPopup(_popup);
+        _openPopup();
       });
   }
   //приватный метод удаления карточки
@@ -55,6 +57,10 @@ export class Card {
     this._element
       .querySelector(".element__like")
       .classList.toggle("element__like_checked");
+  }
+  //
+  _openPopup(){
+    console.log("opening popup");
   }
 }
 //TODO проверить закрытие картинки попапа карты по клику на крестике
