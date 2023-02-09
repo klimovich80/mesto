@@ -81,7 +81,7 @@ function submitEditForm(event) {
 (function renderInitialCards() {
   const cards = initialCards.map((card) => {
     //делаем карточку на основе класса
-    const newCard = new Card(card, template,openPopup);
+    const newCard = new Card(card, template);
     //получаем готовую карточку
     return newCard.getCard();
   });

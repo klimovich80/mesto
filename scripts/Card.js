@@ -1,7 +1,7 @@
 import { openPopup, imagePopup, imageSource, imageCaption } from "./index.js";
 export class Card {
   //инициируем приватные переменные
-  constructor(data, templateSelector, openPopup) {
+  constructor(data, templateSelector) {
     this._name = data.name;
     this._link = data.link;
     this._templateSelector = templateSelector;
