@@ -1,11 +1,12 @@
+import { openPopup } from "./index.js";
 export class Card {
   //инициируем приватные переменные
-  constructor(data, templateSelector) {
+  constructor(data, templateSelector, openPopup) {
     this._name = data.name;
     this._link = data.link;
     this._templateSelector = templateSelector;
+    this._openPopup = openPopup;
   }
-
 
   //копируем разметку
   _getTemplate() {
@@ -45,7 +46,7 @@ export class Card {
         _popupImage.src = this._link;
         _popupImage.alt = this._name;
         _popupCaption.textContent = this._name;
-        _openPopup();
+        this._openPopup(_popup);
       });
   }
   //приватный метод удаления карточки
@@ -57,10 +58,6 @@ export class Card {
     this._element
       .querySelector(".element__like")
       .classList.toggle("element__like_checked");
-  }
-  //
-  _openPopup(){
-    console.log("opening popup");
   }
 }
 //TODO проверить закрытие картинки попапа карты по клику на крестике

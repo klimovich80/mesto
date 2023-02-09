@@ -48,7 +48,8 @@ const handleEsc = (event) => {
   }
 };
 //открытие попапа
-function openPopup(popup) {
+export function openPopup(popup) {
+  console.log('popup: ', popup);
   popup.classList.add("popup_active");
   document.addEventListener("keydown", handleEsc);
 }
@@ -81,7 +82,7 @@ function submitEditForm(event) {
 (function renderInitialCards() {
   const cards = initialCards.map((card) => {
     //делаем карточку на основе класса
-    const newCard = new Card(card, template);
+    const newCard = new Card(card, template,openPopup);
     //получаем готовую карточку
     return newCard.getCard();
   });
