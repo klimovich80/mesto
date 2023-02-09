@@ -24,10 +24,10 @@ const addCardCloseButton = addCardPopup.querySelector(".close-button_type_add");
 const addCardPlace = addCardPopup.querySelector(".popup__input_type_place");
 const addCardUrl = addCardPopup.querySelector(".popup__input_type_url");
 const addCardButton = document.querySelector(".profile__add-button"); //кнопка добавления карточки
-const imagePopup = document.querySelector(".popup_open-image");
+export const imagePopup = document.querySelector(".popup_open-image");
 const imageCloseButton = imagePopup.querySelector(".close-button_type_image");
-const imageSource = imagePopup.querySelector(".popup__image");
-const imageCaption = imagePopup.querySelector(".popup__caption");
+export const imageSource = imagePopup.querySelector(".popup__image");
+export const imageCaption = imagePopup.querySelector(".popup__caption");
 const overlays = document.querySelectorAll(".popup__overlay");
 //--функции--
 //закрытие попапа
@@ -49,7 +49,6 @@ const handleEsc = (event) => {
 };
 //открытие попапа
 export function openPopup(popup) {
-  console.log('popup: ', popup);
   popup.classList.add("popup_active");
   document.addEventListener("keydown", handleEsc);
 }

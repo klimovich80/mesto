@@ -1,4 +1,4 @@
-import { openPopup } from "./index.js";
+import { openPopup, imagePopup, imageSource, imageCaption } from "./index.js";
 export class Card {
   //инициируем приватные переменные
   constructor(data, templateSelector, openPopup) {
@@ -6,6 +6,9 @@ export class Card {
     this._link = data.link;
     this._templateSelector = templateSelector;
     this._openPopup = openPopup;
+    this._imagePopup = imagePopup;
+    this._imageSource = imageSource;
+    this._imageCaption = imageCaption;
   }
 
   //копируем разметку
@@ -40,13 +43,10 @@ export class Card {
     this._element
       .querySelector(".element__image")
       .addEventListener("click", () => {
-        const _popupImage = document.querySelector(".popup__image");
-        const _popupCaption = document.querySelector(".popup__caption");
-        const _popup = document.querySelector(".popup_open-image");
-        _popupImage.src = this._link;
-        _popupImage.alt = this._name;
-        _popupCaption.textContent = this._name;
-        this._openPopup(_popup);
+        this._imageSource.src = this._link;
+        this._imageSource.alt = this._name;
+        this._imageCaption.textContent = this._name;
+        this._openPopup(this._imagePopup);
       });
   }
   //приватный метод удаления карточки
