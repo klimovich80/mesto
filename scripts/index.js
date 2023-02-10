@@ -32,17 +32,14 @@ export const imageCaption = imagePopup.querySelector(".popup__caption");
 const overlays = document.querySelectorAll(".popup__overlay");
 
 const editProfileValidation = new FormValidator(
-    validationConfig,
-    editPofilePopup
-  );
+  validationConfig,
+  editPofilePopup
+);
 
-  const addCardValidation = new FormValidator(
-    validationConfig,
-    addCardPopup
-  );
+const addCardValidation = new FormValidator(validationConfig, addCardPopup);
 
-  editProfileValidation.enableValidation();
-  addCardValidation.enableValidation();
+editProfileValidation.enableValidation();
+addCardValidation.enableValidation();
 //--функции--
 //закрытие попапа
 function closePopup(popup) {
@@ -81,14 +78,12 @@ function submitForm(event) {
   closePopup(event.target.closest(".popup"));
 }
 function submitAddForm(event) {
-  submitForm(event);
   const nameValue = addCardPlace.value;
-  console.log('nameValue: ', nameValue);
   const urlValue = addCardUrl.value;
-  console.log('urlValue: ', urlValue);
-  const newCard = new Card({ name: nameValue, link: urlValue },template).getCard();
-  console.log('newCard: ', newCard);
-  elements.prepend(newCard);
+  submitForm(event);
+  elements.prepend(
+    new Card({ name: nameValue, link: urlValue }, template).getCard()
+  );
 }
 function submitEditForm(event) {
   profileName.textContent = editProfileName.value;
