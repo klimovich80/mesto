@@ -81,11 +81,14 @@ function submitForm(event) {
   closePopup(event.target.closest(".popup"));
 }
 function submitAddForm(event) {
-  const nameValue = addCardPlace.value;
-  const urlValue = addCardUrl.value;
-  const newCard = getCard({ name: nameValue, link: urlValue });
-  elements.prepend(newCard);
   submitForm(event);
+  const nameValue = addCardPlace.value;
+  console.log('nameValue: ', nameValue);
+  const urlValue = addCardUrl.value;
+  console.log('urlValue: ', urlValue);
+  const newCard = new Card({ name: nameValue, link: urlValue },template).getCard();
+  console.log('newCard: ', newCard);
+  elements.prepend(newCard);
 }
 function submitEditForm(event) {
   profileName.textContent = editProfileName.value;
@@ -96,9 +99,7 @@ function submitEditForm(event) {
 (function renderInitialCards() {
   const cards = initialCards.map((card) => {
     //делаем карточку на основе класса
-    const newCard = new Card(card, template);
-    //получаем готовую карточку
-    return newCard.getCard();
+    return new Card(card, template).getCard();
   });
   //отрисовываем где нужно
   elements.append(...cards);
@@ -129,5 +130,3 @@ overlays.forEach((overlay) =>
     closePopup(event.target.closest(".popup"))
   )
 );
-
-//renderInitialCards(); //заменен на IIFE

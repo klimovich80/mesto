@@ -9,45 +9,47 @@ export class FormValidator {
     this._validationElement = validationElement.querySelector(
       this._formSelector
     );
-
     this._submitButton = this._validationElement.querySelector(
       this._submitButtonSelector
     );
-
     this._inputArray = Array.from(
       this._validationElement.querySelectorAll(this._inputSelector)
     );
   }
-
+  //метод инициации валидации формы
   enableValidation() {
+    //вешаем события
     this._setEventListeners();
   }
-
+  //метод очистки формы от показанных ошибок при открытии формы
   clearValidation() {
     this._inputArray.forEach((_input) => {
+      //прячем ошибки
       this._hideInputError(_input, this._getErrorElement(_input));
     });
+    //изменяем состояние кнопки на соответсвующее
     this._toggleButtonState();
   }
-
+  //метод навешивания слушателей событий
   _setEventListeners() {
-    //проверить нечальное состояние кнопки
+    //изменяем состояние кнопки на соответсвующее
     this._toggleButtonState();
-
+    //проверяем каждого валидность поля
     this._inputArray.forEach((_input) => {
       _input.addEventListener("input", () => {
         this._checkInputValidity(_input);
+        //изменяем состояние кнопки на соответсвующее
         this._toggleButtonState();
       });
     });
   }
-
+  //метод проверки валидности поля
   _hasInvalidInput() {
     return this._inputArray.some((_input) => {
       return !_input.validity.valid;
     });
   }
-
+  //метод установки активности/неактивности для кнопки
   _toggleButtonState() {
     if (this._hasInvalidInput()) {
       this._disableButton();
@@ -55,6 +57,7 @@ export class FormValidator {
       this._enableButton();
     }
   }
+  //метод определяющий показ/скрытие ошибок
   _checkInputValidity(_input) {
     if (!_input.validity.valid) {
       this._showInputError(_input, this._getErrorElement(_input));
@@ -62,28 +65,29 @@ export class FormValidator {
       this._hideInputError(_input, this._getErrorElement(_input));
     }
   }
-
+  //метод показа ошибок
   _showInputError(_input, _errorElement) {
     _input.classList.add(this._inputErrorClass);
     _errorElement.textContent = _input.validationMessage;
     _errorElement.classList.add(this._errorClass);
   }
+  //метод скрытия ошибок
   _hideInputError(_input, _errorElement) {
     _input.classList.remove(this._inputErrorClass);
     _errorElement.textContent = "";
     _errorElement.classList.remove(this._errorClass);
   }
-
+  //метод отключения кнопки
   _disableButton() {
     this._submitButton.classList.add(this._inactiveButtonClass);
     this._submitButton.disabled = true;
   }
-
+  //метод включения кнопки
   _enableButton() {
     this._submitButton.classList.remove(this._inactiveButtonClass);
     this._submitButton.disabled = false;
   }
-
+  //метод определения места где ошибки показываются
   _getErrorElement(_input) {
     return this._validationElement.querySelector(`.${_input.id}-error`);
   }
