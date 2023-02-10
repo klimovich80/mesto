@@ -1,4 +1,6 @@
 import { openPopup, imagePopup, imageSource, imageCaption } from "./index.js";
+//TODO перенести функцию открытия из импорта в настройки
+//посмотреть, можно ли вообще обойтись без импорта
 export class Card {
   //инициируем приватные переменные
   constructor(data, templateSelector) {
