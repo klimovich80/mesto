@@ -1,9 +1,7 @@
-import { openPopup, imagePopup, imageSource, imageCaption } from "./index.js";
-//TODO перенести функцию открытия из импорта в настройки
-//посмотреть, можно ли вообще обойтись без импорта
+import { imagePopup, imageSource, imageCaption } from "./index.js";
 export class Card {
   //инициируем приватные переменные
-  constructor(data, templateSelector) {
+  constructor(data, templateSelector, openPopup) {
     this._name = data.name;
     this._link = data.link;
     this._templateSelector = templateSelector;
@@ -62,4 +60,3 @@ export class Card {
       .classList.toggle("element__like_checked");
   }
 }
-//TODO проверить закрытие картинки попапа карты по клику на крестике

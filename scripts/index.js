@@ -58,7 +58,7 @@ const handleEsc = (event) => {
   }
 };
 //открытие попапа
-export function openPopup(popup) {
+function openPopup(popup) {
   popup.classList.add("popup_active");
   document.addEventListener("keydown", handleEsc);
 }
@@ -82,7 +82,7 @@ function submitAddForm(event) {
   const urlValue = addCardUrl.value;
   submitForm(event);
   elements.prepend(
-    new Card({ name: nameValue, link: urlValue }, template).getCard()
+    new Card({ name: nameValue, link: urlValue }, template, openPopup).getCard()
   );
 }
 function submitEditForm(event) {
@@ -94,7 +94,7 @@ function submitEditForm(event) {
 (function renderInitialCards() {
   const cards = initialCards.map((card) => {
     //делаем карточку на основе класса
-    return new Card(card, template).getCard();
+    return new Card(card, template, openPopup).getCard();
   });
   //отрисовываем где нужно
   elements.append(...cards);
