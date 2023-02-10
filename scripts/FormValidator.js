@@ -1,4 +1,4 @@
-class FormValidator {
+export class FormValidator {
   constructor(validationConfig, validationElement) {
     this._formSelector = validationConfig.formSelector;
     this._inputSelector = validationConfig.inputSelector;
@@ -6,17 +6,27 @@ class FormValidator {
     this._inactiveButtonClass = validationConfig.inactiveButtonClass;
     this._inputErrorClass = validationConfig.inputErrorClass;
     this._errorClass = validationConfig.errorClass;
-    this._validationElement = validationElement;
+    this._validationElement = validationElement.querySelector(this._formSelector);
+
+    this._submitButton=this._validationElement.querySelector(this._submitButtonSelector);
   }
 
   enableValidation() {
     this._setEventListeners();
   }
 
+  clearValidation() {
+    const _inputArray=Array.from(this._validationElement).querySelectorAll(this._inputSelector);
+    _inputArray.forEach(_input=>{
+      this._hideInputError();
+    });
+    this._toggleButtonState();
+  }
+
   _setEventListeners() {
-    const _inputArray = Array.from(
-      this._validationElement.querySelectorAll(this._inputSelector)
+    const _inputArray = Array.from(this._validationElement.querySelectorAll(this._inputSelector)
     );
+
     //проверить нечальное состояние кнопки
     this._toggleButtonState(_inputArray);
 
@@ -50,25 +60,30 @@ class FormValidator {
   }
 
   _showInputError(_input) {
-    const _errorElement=this._validationElement.querySelector(`.${_input.id}-error`);
+    const _errorElement = this._validationElement.querySelector(
+      `.${_input.id}-error`
+    );
     _errorElement.classList.add(this._inputErrorClass);
-    _errorElement.textContent=_input.validationMessage;
+    _errorElement.textContent = _input.validationMessage;
     _errorElement.classList.add(this._errorClass);
   }
   _hideInputError(_input) {
-    const _errorElement=this._validationElement.querySelector(`.${_input.id}-error`);
+    const _errorElement = this._validationElement.querySelector(
+      `.${_input.id}-error`
+    );
     _errorElement.classList.remove(this._inputErrorClass);
-    _errorElement.textContent="";
+    _errorElement.textContent = "";
     _errorElement.classList.remove(this._errorClass);
   }
 
   _disableButton() {
-    this._submitButtonSelector.classList.add(this._inactiveButtonClass);
-    this._submitButtonSelector.disabled = true;
+    this._submitButton.classList.add(this._inactiveButtonClass);
+    this._submitButton.disabled = true;
   }
 
   _enableButton() {
-    this._submitButtonSelector.classList.remove(this._inactiveButtonClass);
-    this._submitButtonSelector.disabled = false;
+    console.log('this._submitButtonSelector: ', this._submitButtonSelector);
+    this._submitButton.classList.remove(this._inactiveButtonClass);
+    this._submitButton.disabled = false;
   }
 }

@@ -1,4 +1,5 @@
 import { Card } from "./Card.js";
+import { FormValidator } from "./FormValidator.js";
 import { initialCards, validationConfig } from "./constants.js";
 
 //--переменные--
@@ -29,6 +30,13 @@ const imageCloseButton = imagePopup.querySelector(".close-button_type_image");
 export const imageSource = imagePopup.querySelector(".popup__image");
 export const imageCaption = imagePopup.querySelector(".popup__caption");
 const overlays = document.querySelectorAll(".popup__overlay");
+
+const editProfileValidation = new FormValidator(
+    validationConfig,
+    editPofilePopup
+  );
+
+  editProfileValidation.enableValidation();
 //--функции--
 //закрытие попапа
 function closePopup(popup) {
@@ -37,7 +45,6 @@ function closePopup(popup) {
   const form = popup.querySelector(".popup__form");
   if (form) {
     form.reset();
-    clearValidation(form, validationConfig); //TODO fix it
   }
 }
 //закрытие попапа по нажатию ESC

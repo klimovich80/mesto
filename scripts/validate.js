@@ -141,4 +141,4 @@ function clearValidation(
   toggleButtonState(form, inputList, submitButtonSelector, inactiveButtonClass);
 }
 
-enableValidation(validationConfig);
+//enableValidation(validationConfig);
