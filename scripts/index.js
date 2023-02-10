@@ -36,7 +36,13 @@ const editProfileValidation = new FormValidator(
     editPofilePopup
   );
 
+  const addCardValidation = new FormValidator(
+    validationConfig,
+    addCardPopup
+  );
+
   editProfileValidation.enableValidation();
+  addCardValidation.enableValidation();
 //--функции--
 //закрытие попапа
 function closePopup(popup) {
@@ -60,9 +66,11 @@ export function openPopup(popup) {
   document.addEventListener("keydown", handleEsc);
 }
 function openAddCardPopup() {
+  addCardValidation.clearValidation();
   openPopup(addCardPopup);
 }
 function openEditProfilePopup() {
+  editProfileValidation.clearValidation();
   editProfileName.value = profileName.textContent;
   editProfileCredentials.value = profileCredentials.textContent;
   openPopup(editPofilePopup);
