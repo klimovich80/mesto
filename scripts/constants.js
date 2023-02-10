@@ -1,5 +1,4 @@
-
-export const initialCards = [
+const initialCards = [
   {
     name: "Архыз",
     link:
@@ -32,7 +31,7 @@ export const initialCards = [
   },
 ];
 
-export const validationConfig = {
+const validationConfig = {
   formSelector: ".popup__form",
   inputSelector: ".popup__input",
   submitButtonSelector: ".popup__button",
@@ -40,3 +39,5 @@ export const validationConfig = {
   inputErrorClass: "popup__input_type_error",
   errorClass: "popup__error_visible",
 };
+
+export { initialCards, validationConfig };
