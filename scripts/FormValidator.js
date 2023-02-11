@@ -23,6 +23,8 @@ export class FormValidator {
   }
   //метод очистки формы от показанных ошибок при открытии формы
   clearValidation() {
+    //очищаем форму от предыдущих данных
+    this._validationElement.reset();
     this._inputArray.forEach((_input) => {
       //прячем ошибки
       this._hideInputError(_input, this._getErrorElement(_input));
