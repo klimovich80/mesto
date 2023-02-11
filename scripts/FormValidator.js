@@ -6,14 +6,14 @@ export class FormValidator {
     this._inactiveButtonClass = validationConfig.inactiveButtonClass;
     this._inputErrorClass = validationConfig.inputErrorClass;
     this._errorClass = validationConfig.errorClass;
-    this._validationElement = validationElement.querySelector(
+    this._validationForm = validationElement.querySelector(
       this._formSelector
     );
-    this._submitButton = this._validationElement.querySelector(
+    this._submitButton = this._validationForm.querySelector(
       this._submitButtonSelector
     );
     this._inputArray = Array.from(
-      this._validationElement.querySelectorAll(this._inputSelector)
+      this._validationForm.querySelectorAll(this._inputSelector)
     );
   }
   //метод инициации валидации формы
@@ -24,7 +24,7 @@ export class FormValidator {
   //метод очистки формы от показанных ошибок при открытии формы
   clearValidation() {
     //очищаем форму от предыдущих данных
-    this._validationElement.reset();
+    this._validationForm.reset();
     this._inputArray.forEach((_input) => {
       //прячем ошибки
       this._hideInputError(_input, this._getErrorElement(_input));
@@ -91,6 +91,6 @@ export class FormValidator {
   }
   //метод определения места где ошибки показываются
   _getErrorElement(_input) {
-    return this._validationElement.querySelector(`.${_input.id}-error`);
+    return this._validationForm.querySelector(`.${_input.id}-error`);
   }
 }

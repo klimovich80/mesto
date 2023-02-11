@@ -1,13 +1,5 @@
 import { imagePopup, imageSource, imageCaption } from "./index.js";
-//TODO
-// с 8го спринта нельзя будет использовать снаружи класса или импортировать в файлы с классами что-либо (только класс Popup можно для наследования). Нужно использовать только мягкое связывание
-// Это надо будет делать уже через конструктор. Давайте это и сделаем.
-// Нужно сделать отдельную функцию под названием handleCardClick в index.js - она будет получать на вход данные карточки:
-// function handleCardClick(name, link) {
-//   устанавливаем ссылку
-//   устанавливаем подпись картинке
-//   открываем попап универсальной функцией, которая навешивает обработчик Escape внутри себя
-// }
+
 export class Card {
   //инициируем приватные переменные
   constructor(data, templateSelector, openPopup) {
@@ -18,6 +10,10 @@ export class Card {
     this._imagePopup = imagePopup;
     this._imageSource = imageSource;
     this._imageCaption = imageCaption;
+    this._element = this._getTemplate();
+    this._likeButton = this._element.querySelector(".element__like");
+    this._cardImage = this._element.querySelector(".element__image");
+    this._cardCaption = this._element.querySelector(".element__caption");
   }
 
   //копируем разметку
@@ -27,14 +23,12 @@ export class Card {
   }
   //публичный метод создания карточки
   getCard() {
-    //определяем переменную
-    this._element = this._getTemplate();
     //навешиваем события
     this._setEventListeners();
     //присваиваем значения
-    this._element.querySelector(".element__image").src = this._link;
-    this._element.querySelector(".element__image").alt = this._name;
-    this._element.querySelector(".element__caption").textContent = this._name;
+    this._cardImage.src = this._link;
+    this._cardImage.alt = this._name;
+    this._cardCaption.textContent = this._name;
     //взвращаем готовую карточку
     return this._element;
   }
@@ -45,9 +39,9 @@ export class Card {
       .querySelector(".element__trash")
       .addEventListener("click", () => this._removeCard());
     //клик на сердечке
-    this._element
-      .querySelector(".element__like")
-      .addEventListener("click", (event) => this._likeCard(event.target));
+    this._likeButton.addEventListener("click", (event) =>
+      this._likeCard(event.target)
+    );
     //клика на карточке
     this._element
       .querySelector(".element__image")
@@ -61,9 +55,7 @@ export class Card {
   }
   //приватный метод обработки лайка
   _likeCard() {
-    this._element
-      .querySelector(".element__like")
-      .classList.toggle("element__like_checked");
+    this._likeButton.classList.toggle("element__like_checked");
   }
 
   _handleImageClick() {
