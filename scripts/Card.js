@@ -1,4 +1,13 @@
 import { imagePopup, imageSource, imageCaption } from "./index.js";
+//TODO
+// с 8го спринта нельзя будет использовать снаружи класса или импортировать в файлы с классами что-либо (только класс Popup можно для наследования). Нужно использовать только мягкое связывание
+// Это надо будет делать уже через конструктор. Давайте это и сделаем.
+// Нужно сделать отдельную функцию под названием handleCardClick в index.js - она будет получать на вход данные карточки:
+// function handleCardClick(name, link) {
+//   устанавливаем ссылку
+//   устанавливаем подпись картинке
+//   открываем попап универсальной функцией, которая навешивает обработчик Escape внутри себя
+// }
 export class Card {
   //инициируем приватные переменные
   constructor(data, templateSelector, openPopup) {
@@ -34,7 +43,7 @@ export class Card {
     //клик на мусорке
     this._element
       .querySelector(".element__trash")
-      .addEventListener("click", () => this._removeCard(this._element));
+      .addEventListener("click", () => this._removeCard());
     //клик на сердечке
     this._element
       .querySelector(".element__like")
@@ -43,10 +52,7 @@ export class Card {
     this._element
       .querySelector(".element__image")
       .addEventListener("click", () => {
-        this._imageSource.src = this._link;
-        this._imageSource.alt = this._name;
-        this._imageCaption.textContent = this._name;
-        this._openPopup(this._imagePopup);
+        this._handleImageClick();
       });
   }
   //приватный метод удаления карточки
@@ -58,5 +64,12 @@ export class Card {
     this._element
       .querySelector(".element__like")
       .classList.toggle("element__like_checked");
+  }
+
+  _handleImageClick() {
+    this._imageSource.src = this._link;
+    this._imageSource.alt = this._name;
+    this._imageCaption.textContent = this._name;
+    this._openPopup(this._imagePopup);
   }
 }
