@@ -21,9 +21,9 @@ const addCardPopup = document.querySelector(".popup_add-card");
 const addCardPlace = addCardPopup.querySelector(".popup__input_type_place");
 const addCardUrl = addCardPopup.querySelector(".popup__input_type_url");
 const addCardButton = document.querySelector(".profile__add-button"); //кнопка добавления карточки
-export const imagePopup = document.querySelector(".popup_open-image");
-export const imageSource = imagePopup.querySelector(".popup__image");
-export const imageCaption = imagePopup.querySelector(".popup__caption");
+const imagePopup = document.querySelector(".popup_open-image");
+const imageSource = imagePopup.querySelector(".popup__image");
+const imageCaption = imagePopup.querySelector(".popup__caption");
 const overlays = document.querySelectorAll(".popup__overlay");
 const closeButtons = document.querySelectorAll(".close-button");
 const editProfileValidation = new FormValidator(
@@ -92,9 +92,16 @@ function submitAddForm(event) {
   //отрисовываем где нужно
   elements.append(...cards);
 })();
+//
+function handleCardClick(name, link){
+  imageSource.src = link;
+  imageSource.alt = name;
+  imageCaption.textContent = name;
+  openPopup(imagePopup);
+}
 //функция созданя карточки
 function createCard(item) {
-  return new Card(item, template, openPopup).getCard();
+  return new Card(item, template, handleCardClick).getCard();
 }
 //--обработчики событий--
 //отправка форм
