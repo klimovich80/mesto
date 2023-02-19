@@ -37,7 +37,6 @@ addCardValidation.enableValidation();
 function closePopup(popup) {
   popup.classList.remove("popup_active");
   document.removeEventListener("keydown", handleEsc);
-  const form = popup.querySelector(".popup__form");
 }
 //универсальная функция закрытия попапа по нажатию ESC
 const handleEsc = (event) => {
