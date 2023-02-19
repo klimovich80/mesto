@@ -1,31 +1,29 @@
-import { Card } from "./Card.js";
-import { FormValidator } from "./FormValidator.js";
-import { initialCards, validationConfig } from "./constants.js";
+import Card from "../components/Card.js";
+import FormValidator from "../components/FormValidator.js";
+import Section from "../components/Section.js";
+import {
+  initialCards,
+  validationConfig,
+  elements,
+  template,
+  profileName,
+  profileCredentials,
+  profileEditButton,
+  editPofilePopup,
+  editProfileName,
+  editProfileCredentials,
+  addCardPopup,
+  addCardPlace,
+  addCardUrl,
+  addCardButton,
+  imagePopup,
+  imageSource,
+  imageCaption,
+  overlays,
+  closeButtons,
+} from "../utils/constants.js";
 
 //--переменные--
-const elements = document.querySelector(".elements__items"); // место вставки карточек
-const template = document
-  .querySelector(".template")
-  .content.querySelector(".element"); //шаблон карточки
-const profileName = document.querySelector(".profile__title"); //имя профиля
-const profileCredentials = document.querySelector(".profile__subtitle"); //описание профиля
-const profileEditButton = document.querySelector(".profile__edit-button"); //кнопка редактирования профиля
-const editPofilePopup = document.querySelector(".popup_edit-profile");
-const editProfileName = editPofilePopup.querySelector(
-  ".popup__input_type_name"
-);
-const editProfileCredentials = editPofilePopup.querySelector(
-  ".popup__input_type_credentials"
-);
-const addCardPopup = document.querySelector(".popup_add-card");
-const addCardPlace = addCardPopup.querySelector(".popup__input_type_place");
-const addCardUrl = addCardPopup.querySelector(".popup__input_type_url");
-const addCardButton = document.querySelector(".profile__add-button"); //кнопка добавления карточки
-const imagePopup = document.querySelector(".popup_open-image");
-const imageSource = imagePopup.querySelector(".popup__image");
-const imageCaption = imagePopup.querySelector(".popup__caption");
-const overlays = document.querySelectorAll(".popup__overlay");
-const closeButtons = document.querySelectorAll(".close-button");
 const editProfileValidation = new FormValidator(
   validationConfig,
   editPofilePopup
@@ -93,7 +91,7 @@ function submitAddForm(event) {
   elements.append(...cards);
 })();
 //
-function handleCardClick(name, link){
+function handleCardClick(name, link) {
   imageSource.src = link;
   imageSource.alt = name;
   imageCaption.textContent = name;

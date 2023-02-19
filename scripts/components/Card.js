@@ -1,4 +1,4 @@
-export class Card {
+export default class Card {
   //инициируем приватные переменные
   constructor(data, templateSelector, handleCardClick) {
     this._name = data.name;
@@ -31,8 +31,7 @@ export class Card {
   //приватный метод навешивания событий
   _setEventListeners() {
     //клик на мусорке
-    this._cardTrashcan
-      .addEventListener("click", () => this._removeCard());
+    this._cardTrashcan.addEventListener("click", () => this._removeCard());
     //клик на сердечке
     this._likeButton.addEventListener("click", (event) =>
       this._likeCard(event.target)
