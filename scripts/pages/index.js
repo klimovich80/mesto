@@ -82,14 +82,16 @@ function submitAddForm(event) {
   );
 }
 //рендерим карточки
-(function renderInitialCards() {
-  const cards = initialCards.map((card) => {
-    //делаем карточку на основе класса
-    return createCard(card);
-  });
-  //отрисовываем где нужно
-  elements.append(...cards);
-})();
+const renderInitialCards = new Section(
+  {
+    items: initialCards,
+    renderer: (item) => {
+      const cardElement = createCard(item);
+      renderInitialCards.addItem(cardElement);
+    },
+  },
+  elements
+);
 //
 function handleCardClick(name, link) {
   imageSource.src = link;
@@ -122,3 +124,5 @@ closeButtons.forEach((button) => {
   const popup = button.closest(".popup");
   button.addEventListener("click", () => closePopup(popup));
 });
+
+renderInitialCards.renderItems();
