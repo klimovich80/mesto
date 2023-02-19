@@ -63,5 +63,3 @@ export const imageSource = imagePopup.querySelector(".popup__image");
 export const imageCaption = imagePopup.querySelector(".popup__caption");
 export const overlays = document.querySelectorAll(".popup__overlay");
 export const closeButtons = document.querySelectorAll(".close-button");
-
-//export { initialCards, validationConfig };
