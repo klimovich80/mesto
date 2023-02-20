@@ -94,7 +94,12 @@ const renderInitialCards = new Section(
 );
 //функция всплытия отдельным попапом нажатой карточки
 function handleCardClick(name, link) {
-  const iPopup = new PopupWithImage({ name: name, link: link }, imagePopup);
+  const iPopup = new PopupWithImage(
+    { name: name, link: link },
+    imageSource,
+    imageCaption,
+    imagePopup
+  );
   iPopup.open();
 }
 //функция созданя карточки

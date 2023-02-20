@@ -5,12 +5,16 @@ export default class Popup {
   //публичный метод открытия попапа
   open() {
     this._selector.classList.add("popup_active");
-    document.addEventListener("keydown", this._handleEscClose);
+    document.addEventListener("keydown", (event) =>
+      this._handleEscClose(event)
+    );
   }
   //публичный метод закрытия попапа
   close() {
     this._selector.classList.remove("popup_active");
-    document.removeEventListener("keydown", this._handleEscClose);
+    document.removeEventListener("keydown", (event) =>
+      this._handleEscClose(event)
+    );
   }
   //приватный метод закрытия по нажатии ESC
   _handleEscClose(event) {
