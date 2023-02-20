@@ -31,4 +31,6 @@ export default class Popup {
     const closeButton = this._selector.querySelector(".close-button");
     closeButton.addEventListener("click", this.close());
   }
+
+  //TODO refactor querySelectors
 }

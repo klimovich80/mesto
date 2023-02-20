@@ -1,6 +1,6 @@
 import Card from "../components/Card.js";
 import PopupWithImage from "../components/PopupWithImage.js";
-import PopupWithForm from '../components/PopupWithForm.js';
+import PopupWithForm from "../components/PopupWithForm.js";
 import FormValidator from "../components/FormValidator.js";
 import Section from "../components/Section.js";
 import {
@@ -47,22 +47,19 @@ const handleEsc = (event) => {
     closePopup(activePopup);
   }
 };
-//универсальная функция открытия попапа
-function openPopup(popup) {
-  popup.classList.add("popup_active");
-  document.addEventListener("keydown", handleEsc);
-}
 //функция открытия формы добавления карточки
 function openAddCardPopup() {
   addCardValidation.clearValidation();
-  openPopup(addCardPopup);
+  const addPopup = new PopupWithForm(submitEditForm, addCardPopup);
+  addPopup.open();
 }
 //функция открытия формы редактирования профиля
 function openEditProfilePopup() {
   editProfileValidation.clearValidation();
   editProfileName.value = profileName.textContent;
   editProfileCredentials.value = profileCredentials.textContent;
-  openPopup(editPofilePopup);
+  const editPopup = new PopupWithForm(submitEditForm, editPofilePopup);
+  editPopup.open();
 }
 //универсальная функция отправки формы
 function submitForm(event) {
@@ -95,13 +92,13 @@ const renderInitialCards = new Section(
 );
 //функция всплытия отдельным попапом нажатой карточки
 function handleCardClick(name, link) {
-  const iPopup = new PopupWithImage(
+  const popupWithImage = new PopupWithImage(
     { name: name, link: link },
     imageSource,
     imageCaption,
     imagePopup
   );
-  iPopup.open();
+  popupWithImage.open();
 }
 //функция созданя карточки
 function createCard(item) {
