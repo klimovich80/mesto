@@ -1,4 +1,5 @@
 import Card from "../components/Card.js";
+import PopupWithImage from "../components/PopupWithImage.js";
 import FormValidator from "../components/FormValidator.js";
 import Section from "../components/Section.js";
 import {
@@ -91,12 +92,10 @@ const renderInitialCards = new Section(
   },
   elements
 );
-//
+//функция всплытия отдельным попапом нажатой карточки
 function handleCardClick(name, link) {
-  imageSource.src = link;
-  imageSource.alt = name;
-  imageCaption.textContent = name;
-  openPopup(imagePopup);
+  const iPopup = new PopupWithImage({ name: name, link: link }, imagePopup);
+  iPopup.open();
 }
 //функция созданя карточки
 function createCard(item) {
