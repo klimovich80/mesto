@@ -3,6 +3,8 @@ export default class Popup {
     this._selector = popupSelector;
     this._overlay = this._selector.querySelector(".popup__overlay");
     this._closeButton = this._selector.querySelector(".close-button");
+    //жесткая привязка функций к контексту
+    //помогает со слушателями событий
     this._handleEscClose = this._handleEscClose.bind(this);
     this.close = this.close.bind(this);
   }
@@ -13,22 +15,20 @@ export default class Popup {
   }
   //публичный метод закрытия попапа
   close() {
-    console.log("this context on close: ", this);
-    //TODO fix remove event listener
+    //removing event listeners
     this._closeButton.removeEventListener("click", this.close);
     this._overlay.removeEventListener("click", this.close);
     this._selector.classList.remove("popup_active");
   }
   //приватный метод закрытия по нажатии ESC
   _handleEscClose(event) {
-    document.removeEventListener("keydown", this._handleEscClose);
     if (event.key === "Escape") {
       this.close();
     }
+    document.removeEventListener("keydown", this._handleEscClose);
   }
   //публичный метод навешивания слушателей
   setEventListeners() {
-    console.log("this context on eventListeners: ", this);
     //клик по оверлею
     this._overlay.addEventListener("click", this.close);
     //клик по крестику

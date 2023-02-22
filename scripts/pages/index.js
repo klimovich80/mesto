@@ -22,8 +22,6 @@ import {
   imagePopup,
   imageSource,
   imageCaption,
-  overlays,
-  closeButtons,
 } from "../utils/constants.js";
 
 //--переменные--

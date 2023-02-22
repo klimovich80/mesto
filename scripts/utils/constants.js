@@ -61,5 +61,3 @@ export const addCardButton = document.querySelector(".profile__add-button"); //Ð
 export const imagePopup = document.querySelector(".popup_open-image");
 export const imageSource = imagePopup.querySelector(".popup__image");
 export const imageCaption = imagePopup.querySelector(".popup__caption");
-export const overlays = document.querySelectorAll(".popup__overlay");
-export const closeButtons = document.querySelectorAll(".close-button");
