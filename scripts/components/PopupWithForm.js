@@ -5,9 +5,12 @@ export default class PopupWithForm extends Popup {
     super(popupSelector);
     this._submitHandler = submitHandler;
   }
-  //приватный метод собирания значений полей
-  _getInputValues() {}
-  //перезаписанный публичный метод навешивания событий
+  //приватный метод собирающий значения полей
+  _getInputValues() {
+  }
+  //публичный метод 
+  //перезаписывающий метод класаа Popup
+  //обрабатывающий submit
   setEventListeners() {
     //+form submit
     super.setEventListeners();
@@ -15,6 +18,7 @@ export default class PopupWithForm extends Popup {
   //перезаписанный публичный метод закрытия попапа
   close() {
     //очистка формы
+    //this._getInputValues();
     super.close();
   }
 }

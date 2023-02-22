@@ -2,6 +2,7 @@ import Card from "../components/Card.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import FormValidator from "../components/FormValidator.js";
+import UserInfo from "../components/UserInfo.js";
 import Section from "../components/Section.js";
 import {
   initialCards,
@@ -50,7 +51,7 @@ const handleEsc = (event) => {
 //функция открытия формы добавления карточки
 function openAddCardPopup() {
   addCardValidation.clearValidation();
-  const addPopup = new PopupWithForm(submitEditForm, addCardPopup);
+  const addPopup = new PopupWithForm(submitAddForm, addCardPopup);
   addPopup.open();
 }
 //функция открытия формы редактирования профиля
@@ -59,6 +60,7 @@ function openEditProfilePopup() {
   editProfileName.value = profileName.textContent;
   editProfileCredentials.value = profileCredentials.textContent;
   const editPopup = new PopupWithForm(submitEditForm, editPofilePopup);
+  editPopup.setEventListeners();
   editPopup.open();
 }
 //универсальная функция отправки формы
@@ -106,7 +108,7 @@ function createCard(item) {
 }
 //--обработчики событий--
 //отправка форм
-editPofilePopup.addEventListener("submit", (event) => submitEditForm(event));
+//editPofilePopup.addEventListener("submit", (event) => submitEditForm(event));
 addCardPopup.addEventListener("submit", (event) => submitAddForm(event));
 //редактирование профиля
 profileEditButton.addEventListener("click", () => {
@@ -114,16 +116,5 @@ profileEditButton.addEventListener("click", () => {
 });
 //добавление карточек
 addCardButton.addEventListener("click", openAddCardPopup);
-//закрытие попапа по клику на оверлей
-overlays.forEach((overlay) =>
-  overlay.addEventListener("click", (event) =>
-    closePopup(event.target.closest(".popup"))
-  )
-);
-//закрытие попапа по клику на крестик
-closeButtons.forEach((button) => {
-  const popup = button.closest(".popup");
-  button.addEventListener("click", () => closePopup(popup));
-});
 
 renderInitialCards.renderItems();
