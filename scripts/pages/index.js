@@ -16,8 +16,6 @@ import {
   editProfileName,
   editProfileCredentials,
   addCardPopup,
-  addCardPlace,
-  addCardUrl,
   addCardButton,
   imagePopup,
   imageSource,
@@ -40,9 +38,8 @@ function openAddCardPopup() {
   const addPopup = new PopupWithForm(
     {
       submitHandler: (formData) => {
-        console.log("formData addPopup: ", formData);
         elements.prepend(
-          createCard({ name: addCardPlace.value, link: addCardUrl.value })
+          createCard({ name: formData.place, link:formData.url })
         );
       },
     },

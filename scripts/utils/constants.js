@@ -55,8 +55,6 @@ export const editProfileCredentials = editPofilePopup.querySelector(
   ".popup__input_type_credentials"
 );
 export const addCardPopup = document.querySelector(".popup_add-card");
-export const addCardPlace = addCardPopup.querySelector(".popup__input_type_place");
-export const addCardUrl = addCardPopup.querySelector(".popup__input_type_url");
 export const addCardButton = document.querySelector(".profile__add-button"); //кнопка добавления карточки
 export const imagePopup = document.querySelector(".popup_open-image");
 export const imageSource = imagePopup.querySelector(".popup__image");

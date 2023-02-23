@@ -28,6 +28,7 @@ export default class PopupWithForm extends Popup {
   }
   //перезаписанный публичный метод закрытия попапа
   close() {
+    //TODO remove eventListeners
     //очистка формы
     this._formSelector.reset();
     super.close();
