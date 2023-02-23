@@ -1,24 +1,23 @@
 import Popup from "./Popup.js";
 
 export default class PopupWithForm extends Popup {
-  constructor(submitHandler, popupSelector) {
+  constructor({submitHandler}, popupSelector) {
     super(popupSelector);
     this._submitHandler = submitHandler;
+    //this._submitHandler = this._submitHandler.bind(this);
   }
   //приватный метод собирающий значения полей
   _getInputValues() {}
   //публичный метод перезаписывающий метод класаа Popup и обрабатывающий submit
   setEventListeners() {
-    //+form submit
-    console.log("class PopupWithForm submit on : ", this._selector);
-    console.log("class PopupWithForm event : ", event);
-    event.preventDefault();
+    this._selector.addEventListener("submit", this._submitHandler);
     super.setEventListeners();
   }
   //перезаписанный публичный метод закрытия попапа
   close() {
     //очистка формы
     //this._getInputValues();
+    this._selector.removeEventListener("submit", this._submitHandler);
     super.close();
   }
 }

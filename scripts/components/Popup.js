@@ -18,6 +18,7 @@ export default class Popup {
     //removing event listeners
     this._closeButton.removeEventListener("click", this.close);
     this._overlay.removeEventListener("click", this.close);
+    document.removeEventListener("keydown", this._handleEscClose);
     this._selector.classList.remove("popup_active");
   }
   //приватный метод закрытия по нажатии ESC
@@ -25,7 +26,6 @@ export default class Popup {
     if (event.key === "Escape") {
       this.close();
     }
-    document.removeEventListener("keydown", this._handleEscClose);
   }
   //публичный метод навешивания слушателей
   setEventListeners() {
