@@ -39,36 +39,35 @@ function openAddCardPopup() {
   addCardValidation.clearValidation();
   const addPopup = new PopupWithForm(
     {
-      submitHandler: (event) => {
-        event.preventDefault();
-        addPopup.close();
+      submitHandler: (formData) => {
+        console.log("formData addPopup: ", formData);
         elements.prepend(
           createCard({ name: addCardPlace.value, link: addCardUrl.value })
         );
       },
     },
-    addCardPopup
+    addCardPopup,
+    validationConfig.inputSelector,
+    validationConfig.formSelector
   );
-  addPopup.setEventListeners();
   addPopup.open();
 }
 //функция открытия формы редактирования профиля
 function openEditProfilePopup() {
   editProfileValidation.clearValidation();
+  //const userInfo= new UserInfo()
   editProfileName.value = profileName.textContent;
   editProfileCredentials.value = profileCredentials.textContent;
   const editPopup = new PopupWithForm(
     {
-      submitHandler: (event) => {
-        event.preventDefault();
-        pprofileName.textContent = editProfileName.value;
-        profileCredentials.textContent = editProfileCredentials.value;
-        editPopup.close();
+      submitHandler: (formData) => {
+        console.log("formData edit Popup: ", formData);
       },
     },
-    editPofilePopup
+    editPofilePopup,
+    validationConfig.inputSelector,
+    validationConfig.formSelector
   );
-  editPopup.setEventListeners();
   editPopup.open();
 }
 //рендерим карточки

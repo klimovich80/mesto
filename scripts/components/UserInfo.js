@@ -5,6 +5,7 @@ export default class UserInfo {
   }
   //публичный метод возвращает объект с данными пользователя
   getUserInfo() {
+    console.log('getting user info');
     //Этот метод пригодится когда данные пользователя нужно будет подставить в форму при открытии
     const userData = { name: this._nameSelector, info: this._infoSelector };
     return userData;
