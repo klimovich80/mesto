@@ -7,9 +7,7 @@ import {
 } from "../utils/utils.js";
 import { profileEditButton, addCardButton } from "../utils/constants.js";
 
-//--переменные--
 //включаем валидацию форм
-//--функции--
 editProfileValidation.enableValidation();
 addCardValidation.enableValidation();
 
@@ -18,5 +16,5 @@ addCardValidation.enableValidation();
 profileEditButton.addEventListener("click", openEditProfilePopup);
 //нажатие кнопки добавления карточки
 addCardButton.addEventListener("click", openAddCardPopup);
-
+//рендерим карточки
 renderInitialCards.renderItems();

@@ -19,7 +19,7 @@ import {
   imageSource,
   imageCaption,
 } from "../utils/constants.js";
-
+//функциии валидации форм
 const editProfileValidation = new FormValidator(
   validationConfig,
   editPofilePopup
