@@ -4,7 +4,7 @@ export default class PopupWithForm extends Popup {
   constructor({ submitHandler }, popupSelector, inputSelector, formSelector) {
     super(popupSelector);
     this._submitHandler = submitHandler;
-    this._formSelector = popupSelector.querySelector(formSelector);
+    this._form = popupSelector.querySelector(formSelector);
     this._inputList = Array.from(
       this._selector.querySelectorAll(inputSelector)
     );
@@ -19,18 +19,22 @@ export default class PopupWithForm extends Popup {
   }
   //публичный метод перезаписывающий метод класаа Popup и обрабатывающий submit
   setEventListeners() {
-    this._formSelector.addEventListener("submit", (event) => {
-      event.preventDefault();
-      this._submitHandler(this._getInputValues());
-      this.close();
-    });
+    this._form.addEventListener(
+      "submit",
+      (event) => {
+        event.preventDefault();
+        this._submitHandler(this._getInputValues());
+        this.close();
+      },
+      { once: true }
+    );
     super.setEventListeners();
   }
   //перезаписанный публичный метод закрытия попапа
   close() {
     //TODO remove eventListeners
     //очистка формы
-    this._formSelector.reset();
+    this._form.reset();
     super.close();
   }
 }

@@ -51,17 +51,19 @@ function openAddCardPopup() {
 }
 //функция открытия формы редактирования профиля
 function openEditProfilePopup() {
+  //валидируем инпуты
   editProfileValidation.clearValidation();
+  //объявляем экземпляр UserInfo с селекторами профиля
   const userInfo = new UserInfo({
     nameSelector: profileName,
     infoSelector: profileCredentials,
   });
-  const getUserInfo = userInfo.getUserInfo({
-    name: profileName.innerHTML,
-    info: profileCredentials.innerHTML,
-  });
+  //получаем данные профиля
+  const getUserInfo = userInfo.getUserInfo();
+  //присваиваем соответвующие значения форме
   editProfileName.value = getUserInfo.name;
   editProfileCredentials.value = getUserInfo.info;
+  //объявляем экземпляр попапа с формой
   const editPopup = new PopupWithForm(
     {
       submitHandler: (formData) => {
@@ -75,6 +77,7 @@ function openEditProfilePopup() {
     validationConfig.inputSelector,
     validationConfig.formSelector
   );
+  //открываем экземпляр попапа с формой
   editPopup.open();
 }
 //рендерим карточки

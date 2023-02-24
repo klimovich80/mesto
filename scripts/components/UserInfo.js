@@ -4,14 +4,13 @@ export default class UserInfo {
     this._infoSelector = infoSelector;
   }
   //публичный метод возвращает объект с данными пользователя
-  getUserInfo({ name, info }) {
-    const userData = { name: name, info: info };
+  getUserInfo() {
+    const userData = { name: this._nameSelector.innerHTML, info: this._infoSelector.innerHTML };
     return userData;
   }
   //публичный метод который принимает новые данные пользователя и добавляет их на страницу
-  setUserInfo({name, info}) {
-    this._nameSelector.textContent=name;
-    this._infoSelector.textContent=info;
+  setUserInfo({ name, info }) {
+    this._nameSelector.textContent = name;
+    this._infoSelector.textContent = info;
   }
-
 }
