@@ -22,5 +22,7 @@
 - БЭМ
 - Adaptive
 - Git
+- ООП
+- webpack
 
 &copy;2022-2023 Klimovich Pavel
