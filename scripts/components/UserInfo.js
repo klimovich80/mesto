@@ -1,17 +1,17 @@
 export default class UserInfo {
-  constructor(nameSelectorElement, infoSelectorElement) {
-    this._nameSelector = nameSelectorElement;
-    this._infoSelector = infoSelectorElement;
+  constructor({ nameSelector, infoSelector }) {
+    this._nameSelector = nameSelector;
+    this._infoSelector = infoSelector;
   }
   //публичный метод возвращает объект с данными пользователя
-  getUserInfo() {
-    console.log('getting user info');
-    //Этот метод пригодится когда данные пользователя нужно будет подставить в форму при открытии
-    const userData = { name: this._nameSelector, info: this._infoSelector };
+  getUserInfo({ name, info }) {
+    const userData = { name: name, info: info };
     return userData;
   }
   //публичный метод который принимает новые данные пользователя и добавляет их на страницу
-  setUserInfo() {
-    console.log("setting new user data");
+  setUserInfo({name, info}) {
+    this._nameSelector.textContent=name;
+    this._infoSelector.textContent=info;
   }
+
 }

@@ -39,7 +39,7 @@ function openAddCardPopup() {
     {
       submitHandler: (formData) => {
         elements.prepend(
-          createCard({ name: formData.place, link:formData.url })
+          createCard({ name: formData.place, link: formData.url })
         );
       },
     },
@@ -52,13 +52,23 @@ function openAddCardPopup() {
 //функция открытия формы редактирования профиля
 function openEditProfilePopup() {
   editProfileValidation.clearValidation();
-  //const userInfo= new UserInfo()
-  editProfileName.value = profileName.textContent;
-  editProfileCredentials.value = profileCredentials.textContent;
+  const userInfo = new UserInfo({
+    nameSelector: profileName,
+    infoSelector: profileCredentials,
+  });
+  const getUserInfo = userInfo.getUserInfo({
+    name: profileName.innerHTML,
+    info: profileCredentials.innerHTML,
+  });
+  editProfileName.value = getUserInfo.name;
+  editProfileCredentials.value = getUserInfo.info;
   const editPopup = new PopupWithForm(
     {
       submitHandler: (formData) => {
-        console.log("formData edit Popup: ", formData);
+        userInfo.setUserInfo({
+          name: formData.name,
+          info: formData.credentials,
+        });
       },
     },
     editPofilePopup,
