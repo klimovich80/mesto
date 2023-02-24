@@ -1,7 +1,6 @@
 {
   "name": "mesto",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "scripts": {
     "build": "webpack --mode production",
@@ -30,5 +29,6 @@
   },
   "dependencies": {
     "core-js": "^3.28.0"
-  }
+  },
+  "description": ""
 }
