@@ -18,7 +18,11 @@ import {
   imagePopup,
   imageSource,
   imageCaption,
-} from "./constants.js";
+  profileEditButton,
+  addCardButton,
+} from "../utils/constants.js";
+import "../pages/index.css";
+
 //функциии валидации форм
 const editProfileValidation = new FormValidator(
   validationConfig,
@@ -102,11 +106,14 @@ function handleCardClick(name, link) {
 function createCard(item) {
   return new Card(item, template, handleCardClick).getCard();
 }
+//включаем валидацию форм
+editProfileValidation.enableValidation();
+addCardValidation.enableValidation();
 
-export {
-  editProfileValidation,
-  addCardValidation,
-  renderCards,
-  openAddCardPopup,
-  openEditProfilePopup,
-};
+//--обработчики событий--
+// нажатие кнопки редактирования профиля
+profileEditButton.addEventListener("click", openEditProfilePopup);
+//нажатие кнопки добавления карточки
+addCardButton.addEventListener("click", openAddCardPopup);
+//рендерим карточки
+renderCards.renderItems(initialCards);
