@@ -30,8 +30,9 @@ const addCardValidation = new FormValidator(validationConfig, addCardPopup);
 const addPopup = new PopupWithForm(
   {
     submitHandler: (formData) => {
-      elements.prepend(
-        createCard({ name: formData.place, link: formData.url })
+      renderCards.addItem(
+        createCard({ name: formData.place, link: formData.url }),
+        false
       );
       addPopup.close();
     },
@@ -56,6 +57,11 @@ const editPopup = new PopupWithForm(
   validationConfig.formSelector
 );
 //экземпляры попапа с картинкой
+const popupWithImage = new PopupWithImage(
+  imageSource,
+  imageCaption,
+  imagePopup
+);
 //экземпляр UserInfo с селекторами профиля
 const userInfo = new UserInfo({
   nameSelector: profileName,
@@ -79,24 +85,18 @@ function openEditProfilePopup() {
   editPopup.open();
 }
 //рендерим карточки
-const renderInitialCards = new Section(
+const renderCards = new Section(
   {
     renderer: (item) => {
       const cardElement = createCard(item);
-      renderInitialCards.addItem(cardElement);
+      renderCards.addItem(cardElement, true);
     },
   },
   elements
 );
 //функция всплытия отдельным попапом нажатой карточки
 function handleCardClick(name, link) {
-  const popupWithImage = new PopupWithImage(
-    { name: name, link: link },
-    imageSource,
-    imageCaption,
-    imagePopup
-  );
-  popupWithImage.open();
+  popupWithImage.open(name, link);
 }
 //функция создания карточки
 function createCard(item) {
@@ -106,7 +106,7 @@ function createCard(item) {
 export {
   editProfileValidation,
   addCardValidation,
-  renderInitialCards,
+  renderCards,
   openAddCardPopup,
   openEditProfilePopup,
 };

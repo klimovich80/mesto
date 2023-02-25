@@ -2,7 +2,7 @@ import "../../pages/index.css";
 import {
   editProfileValidation,
   addCardValidation,
-  renderInitialCards,
+  renderCards,
   openAddCardPopup,
   openEditProfilePopup,
 } from "../utils/utils.js";
@@ -22,4 +22,4 @@ profileEditButton.addEventListener("click", openEditProfilePopup);
 //нажатие кнопки добавления карточки
 addCardButton.addEventListener("click", openAddCardPopup);
 //рендерим карточки
-renderInitialCards.renderItems(initialCards);
+renderCards.renderItems(initialCards);

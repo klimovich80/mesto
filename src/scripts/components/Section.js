@@ -12,8 +12,8 @@ export default class Section {
     });
   }
   //публичный метод, который принимает DOM-элемент и добавляет его в контейнер
-  addItem(element) {
-    this._container.append(element);
+  addItem(element, append) {
+    (append) ? this._container.append(element) : this._container.prepend(element);
   }
   //приватный метод, который очищает разметку перед ее отрисовку
   _clear() {
