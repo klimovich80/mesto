@@ -1,8 +1,8 @@
 export default class Popup {
-  constructor(popupSelector) {
-    this._selector = popupSelector;
-    this._overlay = this._selector.querySelector(".popup__overlay");
-    this._closeButton = this._selector.querySelector(".close-button");
+  constructor(popupElement) {
+    this._element = popupElement;
+    this._overlay = this._element.querySelector(".popup__overlay");
+    this._closeButton = this._element.querySelector(".close-button");
     //жесткая привязка функций к контексту
     //помогает со слушателями событий
     this._handleEscClose = this._handleEscClose.bind(this);
@@ -11,7 +11,7 @@ export default class Popup {
   //публичный метод открытия попапа
   open() {
     this.setEventListeners();
-    this._selector.classList.add("popup_active");
+    this._element.classList.add("popup_active");
   }
   //публичный метод закрытия попапа
   close() {
@@ -19,7 +19,7 @@ export default class Popup {
     this._closeButton.removeEventListener("click", this.close);
     this._overlay.removeEventListener("click", this.close);
     document.removeEventListener("keydown", this._handleEscClose);
-    this._selector.classList.remove("popup_active");
+    this._element.classList.remove("popup_active");
   }
   //приватный метод закрытия по нажатии ESC
   _handleEscClose(event) {
@@ -36,6 +36,4 @@ export default class Popup {
     //нажатие ESC
     document.addEventListener("keydown", this._handleEscClose);
   }
-
-  //TODO refactor querySelectors
 }

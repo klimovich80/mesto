@@ -1,12 +1,12 @@
 export default class Section {
-  constructor({ items, renderer }, containerSelector) {
-    this._renderedItems = items;
+  constructor({ renderer }, containerSelector) {
     this._renderer = renderer;
     this._container = containerSelector;
   }
   //публичный метод, который отвечает за отрисовку всех элементов
-  renderItems() {
+  renderItems(items) {
     this._clear();
+    this._renderedItems = items;
     this._renderedItems.forEach((item) => {
       this._renderer(item);
     });

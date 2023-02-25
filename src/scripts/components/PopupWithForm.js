@@ -1,13 +1,11 @@
 import Popup from "./Popup.js";
 
 export default class PopupWithForm extends Popup {
-  constructor({ submitHandler }, popupSelector, inputSelector, formSelector) {
-    super(popupSelector);
+  constructor({ submitHandler }, popupElement, inputSelector, formSelector) {
+    super(popupElement);
     this._submitHandler = submitHandler;
-    this._form = popupSelector.querySelector(formSelector);
-    this._inputList = Array.from(
-      this._selector.querySelectorAll(inputSelector)
-    );
+    this._form = popupElement.querySelector(formSelector);
+    this._inputList = Array.from(this._element.querySelectorAll(inputSelector));
     this._formValues = {};
   }
   //приватный метод собирающий значения полей
@@ -24,7 +22,6 @@ export default class PopupWithForm extends Popup {
       (event) => {
         event.preventDefault();
         this._submitHandler(this._getInputValues());
-        this.close();
       },
       { once: true }
     );

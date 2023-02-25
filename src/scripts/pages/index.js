@@ -6,7 +6,11 @@ import {
   openAddCardPopup,
   openEditProfilePopup,
 } from "../utils/utils.js";
-import { profileEditButton, addCardButton } from "../utils/constants.js";
+import {
+  profileEditButton,
+  addCardButton,
+  initialCards,
+} from "../utils/constants.js";
 
 //включаем валидацию форм
 editProfileValidation.enableValidation();
@@ -18,4 +22,4 @@ profileEditButton.addEventListener("click", openEditProfilePopup);
 //нажатие кнопки добавления карточки
 addCardButton.addEventListener("click", openAddCardPopup);
 //рендерим карточки
-renderInitialCards.renderItems();
+renderInitialCards.renderItems(initialCards);
