@@ -1,0 +1,18 @@
+.avatar__cover {
+  position: absolute;
+  top: 42px;
+  left: 0;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background-color: rgba(0, 0, 0, 0);
+}
+
+.avatar__cover:hover {
+  background-color: rgba(0, 0, 0, 0.5);
+}
