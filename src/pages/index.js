@@ -1,4 +1,6 @@
 import Card from "../components/Card.js";
+import CardsApi from "../components/CardsApi.js";
+import ProfileApi from "../components/ProfileApi.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import FormValidator from "../components/FormValidator.js";
@@ -11,6 +13,7 @@ import {
   template,
   profileName,
   profileCredentials,
+  profileAvatar,
   editPofilePopup,
   editProfileName,
   editProfileCredentials,
@@ -28,7 +31,6 @@ const editProfileValidation = new FormValidator(
   validationConfig,
   editPofilePopup
 );
-
 const addCardValidation = new FormValidator(validationConfig, addCardPopup);
 //экземпляры попапа с формой
 const addPopup = new PopupWithForm(
@@ -49,6 +51,12 @@ const addPopup = new PopupWithForm(
 const editPopup = new PopupWithForm(
   {
     submitHandler: (formData) => {
+      profileApi
+        .editProfileInfo(formData.name, formData.credentials)
+        .then((res) => res.json())
+        .then((result) => {
+          console.log(result);
+        });
       userInfo.setUserInfo({
         name: formData.name,
         info: formData.credentials,
@@ -66,11 +74,16 @@ const popupWithImage = new PopupWithImage(
   imageCaption,
   imagePopup
 );
+//экземпляр ProfileApi для контроля информации пользователя
+const profileApi = new ProfileApi();
 //экземпляр UserInfo с селекторами профиля
-const userInfo = new UserInfo({
-  nameSelector: profileName,
-  infoSelector: profileCredentials,
-});
+const userInfo = new UserInfo(
+  {
+    nameSelector: profileName,
+    infoSelector: profileCredentials,
+  },
+  profileApi
+);
 //функция открытия формы добавления карточки
 function openAddCardPopup() {
   addCardValidation.clearValidation();
@@ -115,5 +128,30 @@ addCardValidation.enableValidation();
 profileEditButton.addEventListener("click", openEditProfilePopup);
 //нажатие кнопки добавления карточки
 addCardButton.addEventListener("click", openAddCardPopup);
+
 //рендерим карточки
-renderCards.renderItems(initialCards);
+//renderCards.renderItems(initialCards);
+//отображаем информацию о пользователе на странице
+profileApi
+  .getProfileInfo()
+  .then((res) => res.json())
+  .then((result) => {
+    console.log(result);
+    profileName.textContent = result.name;
+    profileCredentials.textContent = result.about;
+    profileAvatar.src = result.avatar;
+  });
+//getting cards
+const cardsApi = new CardsApi();
+cardsApi
+  .getInitialCards()
+  .then((res) => res.json())
+  .then((result) => {
+    console.log(result.length);
+    if (result.length > 0) {
+      renderCards.renderItems(result);
+    } else {
+      alert("default cards rendering...");
+      renderCards.renderItems(initialCards);
+    }
+  });

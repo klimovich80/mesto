@@ -1,11 +1,15 @@
 export default class UserInfo {
-  constructor({ nameSelector, infoSelector }) {
+  constructor({ nameSelector, infoSelector },profileApi) {
     this._nameSelector = nameSelector;
     this._infoSelector = infoSelector;
+    this._profileApi=profileApi;
   }
   //публичный метод возвращает объект с данными пользователя
   getUserInfo() {
-    const userData = { name: this._nameSelector.innerHTML, info: this._infoSelector.innerHTML };
+    const userData = {
+      name: this._nameSelector.innerHTML,
+      info: this._infoSelector.innerHTML,
+    };
     return userData;
   }
   //публичный метод который принимает новые данные пользователя и добавляет их на страницу
@@ -14,3 +18,4 @@ export default class UserInfo {
     this._infoSelector.textContent = info;
   }
 }
+ //TODO try to implement fetch to set/get data

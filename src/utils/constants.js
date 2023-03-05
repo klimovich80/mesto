@@ -46,7 +46,10 @@ export const template = document
   .content.querySelector(".element"); //шаблон карточки
 export const profileName = document.querySelector(".profile__title"); //имя профиля
 export const profileCredentials = document.querySelector(".profile__subtitle"); //описание профиля
-export const profileEditButton = document.querySelector(".profile__edit-button"); //кнопка редактирования профиля
+export const profileAvatar = document.querySelector(".profile__avatar");
+export const profileEditButton = document.querySelector(
+  ".profile__edit-button"
+); //кнопка редактирования профиля
 export const editPofilePopup = document.querySelector(".popup_edit-profile");
 export const editProfileName = editPofilePopup.querySelector(
   ".popup__input_type_name"
@@ -59,3 +62,7 @@ export const addCardButton = document.querySelector(".profile__add-button"); //�
 export const imagePopup = document.querySelector(".popup_open-image");
 export const imageSource = imagePopup.querySelector(".popup__image");
 export const imageCaption = imagePopup.querySelector(".popup__caption");
+
+export const token = "ec0a3331-3b70-4ae3-9ae6-450b13b2e789";
+export const groupId = "cohort-61";
+export const url = "https://mesto.nomoreparties.co";
