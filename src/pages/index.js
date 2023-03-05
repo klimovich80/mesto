@@ -36,6 +36,10 @@ const addCardValidation = new FormValidator(validationConfig, addCardPopup);
 const addPopup = new PopupWithForm(
   {
     submitHandler: (formData) => {
+      cardsApi
+        .postNewCard(formData.place, formData.url)
+        .then((res) => res.json())
+        .then((result) => console.log(result));
       renderCards.addItem(
         createCard({ name: formData.place, link: formData.url }),
         false
@@ -53,10 +57,7 @@ const editPopup = new PopupWithForm(
     submitHandler: (formData) => {
       profileApi
         .editProfileInfo(formData.name, formData.credentials)
-        .then((res) => res.json())
-        .then((result) => {
-          console.log(result);
-        });
+        .then((res) => res.json());
       userInfo.setUserInfo({
         name: formData.name,
         info: formData.credentials,
@@ -136,7 +137,7 @@ profileApi
   .getProfileInfo()
   .then((res) => res.json())
   .then((result) => {
-    console.log(result);
+    //console.log(result);
     profileName.textContent = result.name;
     profileCredentials.textContent = result.about;
     profileAvatar.src = result.avatar;
@@ -147,8 +148,8 @@ cardsApi
   .getInitialCards()
   .then((res) => res.json())
   .then((result) => {
-    console.log(result.length);
     if (result.length > 0) {
+      console.log(result);
       renderCards.renderItems(result);
     } else {
       alert("default cards rendering...");
