@@ -1,14 +1,18 @@
 import Api from "../components/Api.js";
 
 export default class ProfileApi extends Api {
+  constructor(config) {
+    super(config);
+    this._page = "users/me";
+  }
   getProfileInfo() {
-    return super._getResponse("users/me");
+    return super._getResponse(this._page);
   }
   editProfileInfo(name, about) {
-    return fetch("https://mesto.nomoreparties.co/v1/cohort-61/users/me", {
+    return fetch(`${this._url}/v1/${this._groupId}/${this._page}`, {
       method: "PATCH",
       headers: {
-        authorization: "ec0a3331-3b70-4ae3-9ae6-450b13b2e789",
+        authorization: super._token,
         "Content-Type": "application/json",
       },
       body: JSON.stringify({

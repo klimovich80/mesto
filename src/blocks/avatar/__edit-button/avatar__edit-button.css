@@ -6,4 +6,9 @@
   background: url(../../../images/pencil.svg) center center no-repeat;
   border: none;
   background-size: 24px;
+  display: block;
 }
+
+/* .avatar_cover:hover .avatar__edit-button:not(:hover){
+  display: block;
+} */

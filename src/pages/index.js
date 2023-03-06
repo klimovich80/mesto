@@ -14,15 +14,18 @@ import {
   profileName,
   profileCredentials,
   profileAvatar,
+  editAvatar,
   editPofilePopup,
   editProfileName,
   editProfileCredentials,
+  confirmPopup,
   addCardPopup,
   imagePopup,
   imageSource,
   imageCaption,
   profileEditButton,
   addCardButton,
+  connectionConfig,
 } from "../utils/constants.js";
 import "../pages/index.css";
 
@@ -76,7 +79,7 @@ const popupWithImage = new PopupWithImage(
   imagePopup
 );
 //экземпляр ProfileApi для контроля информации пользователя
-const profileApi = new ProfileApi();
+const profileApi = new ProfileApi(connectionConfig);
 //экземпляр UserInfo с селекторами профиля
 const userInfo = new UserInfo(
   {
@@ -116,9 +119,24 @@ const renderCards = new Section(
 function handleCardClick(name, link) {
   popupWithImage.open(name, link);
 }
+//
+const confirmForm = new PopupWithForm(
+  {
+    submitHandler: () => {
+      console.log("handling confirm submit");
+    },
+  },
+  confirmPopup,
+  validationConfig.inputSelector,
+  validationConfig.formSelector
+);
+function handleDeleteCard(data) {
+  console.log(data);
+  confirmForm.open();
+}
 //функция создания карточки
 function createCard(item) {
-  return new Card(item, template, handleCardClick).getCard();
+  return new Card(item, template, handleCardClick, handleDeleteCard).getCard();
 }
 //включаем валидацию форм
 editProfileValidation.enableValidation();
@@ -129,6 +147,10 @@ addCardValidation.enableValidation();
 profileEditButton.addEventListener("click", openEditProfilePopup);
 //нажатие кнопки добавления карточки
 addCardButton.addEventListener("click", openAddCardPopup);
+//
+editAvatar.addEventListener("click", () => {
+  alert("changing avatar");
+});
 
 //рендерим карточки
 //renderCards.renderItems(initialCards);
@@ -143,7 +165,7 @@ profileApi
     profileAvatar.src = result.avatar;
   });
 //getting cards
-const cardsApi = new CardsApi();
+const cardsApi = new CardsApi(connectionConfig);
 cardsApi
   .getInitialCards()
   .then((res) => res.json())

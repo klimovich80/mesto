@@ -1,9 +1,9 @@
-import { groupId, url, token } from "../utils/constants.js";
+
 export default class Api {
-  constructor() {
-    this._token = token;
-    this._groupId = groupId;
-    this._url = url;
+  constructor(config) {
+    this._token = config.token;
+    this._groupId = config.groupId;
+    this._url = config.url;
   }
 
   _getResponse(page) {
