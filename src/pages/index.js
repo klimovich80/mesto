@@ -85,7 +85,7 @@ const userInfo = new UserInfo(
   {
     nameSelector: profileName,
     infoSelector: profileCredentials,
-    avatar: profileAvatar,
+    avatarElement: profileAvatar,
   },
   profileApi
 );
@@ -158,8 +158,11 @@ editAvatar.addEventListener("click", () => {
 const cardsApi = new CardsApi(connectionConfig);
 Promise.all([profileApi.getProfileInfo(), cardsApi.getInitialCards()])
   .then(([profileInfo, cards]) => {
-    userInfo.setUserInfo({ name: profileInfo.name, info: profileInfo.about });
-    profileAvatar.src = profileInfo.avatar;
+    userInfo.setUserInfo({
+      name: profileInfo.name,
+      info: profileInfo.about,
+    });
+    userInfo.setUserAvatar({ avatarUrl: profileInfo.avatar });
     renderCards.renderItems(cards);
   })
   .catch((err) => console.log(err));
