@@ -11,6 +11,7 @@ export default class Card {
     this._id = data._id;
     this._profileId = profileId;
     this._cardOwner = data.owner._id;
+    this._isOwner = this._cardOwner === this._profileId;
     this._name = data.name;
     this._link = data.link;
     this._likes = data.likes;
@@ -62,7 +63,7 @@ export default class Card {
   }
   //приватный метод удаления карточки
   _removeCard() {
-    this._handleDeleteCard(this._id);
+    this._handleDeleteCard(this);
     this._element.remove();
   }
   //приватный метод обработки лайка
@@ -79,7 +80,7 @@ export default class Card {
   }
 
   _setTrashcan() {
-    if (this._cardOwner !== this._profileId) {
+    if (!this._isOwner) {
       this._cardTrashcan.classList.add("element__trash_hidden");
     }
   }

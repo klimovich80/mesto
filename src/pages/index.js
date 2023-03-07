@@ -150,16 +150,14 @@ const confirmForm = new PopupWithForm(
   validationConfig.formSelector
 );
 
-function handleDeleteCard(id) {
-  cardId = id;
+function handleDeleteCard(data) {
+  cardId = data._id;
   confirmForm.open();
 }
 
 function handleLikeCard(id, buttonElement, counterElement) {
-  console.log("counterElement: ", counterElement.textContent);
   const likeClassSelector = "element__like_checked";
   const count = Number(counterElement.textContent);
-  console.log("count: ", count);
   //eсли карточка отмечена
   if (buttonElement.classList.contains(likeClassSelector)) {
     //уберем лайк
@@ -171,10 +169,12 @@ function handleLikeCard(id, buttonElement, counterElement) {
           authorization: connectionConfig.token,
         },
       }
-    ).then(() => {
-      buttonElement.classList.remove(likeClassSelector);
-      counterElement.textContent = count - 1;
-    });
+    )
+      .then((res) => res.json())
+      .then((res) => {
+        buttonElement.classList.remove(likeClassSelector);
+        counterElement.textContent = res.likes.length;
+      });
   } else {
     //добавим лайк
     fetch(
@@ -185,10 +185,12 @@ function handleLikeCard(id, buttonElement, counterElement) {
           authorization: connectionConfig.token,
         },
       }
-    ).then(() => {
-      buttonElement.classList.add(likeClassSelector);
-      counterElement.textContent = count + 1;
-    });
+    )
+      .then((res) => res.json())
+      .then((res) => {
+        buttonElement.classList.add(likeClassSelector);
+        counterElement.textContent = res.likes.length;
+      });
   }
 }
 //функция создания карточки
@@ -232,6 +234,8 @@ Promise.all([profileApi.getProfileInfo(), cardsApi.getInitialCards()])
   .catch((err) => console.log(err));
 
 //TODO
+//1.Fix double click on forms
+//2.Remove card after fetch done trough promise
 //3.Redo all the fetch requests to Api
 //4.Try promises use when applicable
 //5.Make the connection window as the reaction to fetch and as a part of API
@@ -239,3 +243,4 @@ Promise.all([profileApi.getProfileInfo(), cardsApi.getInitialCards()])
 //7.Fix avatar css
 //8.Fix new windows css
 //9.Fix likes count css
+//10.Fix count setiings from api response
