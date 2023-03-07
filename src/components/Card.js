@@ -10,6 +10,7 @@ export default class Card {
   ) {
     this._id = data._id;
     this._profileId = profileId;
+    this._cardOwner = data.owner._id;
     this._name = data.name;
     this._link = data.link;
     this._likes = data.likes;
@@ -36,6 +37,8 @@ export default class Card {
     this._setEventListeners();
     //отображаем лайк
     this._setLikeFlag();
+    //показываем корзину только на наших карточках
+    this._setTrashcan();
     //присваиваем значения
     this._cardImage.src = this._link;
     this._cardImage.alt = this._name;
@@ -73,5 +76,11 @@ export default class Card {
         this._likeButton.classList.add("element__like_checked");
       }
     });
+  }
+
+  _setTrashcan() {
+    if (this._cardOwner !== this._profileId) {
+      this._cardTrashcan.classList.add("element__trash_hidden");
+    }
   }
 }

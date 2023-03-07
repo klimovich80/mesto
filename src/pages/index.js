@@ -28,7 +28,8 @@ import {
   connectionConfig,
 } from "../utils/constants.js";
 import "../pages/index.css";
-
+let cardId = "";
+let profileId = "";
 //функциии валидации форм
 const editProfileValidation = new FormValidator(
   validationConfig,
@@ -111,7 +112,7 @@ function openEditProfilePopup() {
 //рендерим карточки
 const renderCards = new Section(
   {
-    renderer: (item, profileId) => {
+    renderer: (item) => {
       const cardElement = createCard(item);
       renderCards.addItem(cardElement, true);
     },
@@ -122,13 +123,10 @@ const renderCards = new Section(
 function handleCardClick(name, link) {
   popupWithImage.open(name, link);
 }
-//
-let cardId = "";
-let profileId = "";
+
 const confirmForm = new PopupWithForm(
   {
-    submitHandler: (data) => {
-      console.log("submit handler data: ", data);
+    submitHandler: () => {
       fetch(
         `${connectionConfig.url}/v1/${connectionConfig.groupId}/cards/${cardId}`,
         {
@@ -232,3 +230,12 @@ Promise.all([profileApi.getProfileInfo(), cardsApi.getInitialCards()])
     console.log("cards: ", cards);
   })
   .catch((err) => console.log(err));
+
+//TODO
+//3.Redo all the fetch requests to Api
+//4.Try promises use when applicable
+//5.Make the connection window as the reaction to fetch and as a part of API
+//6.Do the avatar change JS
+//7.Fix avatar css
+//8.Fix new windows css
+//9.Fix likes count css

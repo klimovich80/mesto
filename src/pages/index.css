@@ -21,6 +21,7 @@
 @import url(../blocks/element/__count/element__count.css);
 @import url(../blocks/element/__like/element__like_checked.css);
 @import url(../blocks/element/__trash/element__trash.css);
+@import url(../blocks/element/__trash/element__trash_hidden.css);
 @import url(../blocks/element/element.css);
 @import url(../blocks/close-button/close-button.css);
 @import url(../blocks/popup/popup.css);

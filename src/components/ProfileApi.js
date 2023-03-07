@@ -12,7 +12,7 @@ export default class ProfileApi extends Api {
     return fetch(`${this._url}/v1/${this._groupId}/${this._page}`, {
       method: "PATCH",
       headers: {
-        authorization: super._token,
+        authorization: this._token,
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
