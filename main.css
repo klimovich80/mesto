@@ -21,6 +21,7 @@
 .element__count{color:#000;font-size:13px;font-style:normal;font-weight:400;line-height:16px;margin:0;padding:0;position:absolute;right:26px;top:330px}
 .element__like_checked{background:url(images/like_active.fe17a515669479b1e649.svg)}.element__like_checked:hover{opacity:.6}
 .element__trash{aspect-ratio:1;background:url(images/trash.96f3e8182c3a9915dfee.png) 50% no-repeat;border:none;position:absolute;right:20px;top:20px;width:18px}.element__trash:hover{cursor:pointer;opacity:.6}
+.element__trash_hidden{display:none}
 .element{margin:0;padding:0;position:relative}
 .close-button{aspect-ratio:1;background:url(images/Close-Icon.ad98de32e342afafa118.svg) 50% no-repeat;border:none;position:fixed;right:0;top:0;transform:translate(40px,-40px);width:32px}@media (max-width:680px){.close-button{scale:.625;transform:translate(12px,-70px)}}.close-button:hover{cursor:pointer;opacity:.5}
 .popup{display:block;opacity:0;transition:.4s ease;visibility:hidden}
