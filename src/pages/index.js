@@ -80,6 +80,8 @@ const popupWithImage = new PopupWithImage(
 );
 //экземпляр ProfileApi для контроля информации пользователя
 const profileApi = new ProfileApi(connectionConfig);
+//экземпляр CardsApi для контроля за карточчками
+const cardsApi = new CardsApi(connectionConfig);
 //экземпляр UserInfo с селекторами профиля
 const userInfo = new UserInfo(
   {
@@ -121,18 +123,30 @@ function handleCardClick(name, link) {
   popupWithImage.open(name, link);
 }
 //
+let cardId = "";
 const confirmForm = new PopupWithForm(
   {
-    submitHandler: (...rest) => {
-      console.log("submit confirm data): ", rest);
+    submitHandler: () => {
+      console.log(`Deleting card ${cardId}.`);
+      fetch(
+        `${connectionConfig.url}/v1/${connectionConfig.groupId}/cards/${cardId}`,
+        {
+          method: "DELETE",
+          headers: {
+            authorization: connectionConfig.token,
+          },
+        }
+      );
     },
   },
   confirmPopup,
   validationConfig.inputSelector,
   validationConfig.formSelector
 );
-function handleDeleteCard(data) {
-  console.log(data);
+
+function handleDeleteCard(id) {
+  cardId = id;
+  console.log("cardId: ", cardId);
   confirmForm.open();
 }
 //функция создания карточки
@@ -153,9 +167,8 @@ editAvatar.addEventListener("click", () => {
   alert("changing avatar");
 });
 
-//рендерим карточки
 //отображаем информацию о пользователе на странице
-const cardsApi = new CardsApi(connectionConfig);
+//и рендерим карточки
 Promise.all([profileApi.getProfileInfo(), cardsApi.getInitialCards()])
   .then(([profileInfo, cards]) => {
     userInfo.setUserInfo({
