@@ -85,6 +85,7 @@ const userInfo = new UserInfo(
   {
     nameSelector: profileName,
     infoSelector: profileCredentials,
+    avatar: profileAvatar,
   },
   profileApi
 );
@@ -157,30 +158,8 @@ editAvatar.addEventListener("click", () => {
 const cardsApi = new CardsApi(connectionConfig);
 Promise.all([profileApi.getProfileInfo(), cardsApi.getInitialCards()])
   .then(([profileInfo, cards]) => {
-    console.log(profileInfo);
-    console.log(cards);
     userInfo.setUserInfo({ name: profileInfo.name, info: profileInfo.about });
     profileAvatar.src = profileInfo.avatar;
     renderCards.renderItems(cards);
   })
   .catch((err) => console.log(err));
-// profileApi
-//   .getProfileInfo()
-//   .then((res) => res.json())
-//   .then((result) => {
-//     userInfo.setUserInfo({ name: result.name, info: result.about });
-//     profileAvatar.src = result.avatar;
-//   });
-// //getting cards
-// cardsApi
-//   .getInitialCards()
-//   .then((res) => res.json())
-//   .then((result) => {
-//     if (result.length > 0) {
-//       console.log(result);
-//       renderCards.renderItems(result);
-//     } else {
-//       alert("default cards rendering...");
-//       renderCards.renderItems(initialCards);
-//     }
-//   });

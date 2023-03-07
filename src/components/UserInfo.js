@@ -1,8 +1,9 @@
 export default class UserInfo {
-  constructor({ nameSelector, infoSelector },profileApi) {
+  constructor({ nameSelector, infoSelector, avatar }, profileApi) {
     this._nameSelector = nameSelector;
     this._infoSelector = infoSelector;
-    this._profileApi=profileApi;
+    this._avatar = avatar;
+    this._profileApi = profileApi;
   }
   //публичный метод возвращает объект с данными пользователя
   getUserInfo() {
@@ -16,5 +17,9 @@ export default class UserInfo {
   setUserInfo({ name, info }) {
     this._nameSelector.textContent = name;
     this._infoSelector.textContent = info;
+  }
+
+  setUserAvatar(avatar) {
+    this._avatar.src = avatar;
   }
 }
