@@ -18,4 +18,3 @@ export default class UserInfo {
     this._infoSelector.textContent = info;
   }
 }
- //TODO try to implement fetch to set/get data

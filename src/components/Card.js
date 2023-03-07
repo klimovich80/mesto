@@ -1,6 +1,7 @@
 export default class Card {
   //инициируем приватные переменные
   constructor(data, templateSelector, handleCardClick, handleDeleteCard) {
+    this._id = data._id;
     this._name = data.name;
     this._link = data.link;
     this._count = data.likes.length;
@@ -47,7 +48,7 @@ export default class Card {
   }
   //приватный метод удаления карточки
   _removeCard() {
-    this._handleDeleteCard(this);
+    this._handleDeleteCard(this._id);
     this._element.remove();
   }
   //приватный метод обработки лайка

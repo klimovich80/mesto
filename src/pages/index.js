@@ -122,8 +122,8 @@ function handleCardClick(name, link) {
 //
 const confirmForm = new PopupWithForm(
   {
-    submitHandler: () => {
-      console.log("handling confirm submit");
+    submitHandler: (...rest) => {
+      console.log("submit confirm data): ", rest);
     },
   },
   confirmPopup,
@@ -153,28 +153,34 @@ editAvatar.addEventListener("click", () => {
 });
 
 //рендерим карточки
-//renderCards.renderItems(initialCards);
 //отображаем информацию о пользователе на странице
-profileApi
-  .getProfileInfo()
-  .then((res) => res.json())
-  .then((result) => {
-    //console.log(result);
-    profileName.textContent = result.name;
-    profileCredentials.textContent = result.about;
-    profileAvatar.src = result.avatar;
-  });
-//getting cards
 const cardsApi = new CardsApi(connectionConfig);
-cardsApi
-  .getInitialCards()
-  .then((res) => res.json())
-  .then((result) => {
-    if (result.length > 0) {
-      console.log(result);
-      renderCards.renderItems(result);
-    } else {
-      alert("default cards rendering...");
-      renderCards.renderItems(initialCards);
-    }
-  });
+Promise.all([profileApi.getProfileInfo(), cardsApi.getInitialCards()])
+  .then(([profileInfo, cards]) => {
+    console.log(profileInfo);
+    console.log(cards);
+    userInfo.setUserInfo({ name: profileInfo.name, info: profileInfo.about });
+    profileAvatar.src = profileInfo.avatar;
+    renderCards.renderItems(cards);
+  })
+  .catch((err) => console.log(err));
+// profileApi
+//   .getProfileInfo()
+//   .then((res) => res.json())
+//   .then((result) => {
+//     userInfo.setUserInfo({ name: result.name, info: result.about });
+//     profileAvatar.src = result.avatar;
+//   });
+// //getting cards
+// cardsApi
+//   .getInitialCards()
+//   .then((res) => res.json())
+//   .then((result) => {
+//     if (result.length > 0) {
+//       console.log(result);
+//       renderCards.renderItems(result);
+//     } else {
+//       alert("default cards rendering...");
+//       renderCards.renderItems(initialCards);
+//     }
+//   });

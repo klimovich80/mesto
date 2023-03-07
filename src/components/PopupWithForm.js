@@ -9,7 +9,8 @@ export default class PopupWithForm extends Popup {
     this._formValues = {};
   }
   //приватный метод собирающий значения полей
-  _getInputValues() {
+  _getInputValues(event) {
+    console.log('getting input values from event :', event);
     this._inputList.forEach((input) => {
       this._formValues[input.name] = input.value;
     });
@@ -21,7 +22,7 @@ export default class PopupWithForm extends Popup {
       "submit",
       (event) => {
         event.preventDefault();
-        this._submitHandler(this._getInputValues());
+        this._submitHandler(this._getInputValues(this));
       },
       { once: true }
     );

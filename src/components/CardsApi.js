@@ -6,7 +6,7 @@ export default class CardsApi extends Api {
     this._page = "cards";
   }
   getInitialCards() {
-    return super._getResponse(this._page);
+    return super._getResponse(this._page).then((response) => response.json());
   }
   postNewCard(name, link) {
     return fetch(`${this._url}/v1/${this._groupId}/${this._page}`, {
@@ -19,6 +19,11 @@ export default class CardsApi extends Api {
         name: name,
         link: link,
       }),
+    });
+  }
+  deleteCard(cardId) {
+    return fetch(`${this._url}/v1/${this._groupId}/${this._page}/${cardId}`, {
+      method: "DELETE",
     });
   }
 }
