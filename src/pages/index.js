@@ -44,7 +44,7 @@ const addPopup = new PopupWithForm(
         .then((res) => res.json())
         .then((result) => console.log(result));
       renderCards.addItem(
-        createCard({ name: formData.place, link: formData.url }),
+        createCard({ name: formData.place, link: formData.url }, profileId),
         false
       );
       addPopup.close();
@@ -111,7 +111,7 @@ function openEditProfilePopup() {
 //рендерим карточки
 const renderCards = new Section(
   {
-    renderer: (item) => {
+    renderer: (item, profileId) => {
       const cardElement = createCard(item);
       renderCards.addItem(cardElement, true);
     },
@@ -124,10 +124,11 @@ function handleCardClick(name, link) {
 }
 //
 let cardId = "";
+let profileId = "";
 const confirmForm = new PopupWithForm(
   {
-    submitHandler: () => {
-      console.log(`Deleting card ${cardId}.`);
+    submitHandler: (data) => {
+      console.log("submit handler data: ", data);
       fetch(
         `${connectionConfig.url}/v1/${connectionConfig.groupId}/cards/${cardId}`,
         {
@@ -136,6 +137,13 @@ const confirmForm = new PopupWithForm(
             authorization: connectionConfig.token,
           },
         }
+      ).then((res) =>
+        res
+          .json()
+          .then((response) => {
+            console.log(response);
+          })
+          .catch((err) => console.log(err))
       );
     },
   },
@@ -146,12 +154,55 @@ const confirmForm = new PopupWithForm(
 
 function handleDeleteCard(id) {
   cardId = id;
-  console.log("cardId: ", cardId);
   confirmForm.open();
+}
+
+function handleLikeCard(id, buttonElement, counterElement) {
+  console.log("counterElement: ", counterElement.textContent);
+  const likeClassSelector = "element__like_checked";
+  const count = Number(counterElement.textContent);
+  console.log("count: ", count);
+  //eсли карточка отмечена
+  if (buttonElement.classList.contains(likeClassSelector)) {
+    //уберем лайк
+    fetch(
+      `${connectionConfig.url}/v1/${connectionConfig.groupId}/cards/${id}/likes`,
+      {
+        method: "DELETE",
+        headers: {
+          authorization: connectionConfig.token,
+        },
+      }
+    ).then(() => {
+      buttonElement.classList.remove(likeClassSelector);
+      counterElement.textContent = count - 1;
+    });
+  } else {
+    //добавим лайк
+    fetch(
+      `${connectionConfig.url}/v1/${connectionConfig.groupId}/cards/${id}/likes`,
+      {
+        method: "PUT",
+        headers: {
+          authorization: connectionConfig.token,
+        },
+      }
+    ).then(() => {
+      buttonElement.classList.add(likeClassSelector);
+      counterElement.textContent = count + 1;
+    });
+  }
 }
 //функция создания карточки
 function createCard(item) {
-  return new Card(item, template, handleCardClick, handleDeleteCard).getCard();
+  return new Card(
+    item,
+    profileId,
+    template,
+    handleCardClick,
+    handleDeleteCard,
+    handleLikeCard
+  ).getCard();
 }
 //включаем валидацию форм
 editProfileValidation.enableValidation();
@@ -171,11 +222,13 @@ editAvatar.addEventListener("click", () => {
 //и рендерим карточки
 Promise.all([profileApi.getProfileInfo(), cardsApi.getInitialCards()])
   .then(([profileInfo, cards]) => {
+    profileId = profileInfo._id;
     userInfo.setUserInfo({
       name: profileInfo.name,
       info: profileInfo.about,
     });
     userInfo.setUserAvatar({ avatarUrl: profileInfo.avatar });
     renderCards.renderItems(cards);
+    console.log("cards: ", cards);
   })
   .catch((err) => console.log(err));

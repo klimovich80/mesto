@@ -1,10 +1,18 @@
 export default class Card {
   //инициируем приватные переменные
-  constructor(data, templateSelector, handleCardClick, handleDeleteCard) {
+  constructor(
+    data,
+    profileId,
+    templateSelector,
+    handleCardClick,
+    handleDeleteCard,
+    handleLikeCard
+  ) {
     this._id = data._id;
+    this._profileId = profileId;
     this._name = data.name;
     this._link = data.link;
-    this._count = data.likes.length;
+    this._likes = data.likes;
     this._templateSelector = templateSelector;
     this._element = this._getTemplate();
     this._likeButton = this._element.querySelector(".element__like");
@@ -14,6 +22,7 @@ export default class Card {
     this._cardTrashcan = this._element.querySelector(".element__trash");
     this._handleCardClick = handleCardClick;
     this._handleDeleteCard = handleDeleteCard;
+    this._handleLikeCard = handleLikeCard;
   }
 
   //копируем разметку
@@ -25,11 +34,13 @@ export default class Card {
   getCard() {
     //навешиваем события
     this._setEventListeners();
+    //отображаем лайк
+    this._setLikeFlag();
     //присваиваем значения
     this._cardImage.src = this._link;
     this._cardImage.alt = this._name;
     this._cardCaption.textContent = this._name;
-    this._likeCounts.textContent = this._count;
+    this._likeCounts.textContent = this._likes.length;
     //взвращаем готовую карточку
     return this._element;
   }
@@ -53,6 +64,14 @@ export default class Card {
   }
   //приватный метод обработки лайка
   _likeCard() {
-    this._likeButton.classList.toggle("element__like_checked");
+    this._handleLikeCard(this._id, this._likeButton, this._likeCounts);
+  }
+
+  _setLikeFlag() {
+    this._likes.forEach((like) => {
+      if (like._id === this._profileId) {
+        this._likeButton.classList.add("element__like_checked");
+      }
+    });
   }
 }
