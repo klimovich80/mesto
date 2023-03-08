@@ -1,13 +1,11 @@
 import Card from "../components/Card.js";
-import CardsApi from "../components/CardsApi.js";
-import ProfileApi from "../components/ProfileApi.js";
+import Api from "../components/Api.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import FormValidator from "../components/FormValidator.js";
 import UserInfo from "../components/UserInfo.js";
 import Section from "../components/Section.js";
 import {
-  initialCards,
   validationConfig,
   elements,
   template,
@@ -28,6 +26,9 @@ import {
   connectionConfig,
 } from "../utils/constants.js";
 import "../pages/index.css";
+
+//экземпляр ProfileApi для контроля информации пользователя
+const api = new Api(connectionConfig);
 let cardId = "";
 let profileId = "";
 //функциии валидации форм
@@ -40,7 +41,7 @@ const addCardValidation = new FormValidator(validationConfig, addCardPopup);
 const addPopup = new PopupWithForm(
   {
     submitHandler: (formData) => {
-      cardsApi
+      api
         .postNewCard(formData.place, formData.url)
         .then((res) => res.json())
         .then((result) => console.log(result));
@@ -59,7 +60,7 @@ const addPopup = new PopupWithForm(
 const editPopup = new PopupWithForm(
   {
     submitHandler: (formData) => {
-      profileApi
+      api
         .editProfileInfo(formData.name, formData.credentials)
         .then((res) => res.json());
       userInfo.setUserInfo({
@@ -79,10 +80,6 @@ const popupWithImage = new PopupWithImage(
   imageCaption,
   imagePopup
 );
-//экземпляр ProfileApi для контроля информации пользователя
-const profileApi = new ProfileApi(connectionConfig);
-//экземпляр CardsApi для контроля за карточчками
-const cardsApi = new CardsApi(connectionConfig);
 //экземпляр UserInfo с селекторами профиля
 const userInfo = new UserInfo(
   {
@@ -90,7 +87,7 @@ const userInfo = new UserInfo(
     infoSelector: profileCredentials,
     avatarElement: profileAvatar,
   },
-  profileApi
+  api
 );
 //функция открытия формы добавления карточки
 function openAddCardPopup() {
@@ -157,7 +154,6 @@ function handleDeleteCard(data) {
 
 function handleLikeCard(id, buttonElement, counterElement) {
   const likeClassSelector = "element__like_checked";
-  const count = Number(counterElement.textContent);
   //eсли карточка отмечена
   if (buttonElement.classList.contains(likeClassSelector)) {
     //уберем лайк
@@ -220,7 +216,7 @@ editAvatar.addEventListener("click", () => {
 
 //отображаем информацию о пользователе на странице
 //и рендерим карточки
-Promise.all([profileApi.getProfileInfo(), cardsApi.getInitialCards()])
+Promise.all([api.getProfileInfo(), api.getInitialCards()])
   .then(([profileInfo, cards]) => {
     profileId = profileInfo._id;
     userInfo.setUserInfo({
@@ -243,4 +239,3 @@ Promise.all([profileApi.getProfileInfo(), cardsApi.getInitialCards()])
 //7.Fix avatar css
 //8.Fix new windows css
 //9.Fix likes count css
-//10.Fix count setiings from api response
