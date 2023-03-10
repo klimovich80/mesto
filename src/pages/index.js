@@ -154,10 +154,9 @@ function openEditProfilePopup() {
 //открытие формы редактирования аватарки
 function openEditAvatarPopup() {
   editAvatarValidation.clearValidation();
-  console.log("opening avatar popup");
   //берем инфу о источнике фотографии профиля
   //вставляем ее в поле пути к фотографии
-  editAvatarUrl.textContent = "руддщ";
+  editAvatarUrl.value = "test";
   editAvatarForm.open();
 }
 

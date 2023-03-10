@@ -53,7 +53,7 @@ export const editAvatarPopup = document.querySelector(".popup_edit-avatar"); //�
 //TODO fix button and url to popup
 export const editAvatarButton = editAvatarPopup.querySelector(".popup__button"); //кнопка редактирования аватара в попапе редактирования
 export const editAvatarUrl = editAvatarPopup.querySelector(
-  ".popup__input_type_edit"
+  ".popup__input_type_url"
 ); //поле ссылки на картинку аватара в попапе редактирования
 export const changeAvatarButton = document.querySelector(
   ".avatar__edit-button"
