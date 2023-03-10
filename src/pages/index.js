@@ -29,26 +29,21 @@ import "../pages/index.css";
 
 //экземпляр ProfileApi для контроля информации пользователя
 const api = new Api(connectionConfig);
-let cardId = "";
 let profileId = "";
+let cardData;
 //функциии валидации форм
 const editProfileValidation = new FormValidator(
   validationConfig,
   editPofilePopup
 );
 const addCardValidation = new FormValidator(validationConfig, addCardPopup);
-//экземпляры попапа с формой
+//экземпляр попапа добавления карточки с формой
 const addPopup = new PopupWithForm(
   {
     submitHandler: (formData) => {
-      api
-        .postNewCard(formData.place, formData.url)
-        .then((res) => res.json())
-        .then((result) => console.log(result));
-      renderCards.addItem(
-        createCard({ name: formData.place, link: formData.url }, profileId),
-        false
-      );
+      api.postNewCard(formData.place, formData.url).then((result) => {
+        renderCards.addItem(createCard(result, profileId), false);
+      });
       addPopup.close();
     },
   },
@@ -56,16 +51,15 @@ const addPopup = new PopupWithForm(
   validationConfig.inputSelector,
   validationConfig.formSelector
 );
-
+//экземпляр попапа редактирования профиля
 const editPopup = new PopupWithForm(
   {
     submitHandler: (formData) => {
-      api
-        .editProfileInfo(formData.name, formData.credentials)
-        .then((res) => res.json());
-      userInfo.setUserInfo({
-        name: formData.name,
-        info: formData.credentials,
+      api.editProfileInfo(formData.name, formData.credentials).then((res) => {
+        userInfo.setUserInfo({
+          name: res.name,
+          info: res.about,
+        });
       });
       editPopup.close();
     },
@@ -120,73 +114,46 @@ const renderCards = new Section(
 function handleCardClick(name, link) {
   popupWithImage.open(name, link);
 }
-
+//экземпляр попапа подтверждения действия
 const confirmForm = new PopupWithForm(
   {
     submitHandler: () => {
-      fetch(
-        `${connectionConfig.url}/v1/${connectionConfig.groupId}/cards/${cardId}`,
-        {
-          method: "DELETE",
-          headers: {
-            authorization: connectionConfig.token,
-          },
-        }
-      ).then((res) =>
-        res
-          .json()
-          .then((response) => {
-            console.log(response);
-          })
-          .catch((err) => console.log(err))
-      );
+      api
+        .confirmSubmit(cardData._id)
+        .then((response) => {
+          cardData._element.remove();
+          return response;
+        })
+        .catch((err) => console.log(err));
+      confirmForm.close();
     },
   },
   confirmPopup,
   validationConfig.inputSelector,
   validationConfig.formSelector
 );
-
+//функция удаления карточки
 function handleDeleteCard(data) {
+  cardData = data;
   cardId = data._id;
   confirmForm.open();
 }
-
+//функция обработки лайка карточки
 function handleLikeCard(id, buttonElement, counterElement) {
-  const likeClassSelector = "element__like_checked";
+  const likeSelector = "element__like_checked";
   //eсли карточка отмечена
-  if (buttonElement.classList.contains(likeClassSelector)) {
+  if (buttonElement.classList.contains(likeSelector)) {
     //уберем лайк
-    fetch(
-      `${connectionConfig.url}/v1/${connectionConfig.groupId}/cards/${id}/likes`,
-      {
-        method: "DELETE",
-        headers: {
-          authorization: connectionConfig.token,
-        },
-      }
-    )
-      .then((res) => res.json())
-      .then((res) => {
-        buttonElement.classList.remove(likeClassSelector);
-        counterElement.textContent = res.likes.length;
-      });
+    api.deleteLike(id).then((res) => {
+      buttonElement.classList.remove(likeSelector);
+      counterElement.textContent = res.likes.length;
+    });
   } else {
     //добавим лайк
-    fetch(
-      `${connectionConfig.url}/v1/${connectionConfig.groupId}/cards/${id}/likes`,
-      {
-        method: "PUT",
-        headers: {
-          authorization: connectionConfig.token,
-        },
-      }
-    )
-      .then((res) => res.json())
-      .then((res) => {
-        buttonElement.classList.add(likeClassSelector);
-        counterElement.textContent = res.likes.length;
-      });
+    api.addLike(id).then((res) => {
+      buttonElement.classList.add(likeSelector);
+      counterElement.textContent = res.likes.length;
+    });
   }
 }
 //функция создания карточки
@@ -230,12 +197,11 @@ Promise.all([api.getProfileInfo(), api.getInitialCards()])
   .catch((err) => console.log(err));
 
 //TODO
-//1.Fix double click on forms
 //2.Remove card after fetch done trough promise
-//3.Redo all the fetch requests to Api
 //4.Try promises use when applicable
 //5.Make the connection window as the reaction to fetch and as a part of API
 //6.Do the avatar change JS
 //7.Fix avatar css
 //8.Fix new windows css
 //9.Fix likes count css
+//10.Add 'loading...' to the button

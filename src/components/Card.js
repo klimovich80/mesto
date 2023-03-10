@@ -64,7 +64,6 @@ export default class Card {
   //приватный метод удаления карточки
   _removeCard() {
     this._handleDeleteCard(this);
-    this._element.remove();
   }
   //приватный метод обработки лайка
   _likeCard() {
