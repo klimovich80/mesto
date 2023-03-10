@@ -156,7 +156,7 @@ function openEditAvatarPopup() {
   editAvatarValidation.clearValidation();
   //берем инфу о источнике фотографии профиля
   //вставляем ее в поле пути к фотографии
-  editAvatarUrl.value = "test";
+  editAvatarUrl.value = profileAvatar.src;
   editAvatarForm.open();
 }
 
