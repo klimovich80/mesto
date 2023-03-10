@@ -12,7 +12,10 @@ import {
   profileName,
   profileCredentials,
   profileAvatar,
-  editAvatar,
+  editAvatarPopup,
+  editAvatarButton,
+  editAvatarUrl,
+  changeAvatarButton,
   editPofilePopup,
   editProfileName,
   editProfileCredentials,
@@ -31,12 +34,22 @@ import "../pages/index.css";
 const api = new Api(connectionConfig);
 let profileId = "";
 let cardData;
-//функциии валидации форм
+
+//функциии валидации форм:
+//валидация редактирования аватара
+const editAvatarValidation = new FormValidator(
+  validationConfig,
+  editAvatarPopup
+);
+//валидация редактирования профиля
 const editProfileValidation = new FormValidator(
   validationConfig,
   editPofilePopup
 );
+//валидация добавление карточки
 const addCardValidation = new FormValidator(validationConfig, addCardPopup);
+
+//экземпляры классов
 //экземпляр попапа добавления карточки с формой
 const addPopup = new PopupWithForm(
   {
@@ -74,46 +87,6 @@ const popupWithImage = new PopupWithImage(
   imageCaption,
   imagePopup
 );
-//экземпляр UserInfo с селекторами профиля
-const userInfo = new UserInfo(
-  {
-    nameSelector: profileName,
-    infoSelector: profileCredentials,
-    avatarElement: profileAvatar,
-  },
-  api
-);
-//функция открытия формы добавления карточки
-function openAddCardPopup() {
-  addCardValidation.clearValidation();
-  addPopup.open();
-}
-//функция открытия формы редактирования профиля
-function openEditProfilePopup() {
-  //валидируем инпуты
-  editProfileValidation.clearValidation();
-  //получаем данные профиля
-  const getUserInfo = userInfo.getUserInfo();
-  //присваиваем соответвующие значения форме
-  editProfileName.value = getUserInfo.name;
-  editProfileCredentials.value = getUserInfo.info;
-  //открываем экземпляр попапа с формой
-  editPopup.open();
-}
-//рендерим карточки
-const renderCards = new Section(
-  {
-    renderer: (item) => {
-      const cardElement = createCard(item);
-      renderCards.addItem(cardElement, true);
-    },
-  },
-  elements
-);
-//функция всплытия отдельным попапом нажатой карточки
-function handleCardClick(name, link) {
-  popupWithImage.open(name, link);
-}
 //экземпляр попапа подтверждения действия
 const confirmForm = new PopupWithForm(
   {
@@ -132,6 +105,66 @@ const confirmForm = new PopupWithForm(
   validationConfig.inputSelector,
   validationConfig.formSelector
 );
+//экземпляр попапа редактирования аватара
+const editAvatarForm = new PopupWithForm(
+  {
+    submitHandler: () => console.log("sumbitiing avatar change"),
+  },
+  editAvatarPopup,
+  validationConfig.inputSelector,
+  validationConfig.formSelector
+);
+//экземпляр UserInfo с селекторами профиля
+const userInfo = new UserInfo(
+  {
+    nameSelector: profileName,
+    infoSelector: profileCredentials,
+    avatarElement: profileAvatar,
+  },
+  api
+);
+//экземпляр Секции рендеринга карточек
+const renderCards = new Section(
+  {
+    renderer: (item) => {
+      const cardElement = createCard(item);
+      renderCards.addItem(cardElement, true);
+    },
+  },
+  elements
+);
+//Функции открытия форм
+//открытие формы добавления карточки
+function openAddCardPopup() {
+  addCardValidation.clearValidation();
+  addPopup.open();
+}
+//открытие формы редактирования профиля
+function openEditProfilePopup() {
+  //валидируем инпуты
+  editProfileValidation.clearValidation();
+  //получаем данные профиля
+  const getUserInfo = userInfo.getUserInfo();
+  //присваиваем соответвующие значения форме
+  editProfileName.value = getUserInfo.name;
+  editProfileCredentials.value = getUserInfo.info;
+  //открываем экземпляр попапа с формой
+  editPopup.open();
+}
+//открытие формы редактирования аватарки
+function openEditAvatarPopup() {
+  editAvatarValidation.clearValidation();
+  console.log("opening avatar popup");
+  //берем инфу о источнике фотографии профиля
+  //вставляем ее в поле пути к фотографии
+  editAvatarUrl.textContent = "руддщ";
+  editAvatarForm.open();
+}
+
+//функция всплытия отдельным попапом нажатой карточки
+function handleCardClick(name, link) {
+  popupWithImage.open(name, link);
+}
 //функция удаления карточки
 function handleDeleteCard(data) {
   cardData = data;
@@ -167,19 +200,19 @@ function createCard(item) {
     handleLikeCard
   ).getCard();
 }
+
 //включаем валидацию форм
 editProfileValidation.enableValidation();
 addCardValidation.enableValidation();
+editAvatarValidation.enableValidation();
 
 //--обработчики событий--
 // нажатие кнопки редактирования профиля
 profileEditButton.addEventListener("click", openEditProfilePopup);
 //нажатие кнопки добавления карточки
 addCardButton.addEventListener("click", openAddCardPopup);
-//
-editAvatar.addEventListener("click", () => {
-  alert("changing avatar");
-});
+//нажатие кнопки редактирования профиля
+changeAvatarButton.addEventListener("click", openEditAvatarPopup);
 
 //отображаем информацию о пользователе на странице
 //и рендерим карточки
@@ -197,7 +230,6 @@ Promise.all([api.getProfileInfo(), api.getInitialCards()])
   .catch((err) => console.log(err));
 
 //TODO
-//2.Remove card after fetch done trough promise
 //4.Try promises use when applicable
 //5.Make the connection window as the reaction to fetch and as a part of API
 //6.Do the avatar change JS

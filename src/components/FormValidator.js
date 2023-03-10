@@ -21,9 +21,11 @@ export default class FormValidator {
   }
   //метод очистки формы от показанных ошибок при открытии формы
   clearValidation() {
+    console.log("this: ", this);
     //очищаем форму от предыдущих данных
     this._validationForm.reset();
     this._inputArray.forEach((_input) => {
+      console.log("_input: ", _input);
       //прячем ошибки
       this._hideInputError(_input, this._getErrorElement(_input));
     });
