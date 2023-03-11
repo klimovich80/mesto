@@ -108,7 +108,15 @@ const confirmForm = new PopupWithForm(
 //экземпляр попапа редактирования аватара
 const editAvatarForm = new PopupWithForm(
   {
-    submitHandler: () => console.log("sumbitiing avatar change"),
+    submitHandler: (data) => {
+      api
+        .editProfileAvatar(data.avatar)
+        .then((response) => {
+          profileAvatar.src = response.avatar;
+          editAvatarForm.close();
+        })
+        .catch((err) => console.log(err));
+    },
   },
   editAvatarPopup,
   validationConfig.inputSelector,
@@ -154,13 +162,13 @@ function openEditProfilePopup() {
 //открытие формы редактирования аватарки
 function openEditAvatarPopup() {
   editAvatarValidation.clearValidation();
-  //берем инфу о источнике фотографии профиля
-  //вставляем ее в поле пути к фотографии
+  //присваиваем полю формы адрес ссылки редактируемого аватару
   editAvatarUrl.value = profileAvatar.src;
+  //открываем заполненную формц
   editAvatarForm.open();
 }
 
-//функция всплытия отдельным попапом нажатой карточки
+//функция всплытия карточки отдельным попапом
 function handleCardClick(name, link) {
   popupWithImage.open(name, link);
 }
@@ -229,9 +237,7 @@ Promise.all([api.getProfileInfo(), api.getInitialCards()])
   .catch((err) => console.log(err));
 
 //TODO
-//4.Try promises use when applicable
 //5.Make the connection window as the reaction to fetch and as a part of API
-//6.Do the avatar change JS
 //7.Fix avatar css
 //8.Fix new windows css
 //9.Fix likes count css

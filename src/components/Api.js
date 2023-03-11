@@ -82,6 +82,19 @@ export default class Api {
     }).then(this._answer);
   }
 
+  editProfileAvatar(url) {
+    return fetch(`${this._profilePage}/avatar`, {
+      method: "PATCH",
+      headers: {
+        authorization: this._token,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        avatar: url,
+      }),
+    }).then(this._answer);
+  }
+
   //submit methods
   confirmSubmit(cardId) {
     return fetch(`${this._cardsPage}/${cardId}`, {
