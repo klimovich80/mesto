@@ -279,6 +279,3 @@ Promise.all([api.getProfileInfo(), api.getInitialCards()])
     renderCards.renderItems(cards);
   })
   .catch((err) => console.log(err));
-
-//TODO
-//1.fix submits prevent default
