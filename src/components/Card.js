@@ -27,6 +27,7 @@ export default class Card {
     this._handleDeleteCard = handleDeleteCard;
     this._handleLikeCard = handleLikeCard;
     this._likeSelector = likeCheckedSelector;
+    this._trashHiddenSelector = "element__trash_hidden";
   }
 
   //копируем разметку
@@ -93,7 +94,7 @@ export default class Card {
   //приватный метод отображения корзины только на собственных карточках
   _setTrashcan() {
     if (!this._isOwner) {
-      this._cardTrashcan.classList.add("element__trash_hidden");
+      this._cardTrashcan.classList.add(this._trashHiddenSelector);
     }
   }
 }

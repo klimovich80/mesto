@@ -29,11 +29,14 @@ import {
   likeCheckedSelector,
 } from "../utils/constants.js";
 import "../pages/index.css";
+//временные переменные
+//для храннения данных профиля
+let profileId = "";
+//для хранения данных картички
+let cardData;
 
 //экземпляр ProfileApi для контроля информации пользователя
 const api = new Api(connectionConfig);
-let profileId = "";
-let cardData;
 
 //функциии валидации форм:
 //валидация редактирования аватара
@@ -80,7 +83,7 @@ const addPopup = new PopupWithForm(
 const editPopup = new PopupWithForm(
   {
     submitHandler: (formData) => {
-      editPopup.disableButton();
+      editProfileValidation.disableButton();
       api
         .editProfileInfo(formData.name, formData.credentials)
         .then((res) => {
@@ -99,12 +102,6 @@ const editPopup = new PopupWithForm(
   },
   editPofilePopup,
   validationConfig
-);
-//экземпляры попапа с картинкой
-const popupWithImage = new PopupWithImage(
-  imageSource,
-  imageCaption,
-  imagePopup
 );
 //экземпляр попапа подтверждения действия
 const confirmForm = new PopupWithForm(
@@ -148,6 +145,12 @@ const editAvatarForm = new PopupWithForm(
   },
   editAvatarPopup,
   validationConfig
+);
+//экземпляры попапа с картинкой
+const popupWithImage = new PopupWithImage(
+  imageSource,
+  imageCaption,
+  imagePopup
 );
 //экземпляр UserInfo с селекторами профиля
 const userInfo = new UserInfo(
@@ -206,7 +209,7 @@ function handleDeleteCard(data) {
 }
 //функция обработки лайка карточки
 function handleLikeCard(card, likeButton) {
-  //eсли карточка отмечена
+  //eсли карточка уже отмечена
   if (likeButton.classList.contains(likeCheckedSelector)) {
     //уберем лайк
     api
@@ -279,4 +282,3 @@ Promise.all([api.getProfileInfo(), api.getInitialCards()])
 
 //TODO
 //1.fix submits prevent default
-//2. enable/disable buttons trough formValidation

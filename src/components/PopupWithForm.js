@@ -21,15 +21,11 @@ export default class PopupWithForm extends Popup {
   }
   //публичный метод перезаписывающий метод класаа Popup и обрабатывающий submit
   setEventListeners() {
-    this._form.addEventListener(
-      "submit",
-      (event) => {
-        event.preventDefault();
-        this._changeToLoadingText();
-        this._submitHandler(this._getInputValues(this));
-      },
-      { once: true }
-    );
+    this._form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      this._changeToLoadingText();
+      this._submitHandler(this._getInputValues(this));
+    });
     super.setEventListeners();
   }
   //перезаписанный публичный метод закрытия попапа
