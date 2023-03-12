@@ -35,28 +35,14 @@ export default class PopupWithForm extends Popup {
   //перезаписанный публичный метод закрытия попапа
   close() {
     //очистка формы
-    this._changeToOriginalText();
     this._form.reset();
     super.close();
   }
   _changeToLoadingText() {
     this._submitButton.textContent = "Зaгрузка...";
-    this._disableButton();
   }
   //функция замены надписи на кнопке формы
-  _changeToOriginalText() {
-    this._enableButton();
+  changeToOriginalText() {
     this._submitButton.textContent = this._submitButton.value;
-  }
-
-  //метод отключения кнопки
-  _disableButton() {
-    this._submitButton.classList.add(this._inactiveButtonClass);
-    this._submitButton.disabled = true;
-  }
-  //метод включения кнопки
-  _enableButton() {
-    this._submitButton.classList.remove(this._inactiveButtonClass);
-    this._submitButton.disabled = false;
   }
 }

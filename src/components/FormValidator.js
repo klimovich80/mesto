@@ -52,9 +52,9 @@ export default class FormValidator {
   //метод установки активности/неактивности для кнопки
   _toggleButtonState() {
     if (this._hasInvalidInput()) {
-      this._disableButton();
+      this.disableButton();
     } else {
-      this._enableButton();
+      this.enableButton();
     }
   }
   //метод определяющий показ/скрытие ошибок
@@ -78,12 +78,12 @@ export default class FormValidator {
     _errorElement.classList.remove(this._errorClass);
   }
   //метод отключения кнопки
-  _disableButton() {
+  disableButton() {
     this._submitButton.classList.add(this._inactiveButtonClass);
     this._submitButton.disabled = true;
   }
   //метод включения кнопки
-  _enableButton() {
+  enableButton() {
     this._submitButton.classList.remove(this._inactiveButtonClass);
     this._submitButton.disabled = false;
   }

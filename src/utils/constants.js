@@ -72,6 +72,7 @@ export const addCardButton = document.querySelector(".profile__add-button"); //�
 export const imagePopup = document.querySelector(".popup_open-image"); //попап открытой карточки
 export const imageSource = imagePopup.querySelector(".popup__image"); //поле ссылки на картинку попапа открытой карточки
 export const imageCaption = imagePopup.querySelector(".popup__caption"); //поле информации о картинке попапа открытой карточки
+export const likeCheckedSelector = "element__like_checked"; //селектор класса отмеченного лайка карточки
 
 //конфигурация API для подключения к бэкэнду
 export const connectionConfig = {

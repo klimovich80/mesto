@@ -4,6 +4,7 @@ export default class Card {
     data,
     profileId,
     templateSelector,
+    likeCheckedSelector,
     handleCardClick,
     handleDeleteCard,
     handleLikeCard
@@ -25,6 +26,7 @@ export default class Card {
     this._handleCardClick = handleCardClick;
     this._handleDeleteCard = handleDeleteCard;
     this._handleLikeCard = handleLikeCard;
+    this._likeSelector = likeCheckedSelector;
   }
 
   //копируем разметку
@@ -36,7 +38,7 @@ export default class Card {
   getCard() {
     //навешиваем события
     this._setEventListeners();
-    //отображаем лайк
+    //отображаем лайк, если он нами поставлен
     this._setLikeFlag();
     //показываем корзину только на наших карточках
     this._setTrashcan();
@@ -44,9 +46,13 @@ export default class Card {
     this._cardImage.src = this._link;
     this._cardImage.alt = this._name;
     this._cardCaption.textContent = this._name;
-    this._likeCounts.textContent = this._likes.length;
+    //отображаем количество лайков
+    this.setLikesCount(this._likes.length);
     //взвращаем готовую карточку
     return this._element;
+  }
+  setLikesCount(count) {
+    this._likeCounts.textContent = count;
   }
   //приватный метод навешивания событий
   _setEventListeners() {
@@ -56,7 +62,7 @@ export default class Card {
     this._likeButton.addEventListener("click", (event) =>
       this._likeCard(event.target)
     );
-    //клика на карточке
+    //клик на карточке
     this._cardImage.addEventListener("click", () => {
       this._handleCardClick(this._name, this._link);
     });
@@ -67,17 +73,24 @@ export default class Card {
   }
   //приватный метод обработки лайка
   _likeCard() {
-    this._handleLikeCard(this._id, this._likeButton, this._likeCounts);
+    this._handleLikeCard(this, this._likeButton);
   }
-
+  //приватный метод отображения лайка, если он нами поставлен
   _setLikeFlag() {
     this._likes.forEach((like) => {
       if (like._id === this._profileId) {
-        this._likeButton.classList.add("element__like_checked");
+        this.like(true);
       }
     });
   }
-
+  like(bool) {
+    if (bool) {
+      this._likeButton.classList.add(this._likeSelector);
+    } else {
+      this._likeButton.classList.remove(this._likeSelector);
+    }
+  }
+  //приватный метод отображения корзины только на собственных карточках
   _setTrashcan() {
     if (!this._isOwner) {
       this._cardTrashcan.classList.add("element__trash_hidden");

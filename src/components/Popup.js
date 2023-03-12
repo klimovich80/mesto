@@ -10,14 +10,13 @@ export default class Popup {
   }
   //публичный метод открытия попапа
   open() {
-    this.setEventListeners();
+    //нажатие ESC
+    document.addEventListener("keydown", this._handleEscClose);
     this._element.classList.add("popup_active");
   }
   //публичный метод закрытия попапа
   close() {
     //removing event listeners
-    this._closeButton.removeEventListener("click", this.close);
-    this._overlay.removeEventListener("click", this.close);
     document.removeEventListener("keydown", this._handleEscClose);
     this._element.classList.remove("popup_active");
   }
@@ -33,7 +32,5 @@ export default class Popup {
     this._overlay.addEventListener("click", this.close);
     //клик по крестику
     this._closeButton.addEventListener("click", this.close);
-    //нажатие ESC
-    document.addEventListener("keydown", this._handleEscClose);
   }
 }

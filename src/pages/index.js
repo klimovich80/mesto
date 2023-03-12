@@ -26,6 +26,7 @@ import {
   profileEditButton,
   addCardButton,
   connectionConfig,
+  likeCheckedSelector,
 } from "../utils/constants.js";
 import "../pages/index.css";
 
@@ -47,21 +48,29 @@ const editProfileValidation = new FormValidator(
 );
 //валидация добавление карточки
 const addCardValidation = new FormValidator(validationConfig, addCardPopup);
+//валидация окна подтверждения (для активации/дезактивации) кнопки
+const confirmPopupValidation = new FormValidator(
+  validationConfig,
+  confirmPopup
+);
 
 //экземпляры классов
 //экземпляр попапа добавления карточки с формой
 const addPopup = new PopupWithForm(
   {
     submitHandler: (formData) => {
+      addCardValidation.disableButton();
       api
         .postNewCard(formData.place, formData.url)
-        .finally(() => {
-          addPopup.close();
-        })
         .then((result) => {
           renderCards.addItem(createCard(result, profileId), false);
+          addPopup.close();
         })
-        .catch((err) => console.log(err));
+        .catch((err) => console.log(err))
+        .finally(() => {
+          addPopup.changeToOriginalText();
+          addCardValidation.enableButton();
+        });
     },
   },
   addCardPopup,
@@ -71,18 +80,21 @@ const addPopup = new PopupWithForm(
 const editPopup = new PopupWithForm(
   {
     submitHandler: (formData) => {
+      editPopup.disableButton();
       api
         .editProfileInfo(formData.name, formData.credentials)
-        .finally(() => {
-          editPopup.close();
-        })
         .then((res) => {
           userInfo.setUserInfo({
             name: res.name,
             info: res.about,
           });
+          editPopup.close();
         })
-        .catch((err) => console.log(err));
+        .catch((err) => console.log(err))
+        .finally(() => {
+          editPopup.changeToOriginalText();
+          editProfileValidation.enableButton();
+        });
     },
   },
   editPofilePopup,
@@ -98,16 +110,19 @@ const popupWithImage = new PopupWithImage(
 const confirmForm = new PopupWithForm(
   {
     submitHandler: () => {
+      confirmPopupValidation.disableButton();
       api
         .confirmSubmit(cardData._id)
-        .finally(() => {
-          confirmForm.close();
-        })
         .then((response) => {
           cardData._element.remove();
+          confirmForm.close();
           return response;
         })
-        .catch((err) => console.log(err));
+        .catch((err) => console.log(err))
+        .finally(() => {
+          confirmForm.changeToOriginalText();
+          confirmPopupValidation.enableButton();
+        });
     },
   },
   confirmPopup,
@@ -117,15 +132,18 @@ const confirmForm = new PopupWithForm(
 const editAvatarForm = new PopupWithForm(
   {
     submitHandler: (data) => {
+      editAvatarValidation.disableButton();
       api
         .editProfileAvatar(data.avatar)
-        .finally(() => {
-          editAvatarForm.close();
-        })
         .then((response) => {
           profileAvatar.src = response.avatar;
+          editAvatarForm.close();
         })
-        .catch((err) => console.log(err));
+        .catch((err) => console.log(err))
+        .finally(() => {
+          editAvatarForm.changeToOriginalText();
+          editAvatarValidation.enableButton();
+        });
     },
   },
   editAvatarPopup,
@@ -187,25 +205,28 @@ function handleDeleteCard(data) {
   confirmForm.open();
 }
 //функция обработки лайка карточки
-function handleLikeCard(id, buttonElement, counterElement) {
-  const likeSelector = "element__like_checked";
+function handleLikeCard(card, likeButton) {
   //eсли карточка отмечена
-  if (buttonElement.classList.contains(likeSelector)) {
+  if (likeButton.classList.contains(likeCheckedSelector)) {
     //уберем лайк
     api
-      .deleteLike(id)
+      .deleteLike(card._id)
       .then((res) => {
-        buttonElement.classList.remove(likeSelector);
-        counterElement.textContent = res.likes.length;
+        //меняем лайк на неотмеченный
+        card.like(false);
+        //отображаем количество лайков
+        card.setLikesCount(res.likes.length);
       })
       .catch((err) => console.log(err));
   } else {
     //добавим лайк
     api
-      .addLike(id)
+      .addLike(card._id)
       .then((res) => {
-        buttonElement.classList.add(likeSelector);
-        counterElement.textContent = res.likes.length;
+        //меняем лайк на отмеченный
+        card.like(true);
+        //отображаем количество лайков
+        card.setLikesCount(res.likes.length);
       })
       .catch((err) => console.log(err));
   }
@@ -216,6 +237,7 @@ function createCard(item) {
     item,
     profileId,
     template,
+    likeCheckedSelector,
     handleCardClick,
     handleDeleteCard,
     handleLikeCard
@@ -228,6 +250,12 @@ addCardValidation.enableValidation();
 editAvatarValidation.enableValidation();
 
 //--обработчики событий--
+// включаем события всех попапов
+addPopup.setEventListeners();
+editPopup.setEventListeners();
+popupWithImage.setEventListeners();
+confirmForm.setEventListeners();
+editAvatarForm.setEventListeners();
 // нажатие кнопки редактирования профиля
 profileEditButton.addEventListener("click", openEditProfilePopup);
 //нажатие кнопки добавления карточки
@@ -248,3 +276,7 @@ Promise.all([api.getProfileInfo(), api.getInitialCards()])
     renderCards.renderItems(cards);
   })
   .catch((err) => console.log(err));
+
+//TODO
+//1.fix submits prevent default
+//2. enable/disable buttons trough formValidation
