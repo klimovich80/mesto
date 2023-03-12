@@ -58,7 +58,6 @@ const addPopup = new PopupWithForm(
       api
         .postNewCard(formData.place, formData.url)
         .finally(() => {
-          addPopup.changeToOriginalText();
           addPopup.close();
         })
         .then((result) => {
@@ -79,7 +78,6 @@ const editPopup = new PopupWithForm(
       api
         .editProfileInfo(formData.name, formData.credentials)
         .finally(() => {
-          editPopup.changeToOriginalText();
           editPopup.close();
         })
         .then((res) => {
@@ -109,7 +107,6 @@ const confirmForm = new PopupWithForm(
       api
         .confirmSubmit(cardData._id)
         .finally(() => {
-          confirmForm.changeToOriginalText();
           confirmForm.close();
         })
         .then((response) => {
@@ -131,7 +128,6 @@ const editAvatarForm = new PopupWithForm(
       api
         .editProfileAvatar(data.avatar)
         .finally(() => {
-          editAvatarForm.changeToOriginalText();
           editAvatarForm.close();
         })
         .then((response) => {
@@ -254,7 +250,6 @@ Promise.all([api.getProfileInfo(), api.getInitialCards()])
     });
     userInfo.setUserAvatar({ avatarUrl: profileInfo.avatar });
     renderCards.renderItems(cards);
-    console.log("cards: ", cards);
   })
   .catch((err) => console.log(err));
 
@@ -263,4 +258,3 @@ Promise.all([api.getProfileInfo(), api.getInitialCards()])
 //7.Fix avatar css
 //8.Fix new windows css
 //9.Fix likes count css
-//10.Add 'loading...' to the button

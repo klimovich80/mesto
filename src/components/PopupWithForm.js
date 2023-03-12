@@ -29,10 +29,7 @@ export default class PopupWithForm extends Popup {
       "submit",
       (event) => {
         event.preventDefault();
-        //меняем тест кнопки во время загрузки
-        this._submitButton.textContent = "Зaгрузка...";
-        //выключаем кнопку
-        this._disableButton();
+        this._changeToLoadingText();
         this._submitHandler(this._getInputValues(this));
       },
       { once: true }
@@ -42,11 +39,16 @@ export default class PopupWithForm extends Popup {
   //перезаписанный публичный метод закрытия попапа
   close() {
     //очистка формы
+    this._changeToOriginalText();
     this._form.reset();
     super.close();
   }
+  _changeToLoadingText() {
+    this._submitButton.textContent = "Зaгрузка...";
+    this._disableButton();
+  }
   //функция замены надписи на кнопке формы
-  changeToOriginalText() {
+  _changeToOriginalText() {
     this._enableButton();
     this._submitButton.textContent = this._submitButton.value;
   }
