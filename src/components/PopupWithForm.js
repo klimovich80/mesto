@@ -1,11 +1,19 @@
 import Popup from "./Popup.js";
 
 export default class PopupWithForm extends Popup {
-  constructor({ submitHandler }, popupElement, inputSelector, formSelector) {
+  constructor(
+    { submitHandler },
+    popupElement,
+    inputSelector,
+    formSelector,
+    inactiveButtonClass
+  ) {
     super(popupElement);
     this._submitHandler = submitHandler;
     this._form = popupElement.querySelector(formSelector);
     this._inputList = Array.from(this._element.querySelectorAll(inputSelector));
+    this._submitButton = this._form.querySelector(".popup__button");
+    this._inactiveButtonClass = inactiveButtonClass;
     this._formValues = {};
   }
   //приватный метод собирающий значения полей
@@ -21,6 +29,10 @@ export default class PopupWithForm extends Popup {
       "submit",
       (event) => {
         event.preventDefault();
+        //меняем тест кнопки во время загрузки
+        this._submitButton.textContent = "Зaгрузка...";
+        //выключаем кнопку
+        this._disableButton();
         this._submitHandler(this._getInputValues(this));
       },
       { once: true }
@@ -29,9 +41,24 @@ export default class PopupWithForm extends Popup {
   }
   //перезаписанный публичный метод закрытия попапа
   close() {
-    //TODO remove eventListeners
     //очистка формы
     this._form.reset();
     super.close();
+  }
+  //функция замены надписи на кнопке формы
+  changeToOriginalText() {
+    this._enableButton();
+    this._submitButton.textContent = this._submitButton.value;
+  }
+
+  //метод отключения кнопки
+  _disableButton() {
+    this._submitButton.classList.add(this._inactiveButtonClass);
+    this._submitButton.disabled = true;
+  }
+  //метод включения кнопки
+  _enableButton() {
+    this._submitButton.classList.remove(this._inactiveButtonClass);
+    this._submitButton.disabled = false;
   }
 }
