@@ -1,19 +1,15 @@
 import Popup from "./Popup.js";
 
 export default class PopupWithForm extends Popup {
-  constructor(
-    { submitHandler },
-    popupElement,
-    inputSelector,
-    formSelector,
-    inactiveButtonClass
-  ) {
+  constructor({ submitHandler }, popupElement, config) {
     super(popupElement);
     this._submitHandler = submitHandler;
-    this._form = popupElement.querySelector(formSelector);
-    this._inputList = Array.from(this._element.querySelectorAll(inputSelector));
+    this._form = popupElement.querySelector(config.formSelector);
+    this._inputList = Array.from(
+      this._element.querySelectorAll(config.inputSelector)
+    );
     this._submitButton = this._form.querySelector(".popup__button");
-    this._inactiveButtonClass = inactiveButtonClass;
+    this._inactiveButtonClass = config.inactiveButtonClass;
     this._formValues = {};
   }
   //приватный метод собирающий значения полей

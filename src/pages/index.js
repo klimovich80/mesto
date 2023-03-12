@@ -13,7 +13,6 @@ import {
   profileCredentials,
   profileAvatar,
   editAvatarPopup,
-  editAvatarButton,
   editAvatarUrl,
   changeAvatarButton,
   editPofilePopup,
@@ -34,7 +33,6 @@ import "../pages/index.css";
 const api = new Api(connectionConfig);
 let profileId = "";
 let cardData;
-let originalButtonText = "";
 
 //функциии валидации форм:
 //валидация редактирования аватара
@@ -67,9 +65,7 @@ const addPopup = new PopupWithForm(
     },
   },
   addCardPopup,
-  validationConfig.inputSelector,
-  validationConfig.formSelector,
-  validationConfig.inactiveButtonClass
+  validationConfig
 );
 //экземпляр попапа редактирования профиля
 const editPopup = new PopupWithForm(
@@ -90,9 +86,7 @@ const editPopup = new PopupWithForm(
     },
   },
   editPofilePopup,
-  validationConfig.inputSelector,
-  validationConfig.formSelector,
-  validationConfig.inactiveButtonClass
+  validationConfig
 );
 //экземпляры попапа с картинкой
 const popupWithImage = new PopupWithImage(
@@ -117,9 +111,7 @@ const confirmForm = new PopupWithForm(
     },
   },
   confirmPopup,
-  validationConfig.inputSelector,
-  validationConfig.formSelector,
-  validationConfig.inactiveButtonClass
+  validationConfig
 );
 //экземпляр попапа редактирования аватара
 const editAvatarForm = new PopupWithForm(
@@ -137,9 +129,7 @@ const editAvatarForm = new PopupWithForm(
     },
   },
   editAvatarPopup,
-  validationConfig.inputSelector,
-  validationConfig.formSelector,
-  validationConfig.inactiveButtonClass
+  validationConfig
 );
 //экземпляр UserInfo с селекторами профиля
 const userInfo = new UserInfo(
@@ -202,16 +192,22 @@ function handleLikeCard(id, buttonElement, counterElement) {
   //eсли карточка отмечена
   if (buttonElement.classList.contains(likeSelector)) {
     //уберем лайк
-    api.deleteLike(id).then((res) => {
-      buttonElement.classList.remove(likeSelector);
-      counterElement.textContent = res.likes.length;
-    });
+    api
+      .deleteLike(id)
+      .then((res) => {
+        buttonElement.classList.remove(likeSelector);
+        counterElement.textContent = res.likes.length;
+      })
+      .catch((err) => console.log(err));
   } else {
     //добавим лайк
-    api.addLike(id).then((res) => {
-      buttonElement.classList.add(likeSelector);
-      counterElement.textContent = res.likes.length;
-    });
+    api
+      .addLike(id)
+      .then((res) => {
+        buttonElement.classList.add(likeSelector);
+        counterElement.textContent = res.likes.length;
+      })
+      .catch((err) => console.log(err));
   }
 }
 //функция создания карточки
@@ -254,7 +250,5 @@ Promise.all([api.getProfileInfo(), api.getInitialCards()])
   .catch((err) => console.log(err));
 
 //TODO
-//5.Make the connection window as the reaction to fetch and as a part of API
 //7.Fix avatar css
 //8.Fix new windows css
-//9.Fix likes count css
