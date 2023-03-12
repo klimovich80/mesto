@@ -248,7 +248,3 @@ Promise.all([api.getProfileInfo(), api.getInitialCards()])
     renderCards.renderItems(cards);
   })
   .catch((err) => console.log(err));
-
-//TODO
-//7.Fix avatar css
-//8.Fix new windows css
