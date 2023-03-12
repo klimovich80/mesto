@@ -24,5 +24,7 @@
 - Git
 - ООП
 - webpack
-
+- API
+- Promise
+  
 &copy;2022-2023 Klimovich Pavel

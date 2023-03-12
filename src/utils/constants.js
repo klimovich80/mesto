@@ -55,9 +55,7 @@ export const editAvatarButton = editAvatarPopup.querySelector(".popup__button");
 export const editAvatarUrl = editAvatarPopup.querySelector(
   ".popup__input_type_url"
 ); //поле ссылки на картинку аватара в попапе редактирования
-export const changeAvatarButton = document.querySelector(
-  ".avatar__edit-button"
-); //кнопка редактирования фотографии в документе
+export const changeAvatarButton = document.querySelector(".avatar-button"); //кнопка редактирования фотографии в документе
 export const profileEditButton = document.querySelector(
   ".profile__edit-button"
 ); //кнопка редактирования профиля
